@@ -61,12 +61,8 @@
         </div>
 
         <div class="actions">
-          <button id="backButton" type="button" class="button button-secondary">
-            戻る
-          </button>
-          <button id="nextButton" type="submit" class="button button-primary">
-            次へ
-          </button>
+          <button id="backButton" type="button" class="button button-secondary">戻る</button>
+          <button id="nextButton" type="submit" class="button button-primary">次へ</button>
         </div>
       </form>
     </section>
@@ -80,12 +76,8 @@
       <div id="answerSummary" class="summary-list"></div>
 
       <div class="actions">
-        <button id="editButton" type="button" class="button button-secondary">
-          回答を修正する
-        </button>
-        <button id="generateButton" type="button" class="button button-primary">
-          結果を見る
-        </button>
+        <button id="editButton" type="button" class="button button-secondary">回答を修正する</button>
+        <button id="generateButton" type="button" class="button button-primary">結果を見る</button>
       </div>
     </section>
 
@@ -106,24 +98,16 @@
       <pre id="resultText" class="result-text"></pre>
 
       <div class="actions">
-        <button id="retryButton" type="button" class="button button-secondary">
-          もう一度結果を作る
-        </button>
-        <button id="resetButton" type="button" class="button button-danger">
-          最初からやり直す
-        </button>
+        <button id="retryButton" type="button" class="button button-secondary">もう一度結果を作る</button>
+        <button id="resetButton" type="button" class="button button-danger">最初からやり直す</button>
       </div>
     </section>
 
     <section id="apiErrorSection" class="card hidden" aria-labelledby="api-error-title">
       <h2 id="api-error-title" class="section-title">エラー</h2>
-      <p id="apiErrorText" class="error-text">
-        結果の生成に失敗しました。
-      </p>
+      <p id="apiErrorText" class="error-text">結果の生成に失敗しました。</p>
       <div class="actions">
-        <button id="closeErrorButton" type="button" class="button button-secondary">
-          戻る
-        </button>
+        <button id="closeErrorButton" type="button" class="button button-secondary">戻る</button>
       </div>
     </section>
   </main>
@@ -134,6 +118,11 @@
     </div>
   </noscript>
 
+  <script>
+    window.APP_CONFIG = {
+      PROXY_URL: "https://ここにあなたのworker-url.workers.dev"
+    };
+  </script>
   <script src="./app.js" defer></script>
 </body>
 </html>
