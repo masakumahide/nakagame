@@ -1,391 +1,139 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>ヒデちゃん八百万</title>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet"/>
-<style>
-:root {
-  --bg: #1a1a2e;
-  --surface: #16213e;
-  --card: #0f3460;
-  --accent: #e94560;
-  --accent2: #f5a623;
-  --text: #eaeaea;
-  --muted: #8892a4;
-  --hide-bg: #fff8e7;
-  --user-bg: #1e3a5f;
-  --radius: 20px;
-  --shadow: 0 8px 32px rgba(0,0,0,.45);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; background: var(--bg); font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', sans-serif; color: var(--text); overflow: hidden; }
-
-#app { display: flex; flex-direction: column; height: 100dvh; max-width: 600px; margin: 0 auto; position: relative; }
-
-/* Header */
-#header {
-padding: 14px 20px 10px;
-background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-border-bottom: 1px solid rgba(233,69,96,.3);
-flex-shrink: 0;
-position: relative;
-overflow: hidden;
-}
-#header::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(233,69,96,.04) 12px, rgba(233,69,96,.04) 24px);
-}
-.header-inner { position: relative; display: flex; align-items: center; gap: 12px; }
-.hide-avatar {
-width: 52px; height: 52px; border-radius: 50%;
-background: linear-gradient(135deg, var(–accent2), #ffcc02);
-display: flex; align-items: center; justify-content: center;
-font-size: 26px; flex-shrink: 0;
-box-shadow: 0 0 0 3px rgba(245,166,35,.3), var(–shadow);
-animation: pulse-avatar 3s ease-in-out infinite;
-}
-@keyframes pulse-avatar {
-0%,100% { box-shadow: 0 0 0 3px rgba(245,166,35,.3), var(–shadow); }
-50%      { box-shadow: 0 0 0 7px rgba(245,166,35,.1), var(–shadow); }
-}
-.header-text h1 { font-size: 17px; font-weight: 900; color: #fff; letter-spacing: .04em; line-height: 1.2; }
-.header-text p  { font-size: 11px; color: var(–accent2); margin-top: 2px; font-weight: 700; letter-spacing: .06em; }
-.status-dot {
-width: 8px; height: 8px; border-radius: 50%;
-background: #4ade80; box-shadow: 0 0 8px #4ade80;
-animation: blink 2s ease-in-out infinite;
-margin-left: auto; flex-shrink: 0;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
-
-/* Chips */
-#chips {
-display: flex; flex-wrap: wrap; gap: 8px;
-padding: 12px 16px;
-background: var(–surface);
-border-bottom: 1px solid rgba(255,255,255,.07);
-flex-shrink: 0;
-}
-.chip {
-background: transparent;
-border: 1.5px solid rgba(245,166,35,.5);
-color: var(–accent2);
-padding: 5px 13px; border-radius: 20px;
-font-size: 12px; font-family: inherit;
-cursor: pointer; transition: all .15s; font-weight: 700;
-}
-.chip:hover, .chip:active { background: var(–accent2); color: #1a1a2e; border-color: var(–accent2); }
-
-/* Messages */
-#messages {
-flex: 1; overflow-y: auto;
-padding: 16px 14px 8px;
-display: flex; flex-direction: column; gap: 14px;
-scroll-behavior: smooth;
-}
-#messages::-webkit-scrollbar { width: 4px; }
-#messages::-webkit-scrollbar-thumb { background: rgba(233,69,96,.3); border-radius: 4px; }
-
-.msg-row { display: flex; gap: 10px; align-items: flex-end; animation: msg-in .3s cubic-bezier(.34,1.56,.64,1) both; }
-@keyframes msg-in { from{opacity:0;transform:translateY(14px) scale(.95)} to{opacity:1;transform:none} }
-.msg-row.user { flex-direction: row-reverse; }
-
-.avatar {
-width: 34px; height: 34px; border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-font-size: 18px; flex-shrink: 0;
-}
-.avatar.hide { background: linear-gradient(135deg, var(–accent2), #ffcc02); box-shadow: 0 4px 12px rgba(245,166,35,.35); }
-.avatar.user { background: linear-gradient(135deg, #667eea, #764ba2); box-shadow: 0 4px 12px rgba(102,126,234,.35); }
-
-.bubble-wrap { max-width: calc(100% - 54px); display: flex; flex-direction: column; gap: 3px; }
-.msg-row.user .bubble-wrap { align-items: flex-end; }
-.sender-name { font-size: 10px; font-weight: 700; color: var(–muted); padding: 0 6px; letter-spacing: .05em; }
-
-.bubble {
-padding: 11px 15px; border-radius: 18px;
-font-size: 14px; line-height: 1.7; font-weight: 500;
-word-break: break-word; white-space: pre-wrap;
-}
-.bubble.hide {
-background: var(–hide-bg); color: #2d2d2d;
-border-radius: 4px 18px 18px 18px;
-box-shadow: 0 4px 16px rgba(0,0,0,.15);
-}
-.bubble.user {
-background: linear-gradient(135deg, #1e3a5f, #2a4a7f);
-color: var(–text);
-border-radius: 18px 4px 18px 18px;
-box-shadow: 0 4px 16px rgba(0,0,0,.2);
-}
-
-/* Typing */
-.typing-wrap { display: flex; gap: 10px; align-items: flex-end; }
-.typing-bubble { background: var(–hide-bg); padding: 12px 18px; border-radius: 4px 18px 18px 18px; display: flex; gap: 5px; align-items: center; }
-.typing-dot { width: 7px; height: 7px; border-radius: 50%; background: #c8973a; animation: tdot 1.3s ease-in-out infinite; }
-.typing-dot:nth-child(2){animation-delay:.2s} .typing-dot:nth-child(3){animation-delay:.4s}
-@keyframes tdot { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
-
-/* Error */
-#error-msg { font-size: 11px; color: #ff6b6b; padding: 6px 16px; text-align: center; display: none; }
-
-/* Input */
-#input-area {
-padding: 10px 14px 14px;
-background: var(–surface);
-border-top: 1px solid rgba(255,255,255,.07);
-flex-shrink: 0;
-}
-.input-row { display: flex; gap: 8px; align-items: flex-end; }
-#user-input {
-flex: 1; background: rgba(255,255,255,.08);
-border: 1.5px solid rgba(245,166,35,.4);
-border-radius: 22px; padding: 10px 16px;
-font-size: 14px; font-family: inherit;
-color: var(–text); resize: none; outline: none;
-min-height: 42px; max-height: 110px;
-line-height: 1.5; transition: border-color .2s;
-}
-#user-input:focus { border-color: var(–accent2); }
-#user-input::placeholder { color: var(–muted); font-size: 13px; }
-#send-btn {
-background: linear-gradient(135deg, var(–accent2), #ffcc02);
-color: #1a1a2e; border: none; border-radius: 50%;
-width: 42px; height: 42px;
-display: flex; align-items: center; justify-content: center;
-cursor: pointer; font-size: 18px; font-weight: 900;
-flex-shrink: 0; transition: all .2s;
-box-shadow: 0 4px 14px rgba(245,166,35,.45);
-}
-#send-btn:hover { transform: scale(1.08); }
-#send-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
-.hint { font-size: 10px; color: var(–muted); text-align: center; margin-top: 6px; letter-spacing: .05em; }
-</style>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>質問アプリ</title>
+  <meta name="description" content="1問ずつ答えて結果を生成する質問型アプリ">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<div id="app">
+  <main class="container">
+    <header class="hero">
+      <h1 class="title">質問アプリ</h1>
+      <p class="description">
+        いくつかの質問に答えると、最後に結果を表示します。
+        入力内容はこの端末に一時保存されるため、途中で閉じても再開できます。
+      </p>
+    </header>
 
-  <!-- Header -->
-
-  <div id="header">
-    <div class="header-inner">
-      <div class="hide-avatar">💎</div>
-      <div class="header-text">
-        <h1>ヒデちゃん八百万</h1>
-        <p>⌚ 人生相談 &amp; 腕時計マニア</p>
+    <section class="card" aria-labelledby="question-section-title">
+      <div class="topbar">
+        <h2 id="question-section-title" class="section-title">質問に答える</h2>
+        <p id="progressText" class="progress" aria-live="polite">1 / 5</p>
       </div>
-      <div class="status-dot"></div>
+
+      <div class="progressbar" aria-hidden="true">
+        <div id="progressBarFill" class="progressbar-fill"></div>
+      </div>
+
+      <form id="questionForm" novalidate>
+        <div class="field">
+          <label id="questionLabel" class="question-label" for="answerInput">
+            質問文がここに表示されます
+          </label>
+
+          <input
+            id="answerInput"
+            class="input"
+            type="text"
+            name="answer"
+            maxlength="300"
+            autocomplete="off"
+            placeholder="ここに入力"
+          >
+
+          <textarea
+            id="answerTextarea"
+            class="textarea hidden"
+            name="answerLong"
+            rows="6"
+            maxlength="1000"
+            placeholder="ここに入力してください"
+          ></textarea>
+
+          <div class="meta-row">
+            <p id="inputHint" class="hint">300文字まで</p>
+            <p id="charCount" class="char-count" aria-live="polite">0</p>
+          </div>
+
+          <p id="formError" class="error hidden" role="alert"></p>
+        </div>
+
+        <div class="actions">
+          <button id="backButton" type="button" class="button button-secondary">
+            戻る
+          </button>
+          <button id="nextButton" type="submit" class="button button-primary">
+            次へ
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section id="reviewSection" class="card hidden" aria-labelledby="review-title">
+      <div class="topbar">
+        <h2 id="review-title" class="section-title">入力内容の確認</h2>
+        <p class="progress">完了</p>
+      </div>
+
+      <div id="answerSummary" class="summary-list"></div>
+
+      <div class="actions">
+        <button id="editButton" type="button" class="button button-secondary">
+          回答を修正する
+        </button>
+        <button id="generateButton" type="button" class="button button-primary">
+          結果を見る
+        </button>
+      </div>
+    </section>
+
+    <section id="loadingSection" class="card hidden" aria-labelledby="loading-title">
+      <h2 id="loading-title" class="section-title">生成中</h2>
+      <div class="loading-wrap">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="loading-text">結果を作成しています。少しお待ちください。</p>
+      </div>
+    </section>
+
+    <section id="resultSection" class="card hidden" aria-labelledby="result-title">
+      <div class="topbar">
+        <h2 id="result-title" class="section-title">結果</h2>
+        <p id="resultMode" class="mode-badge" aria-live="polite"></p>
+      </div>
+
+      <pre id="resultText" class="result-text"></pre>
+
+      <div class="actions">
+        <button id="retryButton" type="button" class="button button-secondary">
+          もう一度結果を作る
+        </button>
+        <button id="resetButton" type="button" class="button button-danger">
+          最初からやり直す
+        </button>
+      </div>
+    </section>
+
+    <section id="apiErrorSection" class="card hidden" aria-labelledby="api-error-title">
+      <h2 id="api-error-title" class="section-title">エラー</h2>
+      <p id="apiErrorText" class="error-text">
+        結果の生成に失敗しました。
+      </p>
+      <div class="actions">
+        <button id="closeErrorButton" type="button" class="button button-secondary">
+          戻る
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <noscript>
+    <div class="noscript">
+      このアプリを使うには JavaScript を有効にしてください。
     </div>
-  </div>
+  </noscript>
 
-  <!-- Chips -->
-
-  <div id="chips">
-    <button class="chip" onclick="sendTopic('仕事の悩み')">仕事の悩み</button>
-    <button class="chip" onclick="sendTopic('人間関係')">人間関係</button>
-    <button class="chip" onclick="sendTopic('恋愛相談')">恋愛相談</button>
-    <button class="chip" onclick="sendTopic('将来のこと')">将来のこと</button>
-    <button class="chip" onclick="sendTopic('なんかしんどい')">なんかしんどい</button>
-    <button class="chip" onclick="sendTopic('時計の話を聞かせて！')">⌚ 時計の話を聞かせて！</button>
-  </div>
-
-  <!-- Messages -->
-
-  <div id="messages"></div>
-
-  <!-- Error -->
-
-  <div id="error-msg"></div>
-
-  <!-- Input -->
-
-  <div id="input-area">
-    <div class="input-row">
-      <textarea id="user-input" rows="1" placeholder="なんでも話してみて！"></textarea>
-      <button id="send-btn" onclick="sendMessage()">↑</button>
-    </div>
-    <div class="hint">Enter で送信 / Shift+Enter で改行</div>
-  </div>
-
-</div>
-
-<script>
-const SYSTEM = `あなたは「ヒデちゃん八百万」という名の女性です。
-
-キャラクター設定:
-- 30代後半。頭が切れるエリートだが、気取らず誰にでも親しみやすい
-- 笑顔を大切にしていて、相手を自然と明るくさせる話し方をする
-- 共感力が高く、悩みをしっかり受け止めた上で、的確なアドバイスをくれる
-- 腕時計マニアで、話の流れで自然に腕時計ブランドの蘊蓄を挟む（毎回でなくていい）
-- 時計の話は具体的なブランド名（ロレックス、パテック フィリップ、オーデマ ピゲ、IWC、ジャガー・ルクルト、グランドセイコーなど）やそのブランドの哲学・歴史を交えて話す
-- 口調は「〜だよ」「〜だね」「そっか〜」など自然な話し言葉
-- 絵文字は控えめに使う
-- 返答は150〜250文字程度にまとめる`;
-
-const history = [];
-
-// Initial greeting
-window.addEventListener('DOMContentLoaded', () => {
-  addBubble('hide', 'ヒデちゃん八百万', 'やっほ〜！ヒデちゃん八百万だよ😊\nどんな話でも聞くよ！仕事でも恋愛でも、なんとなくしんどいでも全然OK。\nあ、時計の話も大歓迎ね笑');
-  history.push({ role: 'assistant', content: 'やっほ〜！ヒデちゃん八百万だよ😊\nどんな話でも聞くよ！仕事でも恋愛でも、なんとなくしんどいでも全然OK。\nあ、時計の話も大歓迎ね笑' });
-});
-
-function addBubble(who, name, text) {
-  const msgs = document.getElementById('messages');
-  const row = document.createElement('div');
-  row.className = 'msg-row' + (who === 'user' ? ' user' : '');
-
-  const av = document.createElement('div');
-  av.className = 'avatar ' + (who === 'hide' ? 'hide' : 'user');
-  av.textContent = who === 'hide' ? '💎' : '👤';
-
-  const wrap = document.createElement('div');
-  wrap.className = 'bubble-wrap';
-
-  const sn = document.createElement('div');
-  sn.className = 'sender-name';
-  sn.textContent = name;
-
-  const bbl = document.createElement('div');
-  bbl.className = 'bubble ' + (who === 'hide' ? 'hide' : 'user');
-  bbl.textContent = text;
-
-  wrap.appendChild(sn);
-  wrap.appendChild(bbl);
-  row.appendChild(av);
-  row.appendChild(wrap);
-  msgs.appendChild(row);
-  msgs.scrollTop = msgs.scrollHeight;
-  return row;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('messages');
-  const wrap = document.createElement('div');
-  wrap.id = 'typing-indicator';
-  wrap.className = 'typing-wrap';
-
-  const av = document.createElement('div');
-  av.className = 'avatar hide';
-  av.textContent = '💎';
-
-  const bbl = document.createElement('div');
-  bbl.className = 'typing-bubble';
-  for (let i = 0; i < 3; i++) {
-    const d = document.createElement('div');
-    d.className = 'typing-dot';
-    bbl.appendChild(d);
-  }
-
-  wrap.appendChild(av);
-  wrap.appendChild(bbl);
-  msgs.appendChild(wrap);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function hideTyping() {
-  const t = document.getElementById('typing-indicator');
-  if (t) t.remove();
-}
-
-function showError(msg) {
-  const el = document.getElementById('error-msg');
-  el.textContent = 'エラー: ' + msg;
-  el.style.display = 'block';
-  setTimeout(() => { el.style.display = 'none'; }, 5000);
-}
-
-async function callAPI(userText) {
-  history.push({ role: 'user', content: userText });
-
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1024,
-      system: SYSTEM,
-      messages: history
-    })
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    const errMsg = data?.error?.message || 'HTTP ' + res.status;
-    history.pop(); // remove failed user msg
-    throw new Error(errMsg);
-  }
-
-  // Extract text from content blocks
-  const reply = (data.content || [])
-    .filter(b => b.type === 'text')
-    .map(b => b.text)
-    .join('');
-
-  if (!reply) throw new Error('Empty response');
-
-  history.push({ role: 'assistant', content: reply });
-  return reply;
-}
-
-async function sendMessage(overrideText) {
-  const input = document.getElementById('user-input');
-  const btn = document.getElementById('send-btn');
-  const text = overrideText || input.value.trim();
-  if (!text) return;
-
-  input.value = '';
-  input.style.height = 'auto';
-  btn.disabled = true;
-
-  addBubble('user', 'あなた', text);
-  showTyping();
-
-  try {
-    const reply = await callAPI(text);
-    hideTyping();
-    addBubble('hide', 'ヒデちゃん八百万', reply);
-  } catch (e) {
-    hideTyping();
-    showError(e.message);
-    addBubble('hide', 'ヒデちゃん八百万', 'あれ、うまく繋がらなかった！もう一回試してみて😊');
-    // remove failed user message from history
-    const idx = history.findLastIndex(m => m.role === 'user');
-    if (idx !== -1) history.splice(idx, 1);
-  }
-
-  btn.disabled = false;
-  input.focus();
-}
-
-function sendTopic(topic) {
-  sendMessage(topic);
-}
-
-// Enter to send
-document.getElementById('user-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-// Auto-resize textarea
-document.getElementById('user-input').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 110) + 'px';
-});
-</script>
-
+  <script src="./app.js" defer></script>
 </body>
 </html>
