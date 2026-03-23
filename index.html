@@ -6,42 +6,47 @@
   <title>HIDEKO YAOYOROZU</title>
   <style>
     :root {
-      --bg1: #10051f;
-      --bg2: #2f124b;
-      --bg3: #7c3aed;
-      --panel: rgba(14, 10, 32, 0.86);
-      --line: rgba(255,255,255,0.16);
-      --text: #fff6fe;
-      --sub: #dbcdf9;
-      --gold: #ffd76d;
-      --pink: #ff7dd1;
-      --mint: #8ff7d4;
-      --shadow: 0 10px 35px rgba(0,0,0,0.35);
+      --bg1: #0d0a1d;
+      --bg2: #1d1038;
+      --bg3: #3b1d68;
+      --panel: rgba(17, 11, 34, 0.9);
+      --panel-2: rgba(31, 18, 58, 0.92);
+      --line: rgba(255,255,255,0.14);
+      --text: #fff7fb;
+      --sub: #e3d7fb;
+      --gold: #ffd66e;
+      --pink: #ff8cd2;
+      --rose: #ff6ab0;
+      --mint: #a5ffe3;
+      --violet: #9d7bff;
+      --shadow: 0 14px 32px rgba(0,0,0,0.36);
+      --pixel-shadow: 0 0 0 2px rgba(255,255,255,0.05), 0 6px 0 rgba(0,0,0,0.18), 0 12px 24px rgba(0,0,0,0.24);
     }
 
     * { box-sizing: border-box; }
+
     html, body {
       margin: 0;
       min-height: 100%;
       font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,125,209,0.22), transparent 25%),
-        radial-gradient(circle at 80% 18%, rgba(143,247,212,0.15), transparent 25%),
-        radial-gradient(circle at 50% 100%, rgba(124,58,237,0.40), transparent 45%),
-        linear-gradient(180deg, var(--bg2), var(--bg1));
+        radial-gradient(circle at 15% 15%, rgba(255,140,210,0.18), transparent 22%),
+        radial-gradient(circle at 84% 18%, rgba(165,255,227,0.12), transparent 20%),
+        radial-gradient(circle at 50% 100%, rgba(157,123,255,0.28), transparent 38%),
+        linear-gradient(180deg, var(--bg3), var(--bg1));
       overflow-x: hidden;
     }
 
     body.night {
       background:
-        radial-gradient(circle at 20% 20%, rgba(124,58,237,0.22), transparent 25%),
-        radial-gradient(circle at 80% 18%, rgba(255,215,109,0.12), transparent 25%),
-        radial-gradient(circle at 50% 100%, rgba(13,10,42,0.60), transparent 45%),
-        linear-gradient(180deg, #07030f, #13071f 60%, #1d0d32);
+        radial-gradient(circle at 18% 16%, rgba(157,123,255,0.15), transparent 22%),
+        radial-gradient(circle at 80% 12%, rgba(255,214,110,0.08), transparent 18%),
+        radial-gradient(circle at 50% 100%, rgba(8,8,24,0.6), transparent 40%),
+        linear-gradient(180deg, #080511, #11091d 50%, #1a0f30);
     }
 
-    .stars, .particles {
+    .stars, .particles, .petals {
       position: fixed;
       inset: 0;
       pointer-events: none;
@@ -52,25 +57,42 @@
       position: absolute;
       width: 3px;
       height: 3px;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.96);
       border-radius: 50%;
-      animation: twinkle 2.8s infinite ease-in-out;
       box-shadow: 0 0 10px rgba(255,255,255,0.7);
+      animation: twinkle 2.6s ease-in-out infinite;
     }
 
     @keyframes twinkle {
-      0%,100% { opacity: 0.15; transform: scale(0.7); }
-      50% { opacity: 1; transform: scale(1.4); }
+      0%,100% { opacity: 0.2; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1.35); }
+    }
+
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 16px;
+      background: linear-gradient(180deg, rgba(255,182,228,0.95), rgba(255,110,176,0.65));
+      border-radius: 10px 10px 10px 2px;
+      opacity: 0.8;
+      animation: petalFall linear infinite;
+      filter: blur(0.2px);
+    }
+
+    @keyframes petalFall {
+      0% { transform: translateY(-5vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      100% { transform: translateY(110vh) translateX(40px) rotate(320deg); opacity: 0; }
     }
 
     .shell {
-      width: min(1120px, calc(100vw - 24px));
+      width: min(1180px, calc(100vw - 20px));
       margin: 0 auto;
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 18px;
-      padding: 16px 0 24px;
+      padding: 14px 0 24px;
       position: relative;
       z-index: 2;
     }
@@ -78,19 +100,21 @@
     .panel {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 24px;
+      border-radius: 26px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
     }
 
     .stage {
-      min-height: 680px;
-      padding: 18px;
-      position: relative;
-      overflow: hidden;
+      min-height: 760px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(255,214,110,0.1), transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
     }
 
     .stage::before {
@@ -98,8 +122,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 50% 82%, rgba(255,255,255,0.12), transparent 22%),
-        radial-gradient(circle at 50% 75%, rgba(255,125,209,0.08), transparent 28%);
+        linear-gradient(180deg, rgba(255,255,255,0.04), transparent 20%),
+        radial-gradient(circle at 50% 78%, rgba(255,140,210,0.11), transparent 25%);
       pointer-events: none;
     }
 
@@ -108,8 +132,9 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
+      padding: 16px 16px 10px;
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
     .brand {
@@ -119,10 +144,10 @@
     }
 
     .brand .title {
-      font-size: 14px;
+      font-size: 15px;
       letter-spacing: 0.24em;
       color: var(--gold);
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .brand .sub {
@@ -141,51 +166,91 @@
 
     button {
       appearance: none;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
       color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.04));
+      padding: 11px 14px;
       border-radius: 14px;
-      padding: 10px 14px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.20);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+      box-shadow: 0 5px 14px rgba(0,0,0,0.18);
+      touch-action: manipulation;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.28);
-    }
-
-    button:active {
-      transform: translateY(1px) scale(0.99);
-    }
+    button:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.26); }
+    button:active { transform: translateY(1px) scale(0.99); }
 
     .btn-gold {
-      background: linear-gradient(180deg, rgba(255,215,109,0.25), rgba(255,125,209,0.08));
-      border-color: rgba(255,215,109,0.35);
-      color: #fff9e6;
+      background: linear-gradient(180deg, rgba(255,214,110,0.24), rgba(255,106,176,0.1));
+      border-color: rgba(255,214,110,0.34);
+      color: #fffbed;
     }
 
-    .character-zone {
+    .scene {
       position: relative;
-      z-index: 2;
       flex: 1;
+      min-height: 480px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      padding-top: 16px;
+      padding: 20px 20px 0;
+      z-index: 2;
+    }
+
+    .moon {
+      position: absolute;
+      top: 44px;
+      right: 70px;
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,247,213,0.9), rgba(255,214,110,0.62) 54%, rgba(255,214,110,0.06) 70%, transparent 72%);
+      filter: blur(0.4px);
+      opacity: 0.92;
+    }
+
+    .torii {
+      position: absolute;
+      bottom: 112px;
+      width: 340px;
+      height: 220px;
+      opacity: 0.18;
+      filter: blur(0.1px);
+    }
+
+    .torii::before,
+    .torii::after {
+      content: "";
+      position: absolute;
+      background: linear-gradient(180deg, rgba(255,214,110,0.95), rgba(255,106,176,0.68));
+    }
+
+    .torii::before {
+      left: 50%; top: 0;
+      width: 260px; height: 16px;
+      transform: translateX(-50%);
+      border-radius: 3px;
+      box-shadow: 0 20px 0 rgba(255,214,110,0.55);
+    }
+
+    .torii::after {
+      left: 50%; bottom: 0;
+      width: 12px; height: 180px;
+      transform: translateX(-84px);
+      border-radius: 4px;
+      box-shadow: 168px 0 0 rgba(255,214,110,0.8);
     }
 
     .glow {
       position: absolute;
-      bottom: 110px;
-      width: 380px;
+      bottom: 118px;
+      width: 420px;
       height: 380px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,125,209,0.28) 0%, rgba(255,215,109,0.12) 30%, transparent 68%);
-      filter: blur(10px);
-      animation: pulse 2.6s ease-in-out infinite;
+      background: radial-gradient(circle, rgba(255,140,210,0.26) 0%, rgba(255,214,110,0.14) 30%, transparent 68%);
+      filter: blur(12px);
+      animation: pulse 2.8s ease-in-out infinite;
       pointer-events: none;
     }
 
@@ -194,93 +259,146 @@
       50% { transform: scale(1.04); opacity: 1; }
     }
 
-    .character {
+    .character-wrap {
       position: relative;
-      width: 260px;
-      height: 500px;
-      filter: drop-shadow(0 12px 26px rgba(0,0,0,0.35));
-      cursor: pointer;
-      transform-origin: center bottom;
-      animation: floaty 3.2s ease-in-out infinite;
-      user-select: none;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
 
-    .character.talk {
-      animation-duration: 1.7s;
+    .pedestal {
+      position: absolute;
+      bottom: 72px;
+      width: 280px;
+      height: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.22), rgba(255,255,255,0.04) 60%, transparent 72%);
+      filter: blur(2px);
     }
+
+    .character {
+      position: relative;
+      width: 284px;
+      height: 540px;
+      filter: drop-shadow(0 16px 26px rgba(0,0,0,0.36));
+      cursor: pointer;
+      transform-origin: center bottom;
+      animation: floaty 3.4s ease-in-out infinite;
+      user-select: none;
+      z-index: 4;
+    }
+
+    .character.talk { animation-duration: 1.8s; }
 
     @keyframes floaty {
       0%,100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-9px); }
     }
 
     .hair-back {
       position: absolute;
       left: 54px;
-      top: 54px;
-      width: 156px;
-      height: 218px;
-      background: linear-gradient(180deg, #2a153f, #13061b 72%);
-      border-radius: 76px 76px 46px 46px;
+      top: 46px;
+      width: 174px;
+      height: 250px;
+      background: linear-gradient(180deg, #34184c, #14081d 74%);
+      border-radius: 90px 90px 54px 54px;
+      z-index: 1;
     }
 
     .face {
       position: absolute;
-      left: 82px;
+      left: 92px;
       top: 70px;
-      width: 100px;
-      height: 122px;
-      background: linear-gradient(180deg, #ffe3cf, #ffd2ba 82%);
-      border-radius: 48px 48px 42px 42px;
+      width: 102px;
+      height: 126px;
+      background: linear-gradient(180deg, #ffe7d4, #ffd5c0 84%);
+      border-radius: 50px 50px 42px 42px;
       z-index: 4;
-      box-shadow: inset 0 -6px 0 rgba(255,183,149,0.26);
+      box-shadow: inset 0 -6px 0 rgba(255,188,151,0.24);
     }
 
     .fringe {
       position: absolute;
-      left: 74px;
-      top: 58px;
-      width: 116px;
-      height: 74px;
-      background: linear-gradient(180deg, #2e163f, #16071f);
-      border-radius: 58px 58px 24px 24px;
+      left: 80px;
+      top: 56px;
+      width: 128px;
+      height: 78px;
+      background: linear-gradient(180deg, #381a50, #190921);
+      border-radius: 62px 62px 24px 24px;
       z-index: 5;
     }
 
     .fringe::after {
       content: "";
       position: absolute;
-      right: 10px;
-      top: 22px;
-      width: 38px;
-      height: 28px;
-      background: #16071f;
-      border-radius: 0 20px 30px 20px;
-      transform: rotate(18deg);
+      left: 12px;
+      top: 18px;
+      width: 42px;
+      height: 36px;
+      background: #1a0822;
+      border-radius: 26px 0 26px 20px;
+      transform: rotate(-16deg);
     }
 
     .hair-side-left,
     .hair-side-right {
       position: absolute;
-      top: 94px;
-      width: 34px;
-      height: 125px;
-      background: linear-gradient(180deg, #2c143c, #12061a);
+      top: 108px;
+      width: 38px;
+      height: 146px;
+      background: linear-gradient(180deg, #36184d, #13071c);
+      border-radius: 22px;
       z-index: 3;
-      border-radius: 20px;
     }
 
-    .hair-side-left { left: 62px; transform: rotate(10deg); }
-    .hair-side-right { right: 62px; transform: rotate(-10deg); }
+    .hair-side-left { left: 70px; transform: rotate(10deg); }
+    .hair-side-right { right: 70px; transform: rotate(-10deg); }
+
+    .bun,
+    .bun2 {
+      position: absolute;
+      top: 58px;
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(180deg, #35184d, #180920);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .bun { left: 60px; }
+    .bun2 { right: 60px; }
+
+    .flower {
+      position: absolute;
+      left: 204px;
+      top: 70px;
+      width: 26px;
+      height: 26px;
+      z-index: 8;
+    }
+
+    .flower::before,
+    .flower::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.96) 0 15%, rgba(255,140,210,0.88) 18% 52%, transparent 54%);
+      box-shadow: 0 0 10px rgba(255,140,210,0.4);
+    }
+
+    .flower::after { transform: rotate(45deg); }
 
     .eye {
       position: absolute;
-      top: 50px;
+      top: 52px;
       width: 18px;
       height: 12px;
-      background: #3b233b;
+      background: #3f2140;
       border-radius: 50%;
-      z-index: 6;
+      z-index: 7;
       animation: blink 4.7s infinite;
     }
 
@@ -294,23 +412,23 @@
       top: 2px;
       width: 4px;
       height: 4px;
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       border-radius: 50%;
     }
 
     @keyframes blink {
-      0%, 45%, 48%, 100% { transform: scaleY(1); }
-      46%, 47% { transform: scaleY(0.12); }
+      0%,45%,48%,100% { transform: scaleY(1); }
+      46%,47% { transform: scaleY(0.1); }
     }
 
     .cheek {
       position: absolute;
-      top: 72px;
+      top: 74px;
       width: 18px;
       height: 10px;
-      background: rgba(255,120,150,0.24);
+      background: rgba(255,120,156,0.26);
       border-radius: 50%;
-      z-index: 5;
+      z-index: 6;
     }
 
     .cheek.left { left: 12px; }
@@ -318,127 +436,178 @@
 
     .mouth {
       position: absolute;
-      left: 40px;
-      top: 84px;
-      width: 20px;
-      height: 9px;
-      border-bottom: 3px solid #c4627f;
-      border-radius: 0 0 18px 18px;
+      left: 41px;
+      top: 87px;
+      width: 18px;
+      height: 8px;
+      border-bottom: 3px solid #cc6487;
+      border-radius: 0 0 16px 16px;
       z-index: 6;
     }
 
     .ear {
       position: absolute;
-      top: 84px;
+      top: 88px;
       width: 14px;
       height: 22px;
-      background: #ffd4be;
+      background: #ffd5bf;
       border-radius: 50%;
       z-index: 3;
     }
 
-    .ear.left { left: 72px; }
-    .ear.right { right: 72px; }
+    .ear.left { left: 84px; }
+    .ear.right { right: 84px; }
 
     .earring {
       position: absolute;
-      top: 102px;
-      width: 8px;
-      height: 8px;
-      background: radial-gradient(circle, #ffffff 0%, #d7f3ff 60%, #9fdcff 100%);
-      border-radius: 50%;
+      top: 104px;
+      width: 7px;
+      height: 16px;
+      background: linear-gradient(180deg, #fffdf3, #ffd66e);
+      border-radius: 999px;
       z-index: 8;
-      box-shadow: 0 0 12px rgba(255,255,255,0.65);
+      box-shadow: 0 0 12px rgba(255,214,110,0.5);
     }
 
-    .earring.left { left: 78px; }
-    .earring.right { right: 78px; }
+    .earring.left { left: 88px; }
+    .earring.right { right: 88px; }
 
     .neck {
       position: absolute;
-      left: 110px;
-      top: 180px;
-      width: 44px;
-      height: 42px;
-      background: linear-gradient(180deg, #ffd9c3, #f4c3a7);
+      left: 120px;
+      top: 184px;
+      width: 46px;
+      height: 40px;
+      background: linear-gradient(180deg, #ffd9c4, #f3c3a5);
       border-radius: 18px;
       z-index: 2;
     }
 
-    .body {
+    .shoulder {
+      position: absolute;
+      left: 84px;
+      top: 206px;
+      width: 120px;
+      height: 40px;
+      background: linear-gradient(180deg, rgba(255,237,246,0.96), rgba(255,206,234,0.94));
+      border-radius: 24px 24px 18px 18px;
+      z-index: 3;
+      box-shadow: inset 0 -4px 0 rgba(255,255,255,0.22);
+    }
+
+    .kimono {
       position: absolute;
       left: 54px;
-      top: 204px;
-      width: 150px;
-      height: 196px;
-      background: linear-gradient(180deg, #ff7dc4 0%, #a74aff 52%, #6b2de2 100%);
-      clip-path: polygon(24% 0, 76% 0, 100% 100%, 0 100%);
-      border-radius: 20px 20px 36px 36px;
+      top: 218px;
+      width: 176px;
+      height: 220px;
+      background: linear-gradient(180deg, #ff95d9 0%, #c962ff 46%, #7c42f3 100%);
+      clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+      border-radius: 28px 28px 34px 34px;
       z-index: 2;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.14), inset 0 -14px 28px rgba(0,0,0,0.18);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.13), inset 0 -16px 24px rgba(0,0,0,0.14);
     }
 
-    .body::before {
+    .kimono::before,
+    .kimono::after {
       content: "";
       position: absolute;
-      left: 32px;
-      right: 32px;
-      top: 12px;
-      height: 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0));
-      border-radius: 18px 18px 24px 24px;
+      top: 18px;
+      width: 56px;
+      height: 96px;
+      background: linear-gradient(180deg, rgba(255,239,246,0.96), rgba(255,221,237,0.88));
+      z-index: 3;
     }
 
-    .collar {
-      position: absolute;
-      left: 96px;
-      top: 204px;
-      width: 66px;
-      height: 24px;
-      background: linear-gradient(180deg, #ffe4f5, #ffc3ee);
-      clip-path: polygon(0 0, 100% 0, 78% 100%, 22% 100%);
-      z-index: 3;
-      opacity: 0.95;
+    .kimono::before {
+      left: 24px;
+      clip-path: polygon(0 0, 100% 0, 78% 100%, 20% 100%);
+      border-radius: 16px 16px 24px 18px;
+      transform: rotate(8deg);
     }
+
+    .kimono::after {
+      right: 24px;
+      clip-path: polygon(0 0, 100% 0, 80% 100%, 22% 100%);
+      border-radius: 16px 16px 18px 24px;
+      transform: rotate(-8deg);
+    }
+
+    .obi {
+      position: absolute;
+      left: 74px;
+      top: 304px;
+      width: 136px;
+      height: 46px;
+      background: linear-gradient(180deg, rgba(255,214,110,0.96), rgba(255,155,86,0.9));
+      border-radius: 14px;
+      z-index: 5;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
+    }
+
+    .obi::before {
+      content: "";
+      position: absolute;
+      left: 50%; top: -12px;
+      width: 44px; height: 70px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(255,214,110,0.95), rgba(255,120,160,0.85));
+      clip-path: polygon(50% 0, 100% 34%, 78% 100%, 22% 100%, 0 34%);
+      border-radius: 10px;
+    }
+
+    .sleeve {
+      position: absolute;
+      top: 242px;
+      width: 58px;
+      height: 130px;
+      background: linear-gradient(180deg, #ff95d9, #9b64ff 84%);
+      border-radius: 18px 18px 24px 24px;
+      z-index: 1;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1);
+    }
+
+    .sleeve.left { left: 28px; transform: rotate(10deg); }
+    .sleeve.right { right: 28px; transform: rotate(-10deg); }
 
     .arm {
       position: absolute;
-      top: 222px;
-      width: 26px;
-      height: 126px;
-      background: linear-gradient(180deg, #ffd7c2, #f0bca2);
-      border-radius: 18px;
-      z-index: 1;
+      top: 250px;
+      width: 24px;
+      height: 122px;
+      background: linear-gradient(180deg, #ffd7c2, #efba9e);
+      border-radius: 16px;
+      z-index: 0;
     }
 
     .arm.left {
       left: 48px;
-      transform: rotate(14deg);
+      transform: rotate(12deg);
       transform-origin: top center;
       animation: swayL 3.2s ease-in-out infinite;
     }
 
     .arm.right {
       right: 48px;
-      transform: rotate(-14deg);
+      transform: rotate(-12deg);
       transform-origin: top center;
       animation: swayR 3.2s ease-in-out infinite;
     }
 
     @keyframes swayL {
-      0%,100% { transform: rotate(14deg); }
-      50% { transform: rotate(21deg); }
+      0%,100% { transform: rotate(12deg); }
+      50% { transform: rotate(18deg); }
     }
 
     @keyframes swayR {
-      0%,100% { transform: rotate(-14deg); }
-      50% { transform: rotate(-21deg); }
+      0%,100% { transform: rotate(-12deg); }
+      50% { transform: rotate(-18deg); }
     }
 
     .hand {
       position: absolute;
       bottom: -8px;
-      left: 1px;
+      left: 0;
       width: 24px;
       height: 24px;
       background: #ffd9c4;
@@ -447,36 +616,36 @@
 
     .leg {
       position: absolute;
-      top: 386px;
-      width: 34px;
-      height: 92px;
-      background: linear-gradient(180deg, #ffd7c2, #ecb89c);
+      top: 424px;
+      width: 32px;
+      height: 78px;
+      background: linear-gradient(180deg, #ffd7c2, #ebb799);
       border-radius: 18px;
       z-index: 0;
     }
 
-    .leg.left { left: 94px; }
-    .leg.right { right: 94px; }
+    .leg.left { left: 108px; }
+    .leg.right { right: 108px; }
 
     .shoe {
       position: absolute;
-      bottom: -2px;
-      width: 44px;
+      bottom: 2px;
+      width: 48px;
       height: 16px;
-      background: linear-gradient(180deg, #f9e7ff, #c78cff);
-      border-radius: 18px 18px 10px 10px;
+      background: linear-gradient(180deg, #fff1fb, #d58dff);
+      border-radius: 18px 18px 8px 8px;
       box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12);
     }
 
-    .shoe.left { left: 88px; }
-    .shoe.right { right: 88px; }
+    .shoe.left { left: 101px; }
+    .shoe.right { right: 101px; }
 
     .tiara {
       position: absolute;
-      left: 97px;
-      top: 38px;
-      width: 68px;
-      height: 18px;
+      left: 104px;
+      top: 34px;
+      width: 76px;
+      height: 22px;
       z-index: 9;
       display: flex;
       justify-content: center;
@@ -487,20 +656,20 @@
     .tiara span {
       display: block;
       width: 8px;
-      background: linear-gradient(180deg, #fffdf5, #ffd76d);
+      background: linear-gradient(180deg, #fffdf3, #ffd66e);
       border-radius: 8px 8px 2px 2px;
-      box-shadow: 0 0 10px rgba(255,215,109,0.65);
+      box-shadow: 0 0 10px rgba(255,214,110,0.65);
     }
 
     .tiara span:nth-child(1), .tiara span:nth-child(5) { height: 8px; }
     .tiara span:nth-child(2), .tiara span:nth-child(4) { height: 12px; }
-    .tiara span:nth-child(3) { height: 16px; }
+    .tiara span:nth-child(3) { height: 18px; }
 
     .sparkle {
       position: absolute;
       width: 12px;
       height: 12px;
-      z-index: 9;
+      z-index: 10;
       opacity: 0.8;
       animation: floatSpark 2.4s ease-in-out infinite;
     }
@@ -511,7 +680,7 @@
       position: absolute;
       left: 50%; top: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.94);
+      background: rgba(255,255,255,0.95);
       border-radius: 2px;
       box-shadow: 0 0 12px rgba(255,255,255,0.65);
     }
@@ -519,25 +688,25 @@
     .sparkle::before { width: 2px; height: 12px; }
     .sparkle::after { width: 12px; height: 2px; }
 
-    .sparkle.s1 { left: 64px; top: 120px; animation-delay: 0s; }
-    .sparkle.s2 { right: 60px; top: 88px; animation-delay: 0.8s; }
-    .sparkle.s3 { left: 192px; top: 166px; animation-delay: 1.4s; }
+    .sparkle.s1 { left: 70px; top: 116px; animation-delay: 0s; }
+    .sparkle.s2 { right: 68px; top: 86px; animation-delay: 0.8s; }
+    .sparkle.s3 { left: 214px; top: 170px; animation-delay: 1.5s; }
 
     @keyframes floatSpark {
       0%,100% { transform: translateY(0px) scale(0.8); opacity: 0.4; }
-      50% { transform: translateY(-9px) scale(1.08); opacity: 1; }
+      50% { transform: translateY(-10px) scale(1.08); opacity: 1; }
     }
 
     .love-bubble {
       position: absolute;
-      right: 12px;
-      top: 78px;
-      background: rgba(255,255,255,0.14);
+      right: 10px;
+      top: 88px;
+      background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.16);
       border-radius: 999px;
       padding: 10px 14px;
       font-size: 13px;
-      color: #fff6ff;
+      color: #fff8ff;
       backdrop-filter: blur(10px);
       transform: translateY(6px);
       opacity: 0;
@@ -545,6 +714,7 @@
       pointer-events: none;
       max-width: 180px;
       text-align: center;
+      z-index: 12;
     }
 
     .love-bubble.show {
@@ -552,27 +722,35 @@
       opacity: 1;
     }
 
-    .pedestal {
-      position: absolute;
-      bottom: 70px;
-      width: 250px;
-      height: 34px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.22), rgba(255,255,255,0.03) 60%, transparent 70%);
-      filter: blur(2px);
+    .dialog-wrap {
+      padding: 0 14px 14px;
+      position: relative;
+      z-index: 3;
     }
 
     .dialog {
-      position: relative;
-      z-index: 2;
       padding: 14px;
       border-radius: 22px;
-      border: 2px solid rgba(255,255,255,0.12);
-      background: linear-gradient(180deg, rgba(18,12,38,0.92), rgba(11,8,27,0.96));
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.04), var(--shadow);
+      background: linear-gradient(180deg, rgba(22,16,43,0.96), rgba(11,8,27,0.98));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: var(--pixel-shadow);
+      position: relative;
+      overflow: hidden;
     }
 
-    .dialog .nameplate {
+    .dialog::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(transparent 31px, rgba(255,255,255,0.02) 32px),
+        linear-gradient(90deg, transparent 31px, rgba(255,255,255,0.02) 32px);
+      background-size: 32px 32px;
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .nameplate {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -583,17 +761,19 @@
       font-weight: 800;
       letter-spacing: 0.12em;
       color: #fffce9;
-      background: linear-gradient(90deg, rgba(255,215,109,0.28), rgba(255,125,209,0.18));
-      border: 1px solid rgba(255,215,109,0.26);
+      background: linear-gradient(90deg, rgba(255,214,110,0.28), rgba(255,140,210,0.16));
+      border: 1px solid rgba(255,214,110,0.26);
+      position: relative;
+      z-index: 2;
     }
 
     .dialog-text {
-      min-height: 84px;
+      min-height: 88px;
       font-size: 20px;
       line-height: 1.7;
       letter-spacing: 0.02em;
-      color: var(--text);
-      text-shadow: 0 0 10px rgba(255,255,255,0.05);
+      position: relative;
+      z-index: 2;
     }
 
     .cursor {
@@ -612,41 +792,57 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-top: 14px;
+      position: relative;
+      z-index: 2;
     }
 
     .choice {
       text-align: left;
-      min-height: 56px;
+      min-height: 58px;
       border-radius: 16px;
       padding: 12px 14px;
       font-size: 14px;
       line-height: 1.45;
-      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
     }
 
     .side {
-      padding: 16px;
       display: grid;
-      grid-template-rows: auto auto auto 1fr;
+      grid-template-rows: auto auto auto auto 1fr;
       gap: 16px;
-      min-height: 680px;
+      min-height: 760px;
     }
 
     .card {
       padding: 16px;
+      background: var(--panel-2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 18%);
+      pointer-events: none;
     }
 
     .card h2 {
       margin: 0 0 8px;
       font-size: 16px;
       letter-spacing: 0.08em;
-      color: #fff8ea;
+      color: #fff8ec;
+      position: relative;
+      z-index: 2;
     }
 
     .muted {
       color: var(--sub);
       font-size: 13px;
       line-height: 1.65;
+      position: relative;
+      z-index: 2;
     }
 
     .chips {
@@ -654,6 +850,8 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 12px;
+      position: relative;
+      z-index: 2;
     }
 
     .chip {
@@ -670,6 +868,9 @@
       grid-template-columns: repeat(5, 1fr);
       gap: 10px;
       margin-top: 14px;
+      position: relative;
+      z-index: 6;
+      pointer-events: auto;
     }
 
     .tarot-card {
@@ -677,28 +878,50 @@
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.14);
       background:
-        radial-gradient(circle at 50% 30%, rgba(255,255,255,0.25), transparent 20%),
-        linear-gradient(180deg, rgba(255,125,209,0.25), rgba(124,58,237,0.18));
+        radial-gradient(circle at 50% 26%, rgba(255,255,255,0.28), transparent 20%),
+        linear-gradient(180deg, rgba(255,140,210,0.26), rgba(157,123,255,0.18));
       display: grid;
       place-items: center;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       font-size: 28px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       box-shadow: 0 8px 16px rgba(0,0,0,0.16);
+      z-index: 7;
+      pointer-events: auto;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .tarot-card:hover { transform: translateY(-2px) rotate(1deg); }
+    .tarot-card:hover { transform: translateY(-2px) rotate(1deg); border-color: rgba(255,214,110,0.45); }
 
     .tarot-card::after {
       content: "✦";
       position: absolute;
-      color: rgba(255,255,255,0.18);
-      font-size: 60px;
+      color: rgba(255,255,255,0.16);
+      font-size: 64px;
+      pointer-events: none;
     }
 
-    .story-box textarea {
+    .fortune-output,
+    .story-output,
+    .advice-output {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      line-height: 1.72;
+      color: #fffafc;
+      min-height: 84px;
+      white-space: pre-wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .story-box textarea,
+    .advice-box textarea {
       width: 100%;
       min-height: 96px;
       border-radius: 16px;
@@ -709,27 +932,19 @@
       border: 1px solid rgba(255,255,255,0.12);
       outline: none;
       font: inherit;
-    }
-
-    .story-output, .fortune-output {
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-      line-height: 1.7;
-      color: #fffafc;
-      min-height: 80px;
-      white-space: pre-wrap;
+      position: relative;
+      z-index: 2;
     }
 
     .quotes-list {
       display: grid;
       gap: 10px;
       margin-top: 14px;
-      max-height: 280px;
+      max-height: 260px;
       overflow: auto;
       padding-right: 4px;
+      position: relative;
+      z-index: 2;
     }
 
     .quote {
@@ -746,6 +961,8 @@
       color: #d7c8fa;
       text-align: right;
       opacity: 0.82;
+      position: relative;
+      z-index: 2;
     }
 
     .particle {
@@ -753,7 +970,7 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(255,215,109,0.78) 52%, rgba(255,125,209,0.18) 76%, transparent 78%);
+      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(255,214,110,0.76) 52%, rgba(255,140,210,0.18) 76%, transparent 78%);
       animation: particleFly 820ms ease-out forwards;
       pointer-events: none;
     }
@@ -763,31 +980,27 @@
       to { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
     }
 
-    @media (max-width: 980px) {
-      .shell {
-        grid-template-columns: 1fr;
-      }
-      .side, .stage {
-        min-height: auto;
-      }
+    @media (max-width: 1020px) {
+      .shell { grid-template-columns: 1fr; }
+      .side, .stage { min-height: auto; }
     }
 
     @media (max-width: 640px) {
-      .shell {
-        width: min(100vw - 16px, 100%);
-        padding-top: 8px;
-      }
-      .stage, .side { padding: 12px; }
-      .dialog-text { font-size: 17px; min-height: 98px; }
+      .shell { width: min(100vw - 14px, 100%); padding-top: 8px; }
+      .topbar { padding: 12px 12px 8px; }
+      .dialog-wrap { padding: 0 10px 10px; }
+      .dialog-text { font-size: 17px; min-height: 100px; }
       .choices { grid-template-columns: 1fr; }
-      .fortune-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
-      .character { transform: scale(0.9); }
-      .love-bubble { right: 0; top: 58px; }
+      .fortune-grid { gap: 8px; }
+      .character { transform: scale(0.88); }
+      .moon { right: 22px; top: 50px; width: 84px; height: 84px; }
+      .love-bubble { right: 0; top: 66px; }
     }
   </style>
 </head>
 <body>
   <div class="stars" id="stars"></div>
+  <div class="petals" id="petals"></div>
   <div class="particles" id="particles"></div>
 
   <main class="shell">
@@ -795,7 +1008,7 @@
       <div class="topbar">
         <div class="brand">
           <div class="title">HIDEKO YAOYOROZU</div>
-          <div class="sub">cute fantasy dialogue edition / no voice</div>
+          <div class="sub">cute × elegant × wa-princess × retro fantasy</div>
         </div>
         <div class="controls">
           <button id="bgmBtn" class="btn-gold">♪ BGM ON</button>
@@ -803,76 +1016,100 @@
         </div>
       </div>
 
-      <div class="character-zone">
+      <div class="scene">
+        <div class="moon"></div>
+        <div class="torii"></div>
         <div class="glow"></div>
         <div class="pedestal"></div>
-        <div class="love-bubble" id="loveBubble">タップしてくれて、うれしいよ ✨</div>
+        <div class="love-bubble" id="loveBubble">来てくれてうれしい。ゆっくり話そう ✨</div>
 
-        <div class="character" id="character" aria-label="キャラクター" title="タップして反応を見る">
-          <div class="tiara"><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="sparkle s1"></div>
-          <div class="sparkle s2"></div>
-          <div class="sparkle s3"></div>
-          <div class="hair-back"></div>
-          <div class="hair-side-left"></div>
-          <div class="hair-side-right"></div>
-          <div class="ear left"></div>
-          <div class="ear right"></div>
-          <div class="earring left"></div>
-          <div class="earring right"></div>
-          <div class="face">
-            <div class="eye left"></div>
-            <div class="eye right"></div>
-            <div class="cheek left"></div>
-            <div class="cheek right"></div>
-            <div class="mouth"></div>
+        <div class="character-wrap">
+          <div class="character" id="character" aria-label="キャラクター" title="タップして反応を見る">
+            <div class="tiara"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="sparkle s1"></div>
+            <div class="sparkle s2"></div>
+            <div class="sparkle s3"></div>
+            <div class="bun"></div>
+            <div class="bun2"></div>
+            <div class="hair-back"></div>
+            <div class="hair-side-left"></div>
+            <div class="hair-side-right"></div>
+            <div class="flower"></div>
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+            <div class="earring left"></div>
+            <div class="earring right"></div>
+            <div class="face">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="cheek left"></div>
+              <div class="cheek right"></div>
+              <div class="mouth"></div>
+            </div>
+            <div class="fringe"></div>
+            <div class="neck"></div>
+            <div class="shoulder"></div>
+            <div class="sleeve left"></div>
+            <div class="sleeve right"></div>
+            <div class="arm left"><div class="hand"></div></div>
+            <div class="arm right"><div class="hand"></div></div>
+            <div class="kimono"></div>
+            <div class="obi"></div>
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+            <div class="shoe left"></div>
+            <div class="shoe right"></div>
           </div>
-          <div class="fringe"></div>
-          <div class="neck"></div>
-          <div class="arm left"><div class="hand"></div></div>
-          <div class="arm right"><div class="hand"></div></div>
-          <div class="collar"></div>
-          <div class="body"></div>
-          <div class="leg left"></div>
-          <div class="leg right"></div>
-          <div class="shoe left"></div>
-          <div class="shoe right"></div>
         </div>
       </div>
 
-      <div class="dialog">
-        <div class="nameplate">✦ HIDEKO</div>
-        <div class="dialog-text" id="dialogText"></div>
-        <div class="choices" id="choices"></div>
+      <div class="dialog-wrap">
+        <div class="dialog">
+          <div class="nameplate">✦ HIDEKO</div>
+          <div class="dialog-text" id="dialogText"></div>
+          <div class="choices" id="choices"></div>
+        </div>
       </div>
     </section>
 
     <aside class="side">
       <section class="panel card">
-        <h2>機能メモ</h2>
+        <h2>今回のアップデート</h2>
         <div class="muted">
-          かわいい寄りのキャラに差し替え、読み上げは削除済み。<br>
-          残しているのは、FF風ダイアログ、簡易会話ツリー、ガムラン風BGM、タロット、短編ストーリー、語録です。
+          かわいい・上品・和風姫・レトロRPG感を全部まとめて再設計。<br>
+          読み上げは外したまま、会話文も世界観に合わせて全面リライトしました。<br>
+          それと「カードを選んで」と出るのに押せない不具合を直すため、カード側のクリック処理と重なりの指定も見直しています。
         </div>
         <div class="chips">
           <div class="chip">読み上げなし</div>
-          <div class="chip">1ファイル完結</div>
+          <div class="chip">カード不具合対策</div>
+          <div class="chip">和風姫デザイン</div>
+          <div class="chip">ドット感UI</div>
           <div class="chip">GitHub Pages向け</div>
-          <div class="chip">スマホ対応</div>
         </div>
       </section>
 
       <section class="panel card">
         <h2>タロット占い</h2>
-        <div class="muted">1枚選ぶとメッセージが出ます。</div>
+        <div class="muted">カードを1枚選ぶと運勢が表示されます。今回はクリック・タップ優先で調整済み。</div>
         <div class="fortune-grid" id="fortuneGrid"></div>
         <div class="fortune-output" id="fortuneOutput">カードを選んでください。</div>
       </section>
 
+      <section class="panel card advice-box">
+        <h2>哲学者・偉人のひとこと相談室</h2>
+        <div class="muted">悩みを書くと、テーマに近い一言と短い助言を返します。引用は短い意訳中心です。</div>
+        <textarea id="adviceInput" placeholder="例：焦って空回りしてしまう。何を優先すればいいか分からない"></textarea>
+        <div class="chips" style="margin-top:12px;">
+          <button id="adviceBtn" class="btn-gold">一言をもらう</button>
+        </div>
+        <div class="advice-output" id="adviceOutput">ここに一言が表示されます。</div>
+      </section>
+
       <section class="panel card story-box">
         <h2>短編ストーリー</h2>
-        <div class="muted">悩みやテーマを入れると、短い物語にします。</div>
-        <textarea id="storyInput" placeholder="例：新しい環境で、自分らしく前に進みたい"></textarea>
+        <div class="muted">悩みやテーマを入れると、和風ファンタジー寄りの短い物語にします。</div>
+        <textarea id="storyInput" placeholder="例：新しい環境でも、自分の芯を失わずに進みたい"></textarea>
         <div class="chips" style="margin-top:12px;">
           <button id="storyBtn" class="btn-gold">物語をつくる</button>
         </div>
@@ -882,13 +1119,14 @@
       <section class="panel card">
         <h2>語録集</h2>
         <div class="quotes-list" id="quotesList"></div>
-        <div class="footer-note">※ 読み上げ機能は意図的に外しています。</div>
+        <div class="footer-note">※ 音声なし。言葉と演出だけで成立する構成です。</div>
       </section>
     </aside>
   </main>
 
   <script>
     const stars = document.getElementById('stars');
+    const petals = document.getElementById('petals');
     const particles = document.getElementById('particles');
     const dialogText = document.getElementById('dialogText');
     const choicesEl = document.getElementById('choices');
@@ -902,8 +1140,11 @@
     const storyInput = document.getElementById('storyInput');
     const storyOutput = document.getElementById('storyOutput');
     const quotesList = document.getElementById('quotesList');
+    const adviceInput = document.getElementById('adviceInput');
+    const adviceBtn = document.getElementById('adviceBtn');
+    const adviceOutput = document.getElementById('adviceOutput');
 
-    for (let i = 0; i < 48; i++) {
+    for (let i = 0; i < 52; i++) {
       const s = document.createElement('div');
       s.className = 'star';
       s.style.left = `${Math.random() * 100}%`;
@@ -913,22 +1154,32 @@
       stars.appendChild(s);
     }
 
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.animationDuration = `${8 + Math.random() * 10}s`;
+      p.style.animationDelay = `${Math.random() * 8}s`;
+      p.style.transform = `scale(${0.7 + Math.random() * 0.8})`;
+      petals.appendChild(p);
+    }
+
     const quotes = [
-      '焦らなくていい。でも止まったままは、もっともったいない。',
-      '優しさは弱さじゃない。扱い方を間違えると損をするだけ。',
-      '運は待つより、見つけに行くほうが早い。',
-      '迷いが消えてから進むんじゃない。進むから迷いが薄くなる。',
-      '遠慮して縮むくらいなら、丁寧に前へ出たほうがいい。',
-      'うまくやることより、続けられる形にすること。',
-      '誰かの期待に合わせすぎると、自分の輪郭が消える。',
-      '才能より先に、観察の深さで差がつく。',
-      '一度で完璧より、三回で改善。',
-      '機嫌ではなく、基準で動く。',
-      '強さは声の大きさじゃない。手放さない姿勢。',
-      '逃げ道を減らすと、覚悟は自然に育つ。',
-      '今日の小さな前進は、未来の自信の前払い。',
+      '月の下で迷ってもいい。でも、朝になったら一歩は踏み出す。',
+      'やさしさは飾りじゃない。空気を変える武器になる。',
+      '今日の小さな整理が、明日の強さをつくる。',
+      'かわいさと芯の強さは両立する。むしろ両方あったほうが強い。',
+      '焦りは視野を狭める。まず呼吸、次に順番。',
+      '気分で進める日を減らし、基準で進める日を増やす。',
+      '本音は急に言葉にならない。触れていくうちに形になる。',
+      '遠慮しすぎると、自分の輪郭が薄くなる。',
       '見たくない現実ほど、先に見たほうが得をする。',
-      'かわいさは飾りじゃない。空気を変える力。'
+      '整えることは逃げじゃない。戦う前の準備。',
+      '誰かの期待だけで動くと、心は長くもたない。',
+      '勇気は大声ではなく、先延ばしを一つ終わらせる手つきに出る。',
+      '美しさは静けさにも宿る。',
+      '選ばれるより先に、自分で選ぶ強さを持つ。',
+      '曖昧な善意より、明確な境界線のほうが人を守ることがある。'
     ];
 
     quotes.forEach((q, i) => {
@@ -940,65 +1191,72 @@
 
     const tree = {
       start: {
-        text: 'こんばんは。今日は、どんな気分でここに来たの？',
+        text: 'ようこそ。今夜は、どんな気持ちをほどきに来たの？',
         choices: [
-          { label: 'ちょっと癒やされたい', next: 'heal' },
+          { label: '少し癒やされたい', next: 'heal' },
           { label: '背中を押してほしい', next: 'push' },
-          { label: '運勢を見てみたい', next: 'fortune' },
-          { label: 'なんとなく話したい', next: 'chat' }
+          { label: '運勢を見たい', next: 'fortune' },
+          { label: '考えを整理したい', next: 'clear' }
         ]
       },
       heal: {
-        text: 'じゃあ、まず深呼吸。急いで答えを出さなくても、整えるだけで見えるものは変わるよ。',
+        text: 'なら、まず急がなくていいよ。整っていない心で無理に答えを出すと、必要以上に自分を疲れさせるから。',
         choices: [
-          { label: 'もう少し優しい言葉がほしい', next: 'soft' },
-          { label: '次へ進むヒントがほしい', next: 'push' }
+          { label: 'もう少しやさしく', next: 'soft' },
+          { label: '次の一歩を知りたい', next: 'push' }
         ]
       },
       push: {
-        text: '今必要なのは、気合いより整理。やることを増やすより、捨てるものを決めよう。',
+        text: '今のあなたに必要なのは気合いより順番。頑張る量を増やすより、何を後回しにするかを決めるほうが先。',
         choices: [
-          { label: '何を捨てるべき？', next: 'focus' },
-          { label: '少し和みたい', next: 'soft' }
+          { label: '何を削るべき？', next: 'focus' },
+          { label: '少し気持ちを整えたい', next: 'soft' }
         ]
       },
       fortune: {
-        text: '右側のカードを1枚選んでみて。直感で大丈夫。',
+        text: '右のカードを一枚選んで。今回はちゃんと押せるように直してあるから、安心して。',
         choices: [
           { label: '会話に戻る', next: 'start' },
-          { label: '短編ストーリーも試す', next: 'story' }
+          { label: '偉人の一言も聞く', next: 'wisdom' }
         ]
       },
-      chat: {
-        text: '言葉になっていなくても平気。曖昧なまま触れていくと、本音は少しずつ形になる。',
+      clear: {
+        text: '整理したいなら、感情と事実を混ぜないこと。つらいことと、実際に起きていることは、同じようで別。',
         choices: [
-          { label: 'そのまま続ける', next: 'soft' },
-          { label: '前向きな話に切り替える', next: 'push' }
+          { label: 'その続きが聞きたい', next: 'focus' },
+          { label: 'やさしい言葉に戻る', next: 'soft' }
         ]
       },
       soft: {
-        text: '大丈夫。全部を一度にうまくやる必要はないよ。今日を少しだけ軽くできたら、それで充分えらい。',
+        text: '大丈夫。全部を今すぐ完璧にしなくていい。今日は「少し軽くなる」までできたら、それでちゃんと前進。',
         choices: [
-          { label: '最初の質問に戻る', next: 'start' },
-          { label: '運勢を見てみる', next: 'fortune' }
+          { label: '最初に戻る', next: 'start' },
+          { label: '運勢を見る', next: 'fortune' }
         ]
       },
       focus: {
-        text: '捨てるべきなのは、目的に関係ない頑張り方。忙しさで自分を納得させるのをやめると、進み方が変わる。',
+        text: '削るべきなのは、目的とつながっていない頑張り方。忙しさで安心しようとすると、肝心なことが進まない。',
         choices: [
-          { label: 'もう一段だけ踏み込む', next: 'deep' },
-          { label: '少しやさしく戻る', next: 'soft' }
+          { label: 'もっと核心を聞く', next: 'deep' },
+          { label: '少し和らげたい', next: 'soft' }
         ]
       },
       deep: {
-        text: '本当に欲しい結果があるなら、気分でやる日を減らして、基準でやる日を増やそう。かわいさも強さも、習慣で育つ。',
+        text: '本当に結果が欲しいなら、気分に任せる日を減らして、基準で動く日を増やそう。品のある強さは、習慣でつくられる。',
+        choices: [
+          { label: '最初に戻る', next: 'start' },
+          { label: '偉人の一言を見る', next: 'wisdom' }
+        ]
+      },
+      wisdom: {
+        text: '右の相談室に悩みを書いてみて。誰の言葉が近いか、今のテーマに合わせて返すよ。',
         choices: [
           { label: '最初に戻る', next: 'start' },
           { label: '短編ストーリーへ', next: 'story' }
         ]
       },
       story: {
-        text: '右側にテーマを入れて「物語をつくる」を押してみて。短いけれど、今の気分に寄せて返すよ。',
+        text: '右にテーマを書いて「物語をつくる」を押して。今の気分を、少しだけ美しく整えて返すから。',
         choices: [
           { label: '最初に戻る', next: 'start' },
           { label: '運勢を見る', next: 'fortune' }
@@ -1008,6 +1266,13 @@
 
     let currentNode = 'start';
     let typingTimer;
+
+    function escapeHtml(str) {
+      return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+    }
 
     function typeText(text, done) {
       clearInterval(typingTimer);
@@ -1024,7 +1289,7 @@
           character.classList.remove('talk');
           done?.();
         }
-      }, 28);
+      }, 26);
     }
 
     function renderNode(key) {
@@ -1046,21 +1311,21 @@
     }
 
     nextBtn.addEventListener('click', () => {
-      const fallbackOrder = ['start', 'heal', 'push', 'soft', 'focus', 'deep'];
+      const fallbackOrder = ['start', 'heal', 'push', 'clear', 'focus', 'deep', 'wisdom', 'story'];
       const index = fallbackOrder.indexOf(currentNode);
       const next = fallbackOrder[(index + 1) % fallbackOrder.length];
       renderNode(next);
     });
 
     const tapLines = [
-      'その調子。かわいく、でも芯は強くね。',
-      'ふふ、ちゃんと見てるよ。',
-      '今日のあなた、少し光ってる。',
-      '無理してない？ 深呼吸して。',
-      '急がなくていいけど、止まりすぎないでね。'
+      '急がなくていい。でも止まりすぎないでね。',
+      '今のあなた、ちゃんときれいに光ってる。',
+      'やさしくても、弱くならなくていいよ。',
+      '整えてから進む。今日はそれで充分。',
+      'ふふ、ちゃんと見てるよ。'
     ];
 
-    character.addEventListener('click', (e) => {
+    character.addEventListener('click', () => {
       const line = tapLines[Math.floor(Math.random() * tapLines.length)];
       loveBubble.textContent = line;
       loveBubble.classList.add('show');
@@ -1086,36 +1351,36 @@
       }
     }
 
-    function escapeHtml(str) {
-      return str
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;');
-    }
-
     const tarotDeck = [
-      { icon: '☀️', name: '太陽', msg: '停滞より前進。今日は、迷う時間を短くすると運が動きます。' },
-      { icon: '🌙', name: '月', msg: '不安は敵ではなく、まだ言葉になっていない感覚です。焦って切り捨てないで。' },
-      { icon: '⭐', name: '星', msg: '理想を小さくしないで。現実化するには、今日の一手に分解すること。' },
-      { icon: '🗡️', name: '剣', msg: '曖昧な優しさより、明確な線引きが助けになります。' },
-      { icon: '🌹', name: '薔薇', msg: '魅力は飾りではなく影響力。出し惜しみしないほうがいい日です。' },
-      { icon: '👑', name: '王冠', msg: '主導権を戻すタイミング。人任せをやめるほど、流れが整います。' },
-      { icon: '🪞', name: '鏡', msg: '今の課題は能力不足ではなく、自己認識の甘さかもしれません。見直す価値あり。' },
-      { icon: '🕯️', name: '灯', msg: '静かな時間に答えが出やすい日。騒がしさから少し離れて。' },
-      { icon: '💎', name: '宝石', msg: 'すでに持っている強みを軽く見積もらないこと。価値は使って初めて届きます。' },
-      { icon: '🪽', name: '翼', msg: '環境を変える、小さく旅する、席を移す。移動が運気の引き金になります。' }
+      { icon: '☀️', name: '太陽', msg: '停滞より前進。迷う時間を少し短くすると、流れが動きます。' },
+      { icon: '🌙', name: '月', msg: '不安は敵ではありません。まだ言葉になっていない感覚として扱うほうが正解です。' },
+      { icon: '⭐', name: '星', msg: '理想を小さくしないこと。今日の一手に分ければ、夢は現実の作業になります。' },
+      { icon: '🗡️', name: '剣', msg: '曖昧な優しさより、明確な線引きが助けになる日です。' },
+      { icon: '🌸', name: '桜', msg: '今は焦って咲くより、整って咲くこと。準備に価値があります。' },
+      { icon: '👑', name: '王冠', msg: '主導権を戻す番。人任せのままだと、望む形にはなりません。' },
+      { icon: '🪞', name: '鏡', msg: '課題は能力不足ではなく、自己認識の甘さかもしれません。見直しは有効です。' },
+      { icon: '🕯️', name: '灯', msg: '静かな時間に答えが出やすい日。騒がしさから一歩離れると見えます。' },
+      { icon: '💎', name: '宝石', msg: 'すでに持っている強みを軽く見ないこと。使って初めて価値が届きます。' },
+      { icon: '🪽', name: '翼', msg: '場所を変える、小さく移動する、それだけで運が切り替わります。' }
     ];
 
-    tarotDeck.forEach((card, idx) => {
+    tarotDeck.forEach((card) => {
       const btn = document.createElement('button');
+      btn.type = 'button';
       btn.className = 'tarot-card';
-      btn.innerHTML = `<span>${card.icon}</span>`;
-      btn.title = `${idx + 1}: ${card.name}`;
-      btn.addEventListener('click', (e) => {
-        spawnParticles(e.currentTarget, 14);
+      btn.innerHTML = `<span aria-hidden="true">${card.icon}</span>`;
+      btn.setAttribute('aria-label', card.name);
+      btn.title = card.name;
+      const chooseCard = () => {
+        spawnParticles(btn, 14);
         fortuneOutput.textContent = `【${card.name}】\n${card.msg}`;
         renderNode('fortune');
-      });
+      };
+      btn.addEventListener('click', chooseCard);
+      btn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        chooseCard();
+      }, { passive: false });
       fortuneGrid.appendChild(btn);
     });
 
@@ -1126,12 +1391,84 @@
         return;
       }
       const stories = [
-        `ある夜、${theme}を胸にした旅人は、光る階段の前で立ち止まりました。\n上るたびに不安は少しずつ形を失い、代わりに「今できる一歩」だけがはっきり見えるようになりました。\n旅人は完璧な答えではなく、次の一段を選びました。その瞬間、未来は静かに動き始めました。`,
-        `小さな王国に、${theme}で迷う案内人がいました。\n案内人は遠くを見るのをやめ、今日守るべき約束を一つだけ決めました。\nすると城の灯りがひとつずつ戻り、人々はその背中を見て安心しました。強さは、大きな声ではなく、決めたことを続ける姿に宿っていました。`,
-        `月明かりの庭で、${theme}を抱えた人が一輪の花を見つけました。\nその花は「急がなくていい。でも、見ないふりはやめて」とだけ言いました。\n人は花をポケットにしまい、帰り道に最初の連絡を一本送りました。魔法みたいに見えた変化は、実はその小さな行動から始まっていました。`
+        `月夜の庭で、${theme}を胸にした旅人は、小さな灯籠をひとつ受け取りました。\nその灯りは遠くを照らさず、ただ次の一歩だけを静かに照らしました。\n旅人は完璧な答えではなく、今踏める石だけを選びました。すると気づかぬうちに、道そのものが旅人の足元から現れ始めました。`,
+        `薄紅の花が舞う宮で、${theme}に迷う姫が立ち尽くしていました。\n姫は未来を占うのをやめ、今日守る約束を一つだけ選びました。\nすると止まっていた風が戻り、閉じていた障子が少しだけ開きました。運命を変えたのは大きな魔法ではなく、ためらいを一つ減らしたことでした。`,
+        `夜明け前、${theme}を抱えた人は静かな川辺に座っていました。\n水面は「急がなくていい。でも見ないふりはやめて」とだけ映しました。\nその人は帰り道に、先延ばしにしていた一通の連絡を送りました。世界は何も叫ばなかったけれど、その瞬間から確かに向きが変わりました。`
       ];
       storyOutput.textContent = stories[Math.floor(Math.random() * stories.length)];
       renderNode('story');
+    });
+
+    const advicePool = [
+      {
+        who: 'エピクテトス',
+        quote: '「人を動揺させるのは出来事そのものではなく、それについての受け取り方である」※意訳',
+        tags: ['不安', '心配', '焦り', 'つらい', 'しんどい', '感情', '落ち込む'],
+        advice: 'まず事実と解釈を分けてください。起きたこと、まだ起きていない想像、自分が足している意味づけ。この3つを混ぜると苦しさが増えます。'
+      },
+      {
+        who: 'マルクス・アウレリウス',
+        quote: '「行く手をふさぐものが、かえって道になる」※意訳',
+        tags: ['壁', '障害', 'うまくいかない', '詰まる', '停滞'],
+        advice: '障害を排除することばかり考えず、その制約の中で何を学べるかに視点をずらしてください。止まる理由が、そのまま設計条件になります。'
+      },
+      {
+        who: '孔子',
+        quote: '「過ちて改めざる、是を過ちという」',
+        tags: ['失敗', 'ミス', '後悔', 'やらかした'],
+        advice: '失敗そのものより、修正を先延ばしにすることのほうが損失です。面子を守るより、手直しを早くしたほうが信頼は残ります。'
+      },
+      {
+        who: 'ソクラテス',
+        quote: '「吟味されない生は、生きるに値しない」※短訳',
+        tags: ['意味', '人生', '迷い', '自分', '本音', '何をしたい'],
+        advice: '今の悩みが大きいのは、答えがないからではなく、問いが曖昧だからです。何に困っているのかを一段深く言い直してください。'
+      },
+      {
+        who: 'セネカ',
+        quote: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳',
+        tags: ['挑戦', '怖い', '先延ばし', '勇気', 'やる気'],
+        advice: '不安が消えるのを待つやり方は非効率です。難易度を下げて着手し、着手してから自信を回収するほうが現実的です。'
+      },
+      {
+        who: '老子',
+        quote: '「千里の道も一歩から」',
+        tags: ['大変', '多すぎる', 'どこから', '優先順位', '進まない'],
+        advice: '今必要なのは全体制圧ではなく、最初の一歩の定義です。今日中に終わるサイズまで切ってください。大きい目標のままでは動けません。'
+      },
+      {
+        who: 'ニーチェ',
+        quote: '「なぜ生きるかを知る者は、ほとんどどんなことにも耐える」※意訳',
+        tags: ['目的', '意味', '耐える', 'しんどい', '続かない'],
+        advice: '方法論の前に、なぜそれをやるのかを言語化してください。目的が弱いと、戦術をいくら足しても続きません。'
+      },
+      {
+        who: 'ブッダ',
+        quote: '「執着が苦しみを生む」※要約',
+        tags: ['執着', '手放せない', '比較', '嫉妬', 'こだわり'],
+        advice: '勝ちたい気持ちそのものではなく、こうでなければならないという固さが苦しさを増やしています。条件を少し緩めると選択肢が増えます。'
+      }
+    ];
+
+    adviceBtn.addEventListener('click', () => {
+      const input = adviceInput.value.trim();
+      if (!input) {
+        adviceOutput.textContent = '悩みをひとつ書いてください。';
+        return;
+      }
+
+      let best = advicePool[0];
+      let bestScore = -1;
+      advicePool.forEach(item => {
+        const score = item.tags.reduce((acc, tag) => acc + (input.includes(tag) ? 1 : 0), 0);
+        if (score > bestScore) {
+          best = item;
+          bestScore = score;
+        }
+      });
+
+      adviceOutput.textContent = `【${best.who}】\n${best.quote}\n\nひとこと助言：\n${best.advice}`;
+      renderNode('wisdom');
     });
 
     const hour = new Date().getHours();
@@ -1161,7 +1498,7 @@
     function scheduleGamelanLikeLoop() {
       if (!audioCtx || !bgmOn) return;
       const now = audioCtx.currentTime + 0.05;
-      const scale = [293.66, 329.63, 392.00, 440.00, 587.33];
+      const scale = [293.66, 329.63, 392.0, 440.0, 587.33];
       const pattern = [0, 2, 1, 3, 2, 4, 3, 1];
       const spacing = 0.42;
       pattern.forEach((noteIdx, i) => {
