@@ -1,6 +1,3 @@
-これを index.html にそのまま丸ごと貼って。
-画像ファイルなしで動く版にしてある。
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -479,12 +476,12 @@
           <div class="eyebrow">KOBUBU</div>
           <h1>こぶぶのお気軽トーク</h1>
           <p class="lead">
-            一問一答で進んで、答えるたびに短い名言をひとつ挟みます。
-            最後は22枚のタロットから、自分で気になる絵柄を1枚選べます。
+            一問一答で進み、答えるたびに短い名言をひとつ添えます。
+            最後は22枚のタロットから、気になる絵柄を1枚選べます。
           </p>
           <div class="toolbar">
             <button class="chip primary" id="restartTopBtn">最初から</button>
-            <span class="chip" aria-hidden="true">画像ファイル不要</span>
+            <span class="chip" aria-hidden="true">画像なしで動作</span>
           </div>
         </div>
       </header>
@@ -495,14 +492,14 @@
             <div class="assistant-badge">こ</div>
             <div class="assistant-meta">
               <div class="assistant-name">こぶぶ</div>
-              <div class="assistant-note">短い名言を挟みながら返します</div>
+              <div class="assistant-note">短い名言を添えながらお話しします</div>
             </div>
           </div>
 
-          <div class="bubble" id="messageBox">ねえ、今日はどんな感じ？</div>
+          <div class="bubble" id="messageBox">ねえ、今日はどんな気分？</div>
 
           <div class="quote hidden" id="quoteBox">
-            <div class="quote-kicker">KOBUBU'S ONE LINE</div>
+            <div class="quote-kicker">こぶぶのひとこと</div>
             <div class="quote-text" id="quoteText"></div>
             <div class="quote-meta" id="quoteMeta"></div>
           </div>
@@ -514,14 +511,14 @@
 
         <section class="panel hidden" id="tarotScreen">
           <h2 class="section-title">最後に1枚だけ</h2>
-          <p class="section-sub">気になる絵柄を自分で選んでください。</p>
+          <p class="section-sub">気になる絵柄を、自分で選んでください。</p>
           <div class="tarot-grid" id="tarotGrid"></div>
           <div class="result-card" id="tarotNote">どれか1枚、気になるカードを選んでください。</div>
         </section>
 
         <section class="panel hidden" id="summaryScreen">
-          <h2 class="section-title">こぶぶからの総括</h2>
-          <p class="section-sub">会話とタロットをふまえて、短くまとめます。</p>
+          <h2 class="section-title">こぶぶからのまとめ</h2>
+          <p class="section-sub">会話とタロットをもとに、最後に短くまとめます。</p>
           <div class="result-card" id="summaryText"></div>
           <div class="summary-actions">
             <button class="restart-btn" id="restartBtn">最初から話す</button>
@@ -649,23 +646,23 @@
     const STEPS = [
       {
         id: 'mood',
-        prompt: '今日はどんな感じ？',
+        prompt: '今日はどんな気分？',
         options: [
           { id: 'tired', label: 'ちょっと疲れてる' },
           { id: 'swirl', label: '焦って空回りしてる' },
-          { id: 'tidy', label: '前向きに整えたい' },
+          { id: 'tidy', label: '気持ちを整えたい' },
           { id: 'talk', label: 'なんとなく話したい' }
         ],
         replies: {
-          tired: 'そっか。今日は回復が先に来てる感じだね。無理に元気にしなくて大丈夫。',
-          swirl: 'それはしんどい。急いでいるのに進んでいる感じがない時は、気持ちだけが削られやすい。',
-          tidy: 'いいね。雑に頑張るより、きれいに進みたい感覚なんだね。',
-          talk: 'もちろん。理由がはっきりしてなくても大丈夫。話しているうちに輪郭は出てくる。'
+          tired: 'そっか。今日はまず休みたい気分なんだね。無理に元気を出さなくて大丈夫。',
+          swirl: 'それはしんどいね。急いでいるのに進んでいる感じがないと、気持ちだけが削られやすい。',
+          tidy: 'いいね。やみくもに頑張るより、まず整えたい感じなんだね。',
+          talk: 'もちろん。理由がはっきりしていなくても大丈夫。話しているうちに見えてくることも多いよ。'
         }
       },
       {
         id: 'burden',
-        prompt: '今いちばん引っかかってるのは？',
+        prompt: 'いちばん引っかかっているのはどれ？',
         options: [
           { id: 'priority', label: '優先順位がぐちゃぐちゃ' },
           { id: 'heavy', label: '気持ちが重い' },
@@ -673,26 +670,26 @@
           { id: 'self', label: '自分に自信が持てない' }
         ],
         replies: {
-          priority: 'やることの量より、順番がぶつかってる感じだね。',
-          heavy: '心そのものが重い時は、理屈より先に感触がくる。',
-          people: '人の言葉や空気が強めに入ってきてるんだね。',
-          self: '自分に向ける目が少し厳しくなってるのかもしれない。'
+          priority: 'やることの量より、順番がうまく整理できていない感じだね。',
+          heavy: '気持ちそのものが重たくなっているんだね。そういう時は、理屈より先にしんどさが来る。',
+          people: '人の言葉や反応が、いつもより強く気になっているんだね。',
+          self: '自分に向ける目が、少し厳しくなっているのかもしれないね。'
         }
       },
       {
         id: 'wish',
-        prompt: 'ほんとは、どうなれたら少し楽？',
+        prompt: '本当は、どうなれたら少し楽？',
         options: [
           { id: 'calm', label: '落ち着きたい' },
           { id: 'decide', label: 'はっきり決めたい' },
-          { id: 'confidence', label: '自信を戻したい' },
+          { id: 'confidence', label: '自信を取り戻したい' },
           { id: 'forward', label: 'やさしく前に進みたい' }
         ],
         replies: {
-          calm: 'うん。まず必要なのは勢いより静けさなんだね。',
-          decide: '迷いの霧を少し払いたいんだね。決めきれない状態は地味に消耗する。',
-          confidence: '自分をもう一度ちゃんと信じたい気持ちがあるんだね。',
-          forward: '強引じゃなくて、やさしく前へ。今の温度にはその進み方が合ってる。'
+          calm: 'うん。今ほしいのは勢いより、まず落ち着きなんだね。',
+          decide: '迷いを少し晴らしたいんだね。決めきれない状態は、それだけで消耗する。',
+          confidence: '自分をもう一度信じたい気持ちがあるんだね。それは大事な感覚だよ。',
+          forward: '無理に強く進むより、穏やかに前へ進みたいんだね。今の自分にはその進み方が合っていそう。'
         }
       },
       {
@@ -700,54 +697,54 @@
         prompt: '今日は、どんなふうに返してほしい？',
         options: [
           { id: 'gentle', label: 'やさしく返してほしい' },
-          { id: 'sharp', label: '少し鋭く言ってほしい' },
-          { id: 'quote', label: '名言多めでほしい' },
-          { id: 'watch', label: '時計の話でほぐして' }
+          { id: 'sharp', label: '少し厳しめに言ってほしい' },
+          { id: 'quote', label: '名言を多めに入れてほしい' },
+          { id: 'watch', label: '時計の話で少し和みたい' }
         ],
         replies: {
-          gentle: 'わかった。今日は角を立てずに、でも曖昧にしすぎず返すね。',
-          sharp: '了解。少しだけ本音で言うと、今の苦しさの一部は「決めないまま抱えすぎてること」かもしれない。',
-          quote: 'いいね。言葉をひとつずつ挟みながら進めよう。',
-          watch: '了解。時計みたいに、一気じゃなく少しずつ整える感じでいこう。'
+          gentle: 'わかった。今日はやわらかく、でも曖昧にしすぎずに返すね。',
+          sharp: '了解。少し率直に言うと、今つらい理由の一つは、決めきれないまま抱え込みすぎていることかもしれない。',
+          quote: 'いいね。言葉をひとつずつ添えながら進めよう。',
+          watch: '了解。時計みたいに、一気に整えようとせず、少しずつ落ち着かせていこう。'
         }
       },
       {
         id: 'action',
         prompt: '今の自分に渡すなら、次の一手はどれ？',
         options: [
-          { id: 'ten', label: '10分だけ着手する' },
+          { id: 'ten', label: '10分だけ手をつける' },
           { id: 'message', label: '1本だけ連絡する' },
           { id: 'stop', label: 'やらないことを決める' },
           { id: 'rest', label: '今日は少し休む' }
         ],
         replies: {
-          ten: 'いい選択。10分は小さく見えて、実際はかなり強い。',
-          message: 'その1本で流れが変わることは多い。小さいけど強い一手だよ。',
-          stop: 'やらないことを決めるのは守りじゃない。かなり賢い整理。',
-          rest: '休むは後退じゃない。戻るための整備だよ。'
+          ten: 'いい選び方だね。10分は小さく見えて、実はかなり強い一歩だよ。',
+          message: 'その1本で流れが変わることは多い。小さいけれど、効く一手だよ。',
+          stop: 'やらないことを決めるのは逃げじゃない。かなり賢いやり方だよ。',
+          rest: '休むのは後退じゃない。立て直すための大事な時間だよ。'
         }
       }
     ];
 
     const QUOTES = {
       tired: [
-        { who: 'セネカ', text: '難しいから挑まないのではない。挑まないから難しい。', note: '今日は挑む前に、少し回復してもいい。' },
+        { who: 'セネカ', text: '難しいから挑まないのではない。挑まないから難しい。', note: '今日は挑む前に、少し休んでもいい。' },
         { who: '老子', text: '千里の道も一歩から。', note: '今日はその一歩を小さくしていい。' }
       ],
       swirl: [
-        { who: 'マルクス・アウレリウス', text: '行く手をふさぐものが、かえって道になる。', note: '混乱は、削るべきものを教えてくれる。' },
-        { who: 'ドラッカー', text: '成果を上げる者は、まずやらないことを決める。', note: '空回りの時ほど、足すより減らす。' }
+        { who: 'マルクス・アウレリウス', text: '行く手をふさぐものが、かえって道になる。', note: '混乱は、何を減らすべきかを教えてくれる。' },
+        { who: 'ドラッカー', text: '成果を上げる者は、まずやらないことを決める。', note: '空回りしている時ほど、足すより減らす。' }
       ],
       tidy: [
         { who: '渋沢栄一', text: '順序を立てて事を行うことが大切である。', note: '速さより順番が効く時がある。' },
-        { who: 'ドラッカー', text: '効率より先に、正しいことをする。', note: '向きが合うと、後の速さが変わる。' }
+        { who: 'ドラッカー', text: '効率より先に、正しいことをする。', note: '向きが合うと、その後が進みやすくなる。' }
       ],
       talk: [
         { who: 'ソクラテス', text: '問いを立てることが、考えることの始まりである。', note: 'うまく言えなくても、話すこと自体に意味がある。' },
-        { who: 'モンテーニュ', text: '私は自分を語ることで、自分を知る。', note: '言語化の途中でも進んでいる。' }
+        { who: 'モンテーニュ', text: '私は自分を語ることで、自分を知る。', note: '言葉にする途中でも、前に進んでいる。' }
       ],
       priority: [
-        { who: 'ドラッカー', text: '最優先事項は、ほかのことをしないことだ。', note: '順番の整理が先。' }
+        { who: 'ドラッカー', text: '最優先事項は、ほかのことをしないことだ。', note: 'まず順番を整える。' }
       ],
       heavy: [
         { who: 'フランクル', text: '人生があなたに問いかけている。', note: '答えを急ぎすぎなくていい。' }
@@ -756,28 +753,28 @@
         { who: 'エレノア・ルーズベルト', text: 'あなたの同意なしに、誰もあなたを傷つけられない。', note: '少し距離を取るのも立派な判断。' }
       ],
       self: [
-        { who: 'ニーチェ', text: '自分自身になれ。', note: '他人の基準で裁きすぎないこと。' }
+        { who: 'ニーチェ', text: '自分自身になれ。', note: '他人の基準で自分を責めすぎないこと。' }
       ],
       calm: [
-        { who: 'パスカル', text: '人間の不幸は、静かに部屋にいられないことから始まる。', note: 'まず静けさを作る。' }
+        { who: 'パスカル', text: '人間の不幸は、静かに部屋にいられないことから始まる。', note: 'まず静けさを取り戻す。' }
       ],
       decide: [
         { who: 'サン＝テグジュペリ', text: '完璧とは、削るものがない状態だ。', note: '決める時は、足すより絞る。' }
       ],
       confidence: [
-        { who: 'エマーソン', text: '自分を信じること、それが成功の第一歩だ。', note: '自信は待つものではなく、戻すもの。' }
+        { who: 'エマーソン', text: '自分を信じること、それが成功の第一歩だ。', note: '自信は待つものではなく、少しずつ取り戻すもの。' }
       ],
       forward: [
-        { who: 'ゲーテ', text: '知っているだけでは足りない。行わなければならない。', note: '今日はやさしく行えば十分。' }
+        { who: 'ゲーテ', text: '知っているだけでは足りない。行わなければならない。', note: '今日は、やさしく進めば十分。' }
       ],
       gentle: [
-        { who: 'マヤ・アンジェロウ', text: '人は、どう感じさせたかを覚えている。', note: '今日は呼吸できる言葉で進む。' }
+        { who: 'マヤ・アンジェロウ', text: '人は、どう感じさせたかを覚えている。', note: '今日は、呼吸しやすい言葉で進む。' }
       ],
       sharp: [
-        { who: '本田宗一郎', text: '失敗を恐れるより、何もしないことを恐れろ。', note: '止まり続ける代償は地味に大きい。' }
+        { who: '本田宗一郎', text: '失敗を恐れるより、何もしないことを恐れろ。', note: '止まり続ける代償は、思ったより大きい。' }
       ],
       quote: [
-        { who: 'サマセット・モーム', text: '習慣は第二の天性である。', note: '小さい繰り返しが流れを変える。' }
+        { who: 'サマセット・モーム', text: '習慣は第二の天性である。', note: '小さな積み重ねが流れを変える。' }
       ],
       watch: [
         { who: 'WATCH NOTE', text: '機械式時計は、少しずつほどけながら進む。', note: '人も一気に整わなくていい。' }
@@ -789,10 +786,10 @@
         { who: '松下幸之助', text: '道は無限にある。', note: '一本の連絡で道が開くことがある。' }
       ],
       stop: [
-        { who: 'ブルース・リー', text: '足すのではない。削るのだ。', note: '減らすのは守りではなく設計。' }
+        { who: 'ブルース・リー', text: '足すのではない。削るのだ。', note: '減らすことも大事な設計。' }
       ],
       rest: [
-        { who: 'アリストテレス', text: '休息は労働と同じく必要である。', note: '整備のない前進は続かない。' }
+        { who: 'アリストテレス', text: '休息は労働と同じく必要である。', note: '休むことも前に進む準備。' }
       ],
       default: [
         { who: 'こぶぶメモ', text: '急がなくていい時に急がないのも、立派な判断。', note: '今日は整える日にしていい。' }
@@ -808,19 +805,19 @@
       { roman:'V', en:'HIEROPHANT', jp:'法王', art:'📜', tag:'教え / 意味', bg:'linear-gradient(160deg,#f4ecff,#fff2dc,#e5f5ff)' },
       { roman:'VI', en:'LOVERS', jp:'恋人', art:'💞', tag:'選択 / 関係', bg:'linear-gradient(160deg,#ffe1ec,#fff0d8,#e9f0ff)' },
       { roman:'VII', en:'CHARIOT', jp:'戦車', art:'🛞', tag:'前進 / 推進', bg:'linear-gradient(160deg,#dfe9ff,#f3e4ff,#fff2dc)' },
-      { roman:'VIII', en:'STRENGTH', jp:'力', art:'🦁', tag:'しなやかさ / 内圧', bg:'linear-gradient(160deg,#ffe9d8,#fff0e9,#efe6ff)' },
+      { roman:'VIII', en:'STRENGTH', jp:'力', art:'🦁', tag:'しなやかさ / 内なる力', bg:'linear-gradient(160deg,#ffe9d8,#fff0e9,#efe6ff)' },
       { roman:'IX', en:'HERMIT', jp:'隠者', art:'🕯️', tag:'内省 / 距離', bg:'linear-gradient(160deg,#eef1ff,#f7ebff,#fff4e4)' },
-      { roman:'X', en:'WHEEL', jp:'運命の輪', art:'🜁', tag:'転換 / 流れ', bg:'linear-gradient(160deg,#fff0d8,#e6efff,#f6e7ff)' },
+      { roman:'X', en:'WHEEL', jp:'運命の輪', art:'🜁', tag:'転機 / 流れ', bg:'linear-gradient(160deg,#fff0d8,#e6efff,#f6e7ff)' },
       { roman:'XI', en:'JUSTICE', jp:'正義', art:'⚖️', tag:'均衡 / 判断', bg:'linear-gradient(160deg,#e6f3ff,#efe8ff,#fff1dd)' },
       { roman:'XII', en:'HANGED MAN', jp:'吊るされた男', art:'🔻', tag:'保留 / 見直し', bg:'linear-gradient(160deg,#eae6ff,#fef1ff,#e8f6ff)' },
-      { roman:'XIII', en:'DEATH', jp:'死神', art:'🖤', tag:'終わり / 切替', bg:'linear-gradient(160deg,#e3e2ef,#f1e8ff,#fff2df)' },
-      { roman:'XIV', en:'TEMPERANCE', jp:'節制', art:'🕊️', tag:'調和 / 混ぜる', bg:'linear-gradient(160deg,#def7ef,#e6ecff,#fff1df)' },
+      { roman:'XIII', en:'DEATH', jp:'死神', art:'🖤', tag:'終わり / 切り替え', bg:'linear-gradient(160deg,#e3e2ef,#f1e8ff,#fff2df)' },
+      { roman:'XIV', en:'TEMPERANCE', jp:'節制', art:'🕊️', tag:'調和 / バランス', bg:'linear-gradient(160deg,#def7ef,#e6ecff,#fff1df)' },
       { roman:'XV', en:'DEVIL', jp:'悪魔', art:'⛓️', tag:'執着 / 束縛', bg:'linear-gradient(160deg,#f2e1ff,#ffe7ea,#fff0db)' },
       { roman:'XVI', en:'TOWER', jp:'塔', art:'⚡', tag:'崩壊 / 目覚め', bg:'linear-gradient(160deg,#e7ecff,#ffe7d8,#f5e7ff)' },
       { roman:'XVII', en:'STAR', jp:'星', art:'⭐', tag:'希望 / 透明感', bg:'linear-gradient(160deg,#dff6ff,#e9ebff,#fff0dc)' },
-      { roman:'XVIII', en:'MOON', jp:'月', art:'🌘', tag:'曖昧 / 感受', bg:'linear-gradient(160deg,#e7e3ff,#eef7ff,#fff2ea)' },
+      { roman:'XVIII', en:'MOON', jp:'月', art:'🌘', tag:'曖昧さ / 感受性', bg:'linear-gradient(160deg,#e7e3ff,#eef7ff,#fff2ea)' },
       { roman:'XIX', en:'SUN', jp:'太陽', art:'☀️', tag:'明るさ / 解放', bg:'linear-gradient(160deg,#fff0c7,#ffe9db,#e2f5ff)' },
-      { roman:'XX', en:'JUDGEMENT', jp:'審判', art:'📯', tag:'再起 / 呼び声', bg:'linear-gradient(160deg,#e7f6ff,#f1e6ff,#fff1dc)' },
+      { roman:'XX', en:'JUDGEMENT', jp:'審判', art:'📯', tag:'再起 / 呼びかけ', bg:'linear-gradient(160deg,#e7f6ff,#f1e6ff,#fff1dc)' },
       { roman:'XXI', en:'WORLD', jp:'世界', art:'🌍', tag:'完成 / 統合', bg:'linear-gradient(160deg,#e3f7ef,#e8ebff,#fff1de)' }
     ];
 
@@ -877,7 +874,7 @@
       const q = quoteFor(opt.id);
 
       quoteText.textContent = `「${q.text}」`;
-      quoteMeta.textContent = `${q.who} — ${q.note}`;
+      quoteMeta.textContent = `${q.who}｜${q.note}`;
       quoteBox.classList.remove('hidden');
 
       disableOptions(true);
@@ -926,7 +923,7 @@
       btn.classList.add('active');
 
       tarotNote.textContent =
-        `【${card.jp} / ${card.en}】\n${card.tag}\n\nこのカードで確定しました。`;
+        `【${card.jp} / ${card.en}】\n${card.tag}\n\nこのカードで決定しました。`;
 
       setTimeout(() => {
         summaryText.textContent = buildSummary();
@@ -937,32 +934,34 @@
     function buildSummary() {
       const mood = state.answers.mood?.label || '今の気分';
       const burden = state.answers.burden?.label || '引っかかり';
-      const wish = state.answers.wish?.label || '望む方向';
-      const support = state.answers.support?.label || 'ほしい返し';
+      const wish = state.answers.wish?.label || '望んでいること';
+      const support = state.answers.support?.label || 'ほしい言葉';
       const action = state.answers.action?.label || '次の一手';
       const tarot = state.tarot || { jp:'未選択', tag:'未選択' };
       const closing = quoteFor(state.answers.action?.id || 'default');
 
-      return `今回のこぶぶのまとめ。
+      return `今回のまとめ。
 
-入口は「${mood}」。
-そこから見えてきたのは「${burden}」という負荷で、ほんとは「${wish}」へ近づきたい気持ちがある。
+最初に見えていたのは「${mood}」という気分。
+その奥には「${burden}」という負担があって、
+本当は「${wish}」に近づきたい気持ちがある。
 
-今日は「${support}」という温度を求めていた。
-つまり、ただ答えがほしいだけじゃなく、今の自分に合う強さで整理したかったということ。
+今日は「${support}」という温度の言葉を求めていた。
+つまり、ただ答えがほしいだけではなく、
+今の自分に合う形で整理したかったということ。
 
-現実の一手としては「${action}」が合っている。
-大きく変えるより、まず小さく整えるほうが今の流れに合う。
+次の一手としては「${action}」が合っている。
+大きく変えるより、まず小さく整えるほうが今の流れに合っている。
 
 最後に選んだ「${tarot.jp}」は、「${tarot.tag}」のサイン。
 今のあなたには、その感覚を少し取り戻すことが必要そう。
 
 最後にもう一言。
-${closing.who} — 「${closing.text}」
+${closing.who}｜「${closing.text}」
 ${closing.note}
 
-だから今日は、勢いで突破する日ではなく、
-余計なノイズを減らして次の一歩を軽くする日。
+今日は、勢いだけで乗り切る日ではなく、
+余計なものを減らして、次の一歩を軽くする日。
 全部を一度に解決しなくて大丈夫。ちゃんと前には進める。`;
     }
 
@@ -971,7 +970,7 @@ ${closing.note}
       state.answers = {};
       state.tarot = null;
 
-      messageBox.textContent = 'ねえ、今日はどんな感じ？';
+      messageBox.textContent = 'ねえ、今日はどんな気分？';
       quoteBox.classList.add('hidden');
       quoteText.textContent = '';
       quoteMeta.textContent = '';
@@ -989,8 +988,3 @@ ${closing.note}
   </script>
 </body>
 </html>
-
-前の問題点はかなり明確で、見せたくない説明文が残っていたことと、演出を盛りすぎて壊れやすくなっていたこと。
-今回はそこを切って、まず 動くこと を優先してある。
-
-次に直すなら、女性の見た目だけを差し替える版でやるのが正しい。
