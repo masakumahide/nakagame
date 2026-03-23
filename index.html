@@ -9,16 +9,14 @@
       --bg-a: #fffafc;
       --bg-b: #f5efff;
       --bg-c: #eef8ff;
-      --panel: rgba(255,255,255,0.84);
-      --panel-strong: rgba(255,255,255,0.94);
+      --panel: rgba(255,255,255,0.86);
+      --panel-strong: rgba(255,255,255,0.95);
       --line: rgba(120, 100, 180, 0.12);
       --text: #51456f;
       --muted: #8578a4;
       --pink: #ff9fcf;
-      --rose: #ff89b2;
       --lav: #bda8ff;
       --sky: #bfe7ff;
-      --mint: #b9efde;
       --gold: #ffd67f;
       --shadow: 0 16px 34px rgba(124, 103, 170, 0.14);
       --shadow-soft: 0 10px 24px rgba(124, 103, 170, 0.09);
@@ -79,7 +77,7 @@
     }
 
     .shell {
-      width: min(980px, calc(100vw - 12px));
+      width: min(820px, calc(100vw - 10px));
       margin: 0 auto;
       min-height: 100vh;
       padding: 10px 0 20px;
@@ -118,9 +116,9 @@
     }
 
     .mini-face {
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
       background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(247,242,255,0.85));
       border: 1px solid rgba(255,255,255,0.92);
       box-shadow: var(--shadow-soft);
@@ -130,12 +128,8 @@
     }
 
     .mini-face span {
-      font-size: 26px;
+      font-size: 24px;
       filter: drop-shadow(0 2px 4px rgba(120,100,180,0.16));
-    }
-
-    .brand-text {
-      min-width: 0;
     }
 
     .title {
@@ -164,7 +158,6 @@
     .primary,
     .choice-btn,
     .ghost-btn,
-    .mini-btn,
     .send-btn,
     .card-btn {
       appearance: none;
@@ -195,7 +188,6 @@
     .primary,
     .choice-btn,
     .ghost-btn,
-    .mini-btn,
     .send-btn,
     .card-btn {
       cursor: pointer;
@@ -206,7 +198,6 @@
     .primary:hover,
     .choice-btn:hover,
     .ghost-btn:hover,
-    .mini-btn:hover,
     .send-btn:hover,
     .card-btn:hover { transform: translateY(-1px); border-color: rgba(120,100,180,0.22); }
 
@@ -214,7 +205,6 @@
     .primary:active,
     .choice-btn:active,
     .ghost-btn:active,
-    .mini-btn:active,
     .send-btn:active,
     .card-btn:active { transform: translateY(1px) scale(0.99); }
 
@@ -284,26 +274,15 @@
       border-color: rgba(120,210,175,0.18);
     }
 
-    .body {
-      min-height: 760px;
-      display: grid;
-      grid-template-columns: 210px 1fr;
-      gap: 0;
-    }
-
-    .sidebar {
+    .main {
       padding: 16px;
-      border-right: 1px solid rgba(120,100,180,0.08);
-      background: linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0.12));
       display: grid;
-      grid-template-rows: auto auto 1fr;
+      grid-template-rows: 1fr auto;
       gap: 12px;
+      min-height: 760px;
     }
 
-    .face-card,
-    .hint-card,
-    .status-card,
-    .screen,
+    .chat-screen,
     .summary-screen,
     .finale-screen,
     .input-card {
@@ -313,103 +292,21 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .face-card {
-      padding: 14px;
-      display: grid;
-      justify-items: center;
-      gap: 12px;
-      text-align: center;
-      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.76));
-    }
-
-    .pixel-wrap {
-      width: 180px;
-      height: 180px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(180deg, #fff, #f7f1ff);
-      border: 1px solid rgba(255,255,255,0.92);
-      box-shadow: var(--shadow);
-      cursor: pointer;
-      image-rendering: pixelated;
-    }
-
-    .pixel-face {
-      width: 180px;
-      height: 180px;
-      display: grid;
-      grid-template-columns: repeat(18, 1fr);
-      grid-template-rows: repeat(18, 1fr);
-      padding: 10px;
-      gap: 0;
-    }
-
-    .px {
-      width: 100%;
-      height: 100%;
-    }
-
-    .px.h { background: #6b528e; }
-    .px.s { background: #ffd8c5; }
-    .px.e { background: #5a406c; }
-    .px.p { background: #ffb4c9; }
-    .px.m { background: #ca7094; }
-    .px.g { background: #ffd67f; }
-    .px.f { background: #ff8fb8; }
-    .px.w { background: #ffffff; }
-
-    .avatar-bubble,
-    .hint-body,
-    .status-body,
-    .summary-body,
-    .final-body {
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(120,100,180,0.08);
-      line-height: 1.65;
-      font-size: 13px;
-      color: var(--text);
-    }
-
-    .hint-card,
-    .status-card {
-      padding: 14px;
-    }
-
-    .small-title {
-      font-size: 13px;
-      font-weight: 900;
-      color: #6a4c87;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-
-    .main {
-      padding: 16px;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      gap: 12px;
-    }
-
-    .screen,
+    .chat-screen,
     .summary-screen,
     .finale-screen {
       padding: 14px;
       min-height: 520px;
     }
 
-    .screen[hidden],
+    .chat-screen[hidden],
     .summary-screen[hidden],
     .finale-screen[hidden],
     .input-card[hidden] {
       display: none;
     }
 
-    .chat-head,
-    .summary-head,
-    .finale-head {
+    .screen-head {
       display: flex;
       justify-content: space-between;
       gap: 10px;
@@ -434,8 +331,8 @@
     .chat-log {
       display: grid;
       gap: 10px;
-      min-height: 320px;
-      max-height: 430px;
+      min-height: 340px;
+      max-height: 460px;
       overflow: auto;
       padding-right: 4px;
       scroll-behavior: smooth;
@@ -480,30 +377,37 @@
       gap: 10px;
     }
 
+    .typing-box,
     .question-box,
-    .typing-box {
+    .summary-body,
+    .final-body {
       padding: 12px 14px;
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78));
       border: 1px solid rgba(120,100,180,0.08);
       color: #5c4c76;
-      font-size: 15px;
-      line-height: 1.65;
       box-shadow: var(--shadow-soft);
+    }
+
+    .question-box,
+    .summary-body,
+    .final-body {
+      font-size: 15px;
+      line-height: 1.7;
+      white-space: pre-wrap;
     }
 
     .typing-box {
       display: none;
-      color: #8a7ba6;
       font-size: 14px;
+      color: #8a7ba6;
     }
 
     .typing-box.show { display: block; }
 
     .choice-grid,
     .utility-row,
-    .summary-actions,
-    .final-actions {
+    .summary-actions {
       display: grid;
       gap: 10px;
     }
@@ -523,14 +427,26 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .ghost-btn,
-    .mini-btn {
+    .ghost-btn {
       font-size: 12px;
       color: #5d4c77;
     }
 
+    .summary-actions {
+      margin-top: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .input-card {
       padding: 14px;
+    }
+
+    .input-title {
+      font-size: 13px;
+      font-weight: 900;
+      color: #6a4c87;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
     }
 
     .input-card textarea {
@@ -559,13 +475,6 @@
     .hint-text {
       font-size: 12px;
       color: var(--muted);
-    }
-
-    .summary-body,
-    .final-body {
-      min-height: 180px;
-      white-space: pre-wrap;
-      font-size: 14px;
     }
 
     .card-grid {
@@ -625,29 +534,14 @@
       to { transform: translate(var(--dx), var(--dy)) scale(0.24); opacity: 0; }
     }
 
-    @media (max-width: 860px) {
-      .body { grid-template-columns: 1fr; }
-      .sidebar {
-        border-right: 0;
-        border-bottom: 1px solid rgba(120,100,180,0.08);
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        align-items: start;
-      }
-      .face-card { grid-column: 1 / -1; }
-      .status-card { grid-column: 1 / -1; }
-    }
-
     @media (max-width: 640px) {
       .shell { width: min(100vw - 8px, 100%); padding-top: 6px; }
-      .topbar, .sidebar, .main { padding-left: 10px; padding-right: 10px; }
+      .topbar, .main { padding-left: 10px; padding-right: 10px; }
       .step-row { gap: 6px; }
       .step-chip { font-size: 10px; padding: 7px 4px; }
-      .choice-grid { grid-template-columns: 1fr; }
-      .utility-row { grid-template-columns: 1fr; }
+      .choice-grid, .utility-row, .summary-actions { grid-template-columns: 1fr; }
       .card-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
       .msg-bubble { max-width: 88%; }
-      .sidebar { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -662,9 +556,9 @@
         <div class="top-row">
           <div class="brand">
             <div class="mini-face"><span>🫧</span></div>
-            <div class="brand-text">
+            <div>
               <div class="title">こぶぶのお気軽トーク</div>
-              <div class="subtitle">いま進めることだけを見せる、やわらかい悩み相談。会話を進めて、最後にタロットで締めます。</div>
+              <div class="subtitle">トークに集中するための、シンプルな悩み相談モード</div>
             </div>
           </div>
           <div class="meta">
@@ -683,81 +577,60 @@
         </div>
       </div>
 
-      <div class="body">
-        <aside class="sidebar">
-          <section class="face-card">
-            <div class="pixel-wrap" id="avatarWrap" title="タップでひとこと">
-              <div class="pixel-face" id="pixelFace"></div>
+      <div class="main">
+        <section class="chat-screen" id="chatScreen">
+          <div class="screen-head">
+            <div>
+              <h2 class="section-title">トーク</h2>
+              <div class="section-sub">いま必要な会話だけを表示します。返答中は次の操作を出しません。</div>
             </div>
-            <div class="avatar-bubble" id="avatarBubble">今できるものだけ見えるように、余計な要素はかなり消しています。</div>
-          </section>
+            <div class="pill" id="phasePill">STEP 1 / はじめに</div>
+          </div>
 
-          <section class="hint-card">
-            <div class="small-title">いま見えるもの</div>
-            <div class="hint-body" id="hintBody">最初は会話だけです。最後まで進むと、タロットが出ます。</div>
-          </section>
+          <div class="chat-log" id="chatLog"></div>
 
-          <section class="status-card">
-            <div class="small-title">こぶぶのひとこと</div>
-            <div class="status-body" id="statusBody">焦らなくて大丈夫。まずは一つずつ進めましょう。</div>
-          </section>
-        </aside>
+          <div class="action-area">
+            <div class="typing-box" id="typingBox">こぶぶが考え中…</div>
+            <div class="question-box" id="questionBox">今の気分にいちばん近いものを選んでください。</div>
+            <div class="choice-grid" id="choiceGrid"></div>
+            <div class="utility-row" id="utilityRow"></div>
+          </div>
+        </section>
 
-        <section class="main">
-          <section class="screen" id="chatScreen">
-            <div class="chat-head">
-              <div>
-                <h2 class="section-title">トーク</h2>
-                <div class="section-sub">会話はここに流れ続けます。返答中は次の選択肢を出さず、終わってからだけ操作できるようにしています。</div>
-              </div>
-              <div class="pill" id="phasePill">STEP 1 / はじめに</div>
+        <section class="summary-screen" id="summaryScreen" hidden>
+          <div class="screen-head">
+            <div>
+              <h2 class="section-title" id="summaryTitle">途中の総括</h2>
+              <div class="section-sub" id="summarySub">ここまでの会話をやわらかく整理します。</div>
             </div>
+            <div class="pill" id="summaryPill">中間まとめ</div>
+          </div>
+          <div class="summary-body" id="summaryBody">総括はここに表示されます。</div>
+          <div class="summary-actions" id="summaryActions"></div>
+        </section>
 
-            <div class="chat-log" id="chatLog"></div>
-
-            <div class="action-area">
-              <div class="typing-box" id="typingBox">こぶぶが考え中…</div>
-              <div class="question-box" id="questionBox">今の気分にいちばん近いものを選んでください。</div>
-              <div class="choice-grid" id="choiceGrid"></div>
-              <div class="utility-row" id="utilityRow"></div>
+        <section class="finale-screen" id="finaleScreen" hidden>
+          <div class="screen-head">
+            <div>
+              <h2 class="section-title">最後のタロット</h2>
+              <div class="section-sub">ここまでの会話を踏まえて、最後に1枚だけ選びます。選べるのは一度だけです。</div>
             </div>
-          </section>
+            <div class="pill">FINAL</div>
+          </div>
+          <div class="card-grid" id="cardGrid"></div>
+          <div class="final-body" id="finalBody">1枚選ぶと、そのまま総括画面へ進みます。</div>
+        </section>
 
-          <section class="summary-screen" id="summaryScreen" hidden>
-            <div class="summary-head">
-              <div>
-                <h2 class="section-title" id="summaryTitle">途中の総括</h2>
-                <div class="section-sub" id="summarySub">ここまでの会話をやわらかく整理します。</div>
-              </div>
-              <div class="pill" id="summaryPill">中間まとめ</div>
+        <section class="input-card" id="inputCard">
+          <div class="input-title">自由入力</div>
+          <textarea id="freeInput" placeholder="例：最近ずっと焦りがある / 頭では分かっているのに動けない / 少し励ましてほしい"></textarea>
+          <div class="input-actions">
+            <div class="hint-text" id="hintText">送れるのは今のターンが終わってからです。</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="send-btn" id="sendBtn">送る</button>
+              <button class="soft-btn" id="skipBtn">次へ進む</button>
             </div>
-            <div class="summary-body" id="summaryBody">総括はここに表示されます。</div>
-            <div class="summary-actions" id="summaryActions"></div>
-          </section>
-
-          <section class="finale-screen" id="finaleScreen" hidden>
-            <div class="finale-head">
-              <div>
-                <h2 class="section-title">最後のタロット</h2>
-                <div class="section-sub">ここまでの会話を踏まえて、最後に1枚だけ選びます。選べるのは一度だけです。</div>
-              </div>
-              <div class="pill">FINAL</div>
-            </div>
-            <div class="card-grid" id="cardGrid"></div>
-            <div class="final-body" id="finalBody">1枚選ぶと、そのまま総括画面へ進みます。</div>
-          </section>
-
-          <section class="input-card" id="inputCard">
-            <div class="small-title">自由入力</div>
-            <textarea id="freeInput" placeholder="例：最近ずっと焦りがある / 頭では分かっているのに動けない / 少し励ましてほしい"></textarea>
-            <div class="input-actions">
-              <div class="hint-text">送るのは今のターンが終わってからです。短くても大丈夫です。</div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button class="send-btn" id="sendBtn">送る</button>
-                <button class="soft-btn" id="skipBtn">次へ進む</button>
-              </div>
-            </div>
-          </section>
+          </div>
         </section>
       </div>
     </section>
@@ -793,12 +666,8 @@
     const summaryActions = document.getElementById('summaryActions');
     const cardGrid = document.getElementById('cardGrid');
     const finalBody = document.getElementById('finalBody');
-    const avatarWrap = document.getElementById('avatarWrap');
-    const avatarBubble = document.getElementById('avatarBubble');
-    const hintBody = document.getElementById('hintBody');
-    const statusBody = document.getElementById('statusBody');
     const bgmBtn = document.getElementById('bgmBtn');
-    const pixelFace = document.getElementById('pixelFace');
+    const hintText = document.getElementById('hintText');
 
     for (let i = 0; i < 64; i++) {
       const s = document.createElement('div');
@@ -820,133 +689,29 @@
       petals.appendChild(p);
     }
 
-    const pixelArt = [
-      '..................',
-      '......ggggg.......',
-      '.....ghhhhgg......',
-      '....hhhhhhhhhh....',
-      '...hhhfffffhhhh...',
-      '..hhhhhhhhhhhhhh..',
-      '..hhhsssssssshhh..',
-      '.hhhhsssssssshhhh.',
-      '.hhhssseessesshhh.',
-      '.hhhsssssssssshhh.',
-      '.hhhsspsssssp.shh.',
-      '.hhhssssmmsssshhh.',
-      '.hhhsssssssssshhh.',
-      '..hhhhsssssshhhh..',
-      '..hhhwwwwwwwwhhh..',
-      '...hhhhhhhhhhhh...',
-      '....hhhhhhhhhh....',
-      '..................'
-    ];
-
-    const colorMap = {
-      h: 'h', s: 's', e: 'e', p: 'p', m: 'm', g: 'g', f: 'f', w: 'w'
-    };
-
-    pixelArt.forEach(row => {
-      row.split('').forEach(ch => {
-        const px = document.createElement('div');
-        px.className = 'px';
-        if (colorMap[ch]) px.classList.add(colorMap[ch]);
-        pixelFace.appendChild(px);
-      });
-    });
-
     const steps = [
-      {
-        name: 'はじめに',
-        mode: '気分確認',
-        question: '今の気分にいちばん近いものを選んでください。',
-        replies: ['ちょっと疲れてる', '焦って空回り', '前向きに整えたい', 'なんとなく話したい']
-      },
-      {
-        name: '状況',
-        mode: '現状整理',
-        question: 'いま一番ひっかかっているのは、どのあたりですか？',
-        replies: ['優先順位が散ってる', '気持ちが重い', '人間関係が気になる', '自分の軸がぶれる']
-      },
-      {
-        name: '本音',
-        mode: '気持ち確認',
-        question: '本当は、どんな状態に近づきたいですか？',
-        replies: ['落ち着いて動きたい', 'はっきり決めたい', '自信を戻したい', 'やさしく前進したい']
-      },
-      {
-        name: '寄り道',
-        mode: 'ひと息',
-        question: '少し寄り道するなら、いま欲しいのはどれですか？',
-        replies: ['偉人の言葉がほしい', '腕時計の蘊蓄が聞きたい', 'やさしい助言がほしい', 'そのまま続けたい']
-      },
-      {
-        name: '一手',
-        mode: '行動決定',
-        question: '今日の自分に、ひとつだけ行動を渡すなら？',
-        replies: ['10分だけ着手する', '連絡を1本送る', 'やらないことを決める', '先に休む']
-      },
-      {
-        name: '締め前',
-        mode: 'まとめ',
-        question: '最後に、どんな温度感で会話を閉じたいですか？',
-        replies: ['やさしく終えたい', '背中を押してほしい', '静かに整えたい', '少し元気に締めたい']
-      }
+      { name: 'はじめに', mode: '気分確認', question: '今の気分にいちばん近いものを選んでください。', replies: ['ちょっと疲れてる', '焦って空回り', '前向きに整えたい', 'なんとなく話したい'] },
+      { name: '状況', mode: '現状整理', question: 'いま一番ひっかかっているのは、どのあたりですか？', replies: ['優先順位が散ってる', '気持ちが重い', '人間関係が気になる', '自分の軸がぶれる'] },
+      { name: '本音', mode: '気持ち確認', question: '本当は、どんな状態に近づきたいですか？', replies: ['落ち着いて動きたい', 'はっきり決めたい', '自信を戻したい', 'やさしく前進したい'] },
+      { name: '寄り道', mode: 'ひと息', question: '少し寄り道するなら、いま欲しいのはどれですか？', replies: ['偉人の言葉がほしい', '腕時計の蘊蓄が聞きたい', 'やさしい助言がほしい', 'そのまま続けたい'] },
+      { name: '一手', mode: '行動決定', question: '今日の自分に、ひとつだけ行動を渡すなら？', replies: ['10分だけ着手する', '連絡を1本送る', 'やらないことを決める', '先に休む'] },
+      { name: '締め前', mode: 'まとめ', question: '最後に、どんな温度感で会話を閉じたいですか？', replies: ['やさしく終えたい', '背中を押してほしい', '静かに整えたい', '少し元気に締めたい'] }
     ];
 
     const philosopherQuotes = [
-      {
-        who: 'エピクテトス',
-        line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳',
-        tip: 'まず事実と解釈を分けると、心のノイズが少し減ります。'
-      },
-      {
-        who: 'マルクス・アウレリウス',
-        line: '「行く手をふさぐものが、かえって道になる」※意訳',
-        tip: '障害を全部消すより、条件として扱うほうが前に進みやすいです。'
-      },
-      {
-        who: 'セネカ',
-        line: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳',
-        tip: '不安が消えるのを待つより、サイズを小さくして始めるほうが現実的です。'
-      },
-      {
-        who: '老子',
-        line: '「千里の道も一歩から」',
-        tip: '大きい悩みほど、今日中に終わる単位に切ると動けます。'
-      },
-      {
-        who: 'ソクラテス',
-        line: '「吟味されない生は、生きるに値しない」※短訳',
-        tip: '答えがぼやけるときは、問いの立て方を見直す価値があります。'
-      }
+      { who: 'エピクテトス', line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳', tip: 'まず事実と解釈を分けると、心のノイズが少し減ります。' },
+      { who: 'マルクス・アウレリウス', line: '「行く手をふさぐものが、かえって道になる」※意訳', tip: '障害を全部消すより、条件として扱うほうが前に進みやすいです。' },
+      { who: 'セネカ', line: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳', tip: '不安が消えるのを待つより、サイズを小さくして始めるほうが現実的です。' },
+      { who: '老子', line: '「千里の道も一歩から」', tip: '大きい悩みほど、今日中に終わる単位に切ると動けます。' },
+      { who: 'ソクラテス', line: '「吟味されない生は、生きるに値しない」※短訳', tip: '答えがぼやけるときは、問いの立て方を見直す価値があります。' }
     ];
 
     const watchTrivia = [
-      {
-        who: 'WATCH TRIVIA',
-        line: '機械式腕時計はゼンマイを動力にして、てんぷという調速機構で進みます。',
-        tip: '魅力は電子の正確さではなく、機械が動き続ける気配そのものです。'
-      },
-      {
-        who: 'WATCH TRIVIA',
-        line: 'クロノグラフは時間を測る追加機構で、三針より構造が複雑です。',
-        tip: '見た目の情報量が増えるので、道具感やメカ感が強く出ます。'
-      },
-      {
-        who: 'WATCH TRIVIA',
-        line: 'ダイバーズウォッチは回転ベゼルで経過時間を読む設計が代表的です。',
-        tip: '実用品としての理屈が、そのままデザインの魅力になっています。'
-      },
-      {
-        who: 'WATCH TRIVIA',
-        line: 'ケース径だけでなく、ラグ・トゥ・ラグの長さで装着感は大きく変わります。',
-        tip: '数字だけではなく、腕にどう収まるかを見るのが本質です。'
-      },
-      {
-        who: 'WATCH TRIVIA',
-        line: 'サファイアクリスタルは硬度が高く、日常の擦り傷に強い素材です。',
-        tip: '透明感と実用性を両立しやすいのが人気の理由の一つです。'
-      }
+      { who: 'WATCH TRIVIA', line: '機械式腕時計はゼンマイを動力にして、てんぷという調速機構で進みます。', tip: '魅力は電子の正確さではなく、機械が動き続ける気配そのものです。' },
+      { who: 'WATCH TRIVIA', line: 'クロノグラフは時間を測る追加機構で、三針より構造が複雑です。', tip: '見た目の情報量が増えるので、道具感やメカ感が強く出ます。' },
+      { who: 'WATCH TRIVIA', line: 'ダイバーズウォッチは回転ベゼルで経過時間を読む設計が代表的です。', tip: '実用品としての理屈が、そのままデザインの魅力になっています。' },
+      { who: 'WATCH TRIVIA', line: 'ケース径だけでなく、ラグ・トゥ・ラグの長さで装着感は大きく変わります。', tip: '数字だけではなく、腕にどう収まるかを見るのが本質です。' },
+      { who: 'WATCH TRIVIA', line: 'サファイアクリスタルは硬度が高く、日常の擦り傷に強い素材です。', tip: '透明感と実用性を両立しやすいのが人気の理由の一つです。' }
     ];
 
     const softAdvice = [
@@ -1007,11 +772,11 @@
       summaryScreen.hidden = name !== 'summary';
       finaleScreen.hidden = name !== 'finale';
       inputCard.hidden = name !== 'chat' || state.locked || state.done;
-      hintBody.textContent = name === 'chat'
-        ? (state.done ? '会話は終わりました。最後のタロットだけがいまの操作です。' : 'いまは会話だけです。途中で偉人の言葉や総括も呼べます。')
+      hintText.textContent = name === 'chat'
+        ? (state.done ? 'いまは最後のタロットだけが操作できます。' : '送れるのは今のターンが終わってからです。')
         : name === 'summary'
-          ? 'いまは総括画面です。戻るか、最初からやり直せます。'
-          : 'いまはタロットだけが選べます。一度選ぶと確定します。';
+          ? '総括を読み終えたら会話へ戻れます。'
+          : 'いまはタロットだけが選べます。';
     }
 
     function setLocked(flag) {
@@ -1022,7 +787,6 @@
       inputCard.hidden = flag || state.currentScreen !== 'chat' || state.done;
       sendBtn.disabled = flag;
       skipBtn.disabled = flag;
-      statusBody.textContent = flag ? 'こぶぶが返答をまとめています。終わるまで次の選択肢は出ません。' : 'いま見えているものだけが操作できます。';
     }
 
     function updateStepUI() {
@@ -1069,57 +833,14 @@
           if (i >= text.length) {
             clearInterval(interval);
             setLocked(false);
+            renderActions();
             resolve();
           }
         }, 18);
       });
     }
 
-    function renderActions() {
-      if (state.done) {
-        questionBox.textContent = '会話はここで区切りです。最後のタロットだけがいまの操作です。';
-        choiceGrid.innerHTML = '';
-        utilityRow.innerHTML = '';
-        const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = '最後のタロットへ進む';
-        btn.addEventListener('click', () => showFinale());
-        choiceGrid.appendChild(btn);
-        inputCard.hidden = true;
-        return;
-      }
-
-      const current = steps[state.step];
-      questionBox.textContent = current.question;
-      choiceGrid.innerHTML = '';
-      current.replies.forEach(label => {
-        const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = label;
-        btn.addEventListener('click', (e) => {
-          if (state.locked) return;
-          spawnParticles(e.currentTarget, 10);
-          handleChoice(label);
-        });
-        choiceGrid.appendChild(btn);
-      });
-
-      utilityRow.innerHTML = '';
-      [
-        { label: '偉人の言葉', action: () => injectWisdom() },
-        { label: '時計の蘊蓄', action: () => injectWatch() },
-        { label: '途中の総括', action: () => openSummary(false) }
-      ].forEach(item => {
-        const btn = document.createElement('button');
-        btn.className = 'ghost-btn';
-        btn.textContent = item.label;
-        btn.addEventListener('click', item.action);
-        utilityRow.appendChild(btn);
-      });
-      inputCard.hidden = state.locked || state.currentScreen !== 'chat';
-    }
-
-    function chooseInsight(kind = 'auto') {
+    function pickInsight(kind = 'auto') {
       const turn = state.historyCount;
       if (kind === 'wisdom' || (kind === 'auto' && turn % 3 === 0)) return philosopherQuotes[turn % philosopherQuotes.length];
       if (kind === 'watch' || (kind === 'auto' && turn % 3 === 1)) return watchTrivia[turn % watchTrivia.length];
@@ -1207,11 +928,6 @@
       const response = makeAiResponse(stepIndex, answer);
       await typeAiMessage(response);
 
-      const insight = stepIndex === 3
-        ? answer.includes('偉人') ? chooseInsight('wisdom') : answer.includes('腕時計') ? chooseInsight('watch') : answer.includes('助言') ? chooseInsight('soft') : chooseInsight('auto')
-        : chooseInsight('auto');
-      statusBody.textContent = `${insight.who}\n${insight.line}${insight.tip ? '\n\n' + insight.tip : ''}`;
-
       if (stepIndex >= steps.length - 1) {
         state.done = true;
         updateStepUI();
@@ -1229,19 +945,15 @@
     async function injectWisdom() {
       if (state.locked || state.currentScreen !== 'chat') return;
       state.historyCount += 1;
-      const item = chooseInsight('wisdom');
-      statusBody.textContent = `${item.who}\n${item.line}\n\n${item.tip}`;
+      const item = pickInsight('wisdom');
       await typeAiMessage(`${item.who}\n${item.line}\n\n${item.tip}`);
-      renderActions();
     }
 
     async function injectWatch() {
       if (state.locked || state.currentScreen !== 'chat') return;
       state.historyCount += 1;
-      const item = chooseInsight('watch');
-      statusBody.textContent = `${item.who}\n${item.line}\n\n${item.tip}`;
+      const item = pickInsight('watch');
       await typeAiMessage(`${item.who}\n${item.line}\n\n${item.tip}`);
-      renderActions();
     }
 
     async function handleFreeInput(text) {
@@ -1253,8 +965,6 @@
       else if (/焦り|不安|意味|迷い|失敗|挑戦|優先|本音/.test(text)) kind = 'wisdom';
       const response = `${text.length > 28 ? 'その言い方には、ちゃんと今の温度が出ています。' : '短い言葉でも十分に伝わります。'}\n${kind === 'watch' ? 'ここでは腕時計の蘊蓄を少し挟みます。' : kind === 'wisdom' ? 'ここでは偉人の言葉を少し挟みます。' : 'この内容も踏まえて、会話を続けます。'}`;
       await typeAiMessage(response);
-      const item = chooseInsight(kind);
-      statusBody.textContent = `${item.who}\n${item.line}${item.tip ? '\n\n' + item.tip : ''}`;
       if (!state.answers[state.step]) state.answers[state.step] = text;
       if (state.step >= steps.length - 1) {
         state.done = true;
@@ -1330,11 +1040,8 @@
       updateStepUI();
       showScreen('chat');
       renderActions();
-      statusBody.textContent = '焦らなくて大丈夫。まずは一つずつ進めましょう。';
-      avatarBubble.textContent = '今できるものだけ見えるように、余計な要素はかなり消しています。';
       addMessage('ai', 'こんにちは。ここでは軽く話しながら、気持ちを少しずつ整えていきます。');
       addMessage('ai', '会話が終わるまでは、次の選択肢やタロットは先に見せません。まずは今の気分から始めましょう。');
-      renderActions();
       scrollChatBottom();
     }
 
@@ -1352,18 +1059,6 @@
         return;
       }
       handleChoice('この質問はスキップして次へ進みたい');
-    });
-
-    avatarWrap.addEventListener('click', () => {
-      const lines = [
-        'いま必要なものだけ見えるようにしてるよ。',
-        '返答中は次の選択肢を隠してるよ。',
-        '最後まで行ったら、タロットが出てくるよ。',
-        '途中の総括や偉人の言葉は、必要なときだけ呼べるよ。',
-        '今日は軽く整えるくらいで十分だよ。'
-      ];
-      avatarBubble.textContent = lines[Math.floor(Math.random() * lines.length)];
-      spawnParticles(avatarWrap, 18);
     });
 
     tarotDeck.forEach(card => {
@@ -1431,7 +1126,6 @@
       const left = [0, 2, 1, 3, 2, 4, 1, 3];
       const right = [2, 3, 2, 4, 0, 2, 1, 4];
       const spacing = 0.22;
-
       bellTone(110, now, 0.032, 2.6, true);
       for (let i = 0; i < left.length; i++) {
         const t1 = now + i * spacing;
