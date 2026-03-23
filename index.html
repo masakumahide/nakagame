@@ -7,19 +7,19 @@
   <style>
     :root {
       --bg-a: #fffafc;
-      --bg-b: #f5efff;
+      --bg-b: #f6f0ff;
       --bg-c: #eef8ff;
       --panel: rgba(255,255,255,0.9);
       --panel-strong: rgba(255,255,255,0.97);
-      --text: #51456f;
-      --muted: #8578a4;
-      --pink: #ff9fcf;
-      --lav: #bda8ff;
+      --text: #53476f;
+      --muted: #8a7da8;
+      --line: rgba(127, 107, 180, 0.14);
+      --pink: #ff9dcf;
+      --lav: #c5b0ff;
       --sky: #bfe7ff;
-      --gold: #ffd67f;
-      --shadow: 0 16px 34px rgba(124, 103, 170, 0.14);
+      --gold: #ffd57d;
+      --shadow: 0 18px 36px rgba(124, 103, 170, 0.14);
       --shadow-soft: 0 10px 24px rgba(124, 103, 170, 0.09);
-      --line: rgba(120, 100, 180, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -30,9 +30,9 @@
       font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(255,159,207,0.24), transparent 22%),
+        radial-gradient(circle at 10% 10%, rgba(255,157,207,0.24), transparent 22%),
         radial-gradient(circle at 88% 12%, rgba(191,231,255,0.30), transparent 20%),
-        radial-gradient(circle at 50% 100%, rgba(189,168,255,0.18), transparent 35%),
+        radial-gradient(circle at 50% 100%, rgba(197,176,255,0.18), transparent 35%),
         linear-gradient(180deg, var(--bg-a), var(--bg-b) 48%, var(--bg-c));
       overflow-x: hidden;
     }
@@ -77,88 +77,246 @@
     }
 
     .shell {
-      width: min(760px, calc(100vw - 10px));
+      width: min(780px, calc(100vw - 12px));
       margin: 0 auto;
       min-height: 100vh;
-      padding: 10px 0 20px;
+      padding: 12px 0 24px;
       position: relative;
       z-index: 1;
     }
 
     .app {
       background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.60);
+      border: 1px solid rgba(255,255,255,0.62);
       border-radius: 30px;
       box-shadow: var(--shadow);
       overflow: hidden;
       backdrop-filter: blur(16px);
     }
 
-    .topbar {
-      padding: 14px 14px 12px;
-      border-bottom: 1px solid rgba(120,100,180,0.08);
-      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.18));
-    }
-
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
+    .hero {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 132px 1fr auto;
+      gap: 14px;
       align-items: center;
-      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(127,107,180,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255,255,255,0.18));
     }
 
-    .brand {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      min-width: 0;
-    }
-
-    .mini-face {
-      width: 54px;
-      height: 54px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(247,242,255,0.85));
+    .portrait-card {
+      width: 132px;
+      height: 164px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,242,255,0.92));
       border: 1px solid rgba(255,255,255,0.92);
       box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .kobubu {
+      position: absolute;
+      inset: 0;
       display: grid;
       place-items: center;
-      flex: 0 0 auto;
+    }
+
+    .hair-back {
+      position: absolute;
+      top: 22px;
+      width: 92px;
+      height: 96px;
+      border-radius: 48px 48px 38px 38px;
+      background: linear-gradient(180deg, #d8d3df, #b9b6c3 42%, #8a8a98 100%);
+      filter: drop-shadow(0 6px 12px rgba(84, 74, 108, 0.14));
+    }
+
+    .face {
+      position: absolute;
+      top: 34px;
+      width: 56px;
+      height: 68px;
+      border-radius: 28px 28px 22px 22px;
+      background: linear-gradient(180deg, #ffe9de, #ffd7c8 84%);
+      box-shadow: inset 0 -3px 0 rgba(241, 181, 151, 0.18);
+      z-index: 3;
+    }
+
+    .fringe {
+      position: absolute;
+      top: 24px;
+      width: 66px;
+      height: 28px;
+      border-radius: 32px 32px 14px 14px;
+      background: linear-gradient(180deg, #d9d4df, #adaab7 70%, #9693a0);
+      z-index: 4;
+    }
+
+    .fringe::after {
+      content: "";
+      position: absolute;
+      right: 4px;
+      top: 8px;
+      width: 20px;
+      height: 16px;
+      border-radius: 0 12px 12px 12px;
+      background: #a9a7b4;
+      transform: rotate(16deg);
+    }
+
+    .hair-side-left,
+    .hair-side-right {
+      position: absolute;
+      top: 50px;
+      width: 18px;
+      height: 76px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #cdc9d6, #9a97a4 75%);
+      z-index: 2;
+    }
+
+    .hair-side-left { left: 20px; transform: rotate(8deg); }
+    .hair-side-right { right: 20px; transform: rotate(-8deg); }
+
+    .eye {
+      position: absolute;
+      top: 28px;
+      width: 10px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8eb7ff;
+      box-shadow: 0 0 8px rgba(142,183,255,0.32);
+      z-index: 5;
+    }
+
+    .eye.left { left: 12px; }
+    .eye.right { right: 12px; }
+
+    .eye::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #3b4760;
+    }
+
+    .brow {
+      position: absolute;
+      top: 20px;
+      width: 12px;
+      height: 2px;
+      background: rgba(110, 104, 122, 0.7);
+      border-radius: 999px;
+      z-index: 5;
+    }
+
+    .brow.left { left: 11px; transform: rotate(-8deg); }
+    .brow.right { right: 11px; transform: rotate(8deg); }
+
+    .lip {
+      position: absolute;
+      left: 50%;
+      top: 48px;
+      width: 14px;
+      height: 6px;
+      transform: translateX(-50%);
+      border-bottom: 3px solid #d07087;
+      border-radius: 0 0 12px 12px;
+      z-index: 5;
+    }
+
+    .nose {
+      position: absolute;
+      left: 50%;
+      top: 34px;
+      width: 4px;
+      height: 10px;
+      transform: translateX(-50%);
+      border-right: 2px solid rgba(214, 157, 136, 0.35);
+      border-radius: 0 4px 4px 0;
+      z-index: 5;
+    }
+
+    .neck {
+      position: absolute;
+      top: 94px;
+      width: 18px;
+      height: 18px;
+      background: linear-gradient(180deg, #ffdacc, #efc1a8);
+      border-radius: 10px;
+      z-index: 1;
+    }
+
+    .body {
+      position: absolute;
+      bottom: 0;
+      width: 108px;
+      height: 78px;
+      border-radius: 54px 54px 0 0;
+      background: linear-gradient(180deg, #151722, #262130 65%, #3c3250);
+      z-index: 0;
       overflow: hidden;
     }
 
-    .mini-face span {
+    .body::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 36px;
+      height: 22px;
+      transform: translateX(-50%);
+      border-radius: 0 0 22px 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+    }
+
+    .body::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      width: 84px;
+      height: 26px;
+      transform: translateX(-50%);
+      border-radius: 22px 22px 0 0;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: #8b7da8;
+      margin-bottom: 4px;
+    }
+
+    .hero h1 {
+      margin: 0 0 6px;
       font-size: 24px;
-      filter: drop-shadow(0 2px 4px rgba(120,100,180,0.16));
-    }
-
-    .title {
-      font-size: 20px;
-      font-weight: 900;
-      letter-spacing: 0.05em;
       color: #6c5289;
-      margin-bottom: 3px;
+      letter-spacing: 0.04em;
     }
 
-    .subtitle {
-      font-size: 12px;
-      line-height: 1.5;
+    .hero p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
       color: var(--muted);
+      max-width: 34em;
     }
 
-    .meta {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .pill,
-    .primary,
+    .sound-btn,
     .choice-btn,
     .summary-btn,
-    .card-btn {
+    .card-btn,
+    .restart-btn {
       appearance: none;
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.76));
@@ -166,151 +324,128 @@
       border-radius: 18px;
       box-shadow: var(--shadow-soft);
       font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.14s ease, border-color 0.14s ease;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 36px;
-      padding: 8px 12px;
-      font-size: 12px;
-      color: #6b5a8b;
-    }
-
-    .pill strong { color: #5b4279; }
-
-    .primary,
-    .choice-btn,
-    .summary-btn,
-    .card-btn {
-      cursor: pointer;
-      padding: 12px 14px;
-    }
-
-    .primary:hover,
+    .sound-btn:hover,
     .choice-btn:hover,
     .summary-btn:hover,
-    .card-btn:hover { transform: translateY(-1px); border-color: rgba(120,100,180,0.22); }
+    .card-btn:hover,
+    .restart-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(127,107,180,0.22);
+    }
 
-    .primary:active,
+    .sound-btn:active,
     .choice-btn:active,
     .summary-btn:active,
-    .card-btn:active { transform: translateY(1px) scale(0.99); }
-
-    .primary {
-      background: linear-gradient(180deg, rgba(255,214,127,0.94), rgba(255,159,207,0.86));
-      color: #5e4578;
-      border-color: rgba(255,214,127,0.24);
+    .card-btn:active,
+    .restart-btn:active {
+      transform: translateY(1px) scale(0.99);
     }
 
-    .progress-area {
-      display: grid;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .progress-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .progress-track {
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(120,100,180,0.08);
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(255,214,127,0.98), rgba(255,159,207,0.92), rgba(191,231,255,0.92));
-      transition: width 0.28s ease;
+    .sound-btn,
+    .restart-btn {
+      padding: 11px 16px;
+      background: linear-gradient(180deg, rgba(255,213,125,0.96), rgba(255,157,207,0.88));
+      color: #5b4477;
+      border-color: rgba(255,213,125,0.28);
+      white-space: nowrap;
     }
 
     .main {
       padding: 16px;
       display: grid;
       gap: 12px;
-      min-height: 700px;
+      min-height: 640px;
     }
 
-    .chat-screen,
-    .summary-screen,
-    .finale-screen {
+    .card {
       background: var(--panel-strong);
-      border: 1px solid rgba(120,100,180,0.09);
-      border-radius: 24px;
+      border: 1px solid rgba(127,107,180,0.09);
+      border-radius: 26px;
       box-shadow: var(--shadow-soft);
-      padding: 14px;
-      min-height: 520px;
+      padding: 16px;
     }
 
-    .chat-screen[hidden],
-    .summary-screen[hidden],
-    .finale-screen[hidden] {
+    .card[hidden] {
       display: none;
     }
 
-    .screen-head {
+    .speaker {
       display: flex;
-      justify-content: space-between;
-      gap: 10px;
       align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .section-title {
-      margin: 0;
-      font-size: 18px;
-      color: #6a4c87;
+    .speaker-mini {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,239,255,0.88));
+      border: 1px solid rgba(255,255,255,0.92);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      flex: 0 0 auto;
     }
 
-    .section-sub {
+    .speaker-mini::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 7px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #d8d3df, #a8a6b2);
+    }
+
+    .speaker-mini::after {
+      content: "";
+      position: absolute;
+      left: 7px;
+      bottom: -3px;
+      width: 28px;
+      height: 18px;
+      border-radius: 16px 16px 0 0;
+      background: linear-gradient(180deg, #232334, #3a3150);
+    }
+
+    .speaker-name {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: #6c5289;
+    }
+
+    .speaker-note {
       font-size: 12px;
-      line-height: 1.6;
       color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .talk-area {
-      display: grid;
-      gap: 12px;
-      align-content: start;
-      min-height: 420px;
+      margin-top: 2px;
     }
 
     .typing-box,
     .message-box,
-    .question-box,
     .summary-body,
     .final-body {
-      padding: 14px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78));
-      border: 1px solid rgba(120,100,180,0.08);
-      color: #5c4c76;
+      padding: 16px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.8));
+      border: 1px solid rgba(127,107,180,0.08);
       box-shadow: var(--shadow-soft);
       white-space: pre-wrap;
     }
 
     .message-box,
-    .question-box,
     .summary-body,
     .final-body {
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 16px;
+      line-height: 1.85;
     }
 
     .typing-box {
@@ -319,28 +454,15 @@
       color: #8a7ba6;
     }
 
-    .typing-box.show { display: block; }
-
-    .current-choice {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, rgba(255,214,127,0.94), rgba(255,159,207,0.82));
-      color: #5e4578;
-      box-shadow: var(--shadow-soft);
-      font-size: 13px;
-      font-weight: 800;
-      width: fit-content;
+    .typing-box.show {
+      display: block;
     }
-
-    .current-choice[hidden] { display: none; }
 
     .choice-grid,
     .summary-actions {
       display: grid;
       gap: 10px;
+      margin-top: 14px;
     }
 
     .choice-grid {
@@ -348,49 +470,46 @@
     }
 
     .choice-btn {
-      min-height: 60px;
+      min-height: 64px;
+      padding: 14px 16px;
       text-align: left;
-      line-height: 1.45;
+      line-height: 1.5;
       color: #5a4a72;
-    }
-
-    .summary-actions {
-      margin-top: 12px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      font-size: 15px;
     }
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 12px;
+      margin-top: 16px;
     }
 
     .card-btn {
       aspect-ratio: 2 / 3;
       border-radius: 18px;
-      font-size: 30px;
+      font-size: 28px;
       display: grid;
       place-items: center;
       position: relative;
       overflow: hidden;
       background:
         radial-gradient(circle at 50% 26%, rgba(255,255,255,0.54), transparent 20%),
-        linear-gradient(180deg, rgba(255,214,127,0.44), rgba(255,159,207,0.28), rgba(191,231,255,0.34));
+        linear-gradient(180deg, rgba(255,213,125,0.44), rgba(255,157,207,0.28), rgba(191,231,255,0.34));
       color: #5f4a7d;
     }
 
     .card-btn::after {
       content: "✦";
       position: absolute;
-      font-size: 64px;
-      color: rgba(255,255,255,0.26);
+      font-size: 58px;
+      color: rgba(255,255,255,0.28);
       pointer-events: none;
     }
 
     .card-btn.active {
-      border-color: rgba(255,214,127,0.38);
-      box-shadow: 0 0 0 3px rgba(255,214,127,0.14), var(--shadow-soft);
+      border-color: rgba(255,213,125,0.38);
+      box-shadow: 0 0 0 3px rgba(255,213,125,0.14), var(--shadow-soft);
       transform: translateY(-2px);
     }
 
@@ -400,12 +519,37 @@
       transform: none;
     }
 
+    .summary-title,
+    .tarot-title {
+      margin: 0 0 4px;
+      font-size: 20px;
+      color: #6c5289;
+    }
+
+    .summary-sub,
+    .tarot-sub {
+      margin: 0 0 14px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .summary-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .summary-btn {
+      padding: 13px 16px;
+      font-size: 14px;
+      color: #5d4c77;
+    }
+
     .particle {
       position: absolute;
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.98), rgba(255,214,127,0.82) 54%, rgba(255,159,207,0.22) 78%, transparent 80%);
+      background: radial-gradient(circle, rgba(255,255,255,0.98), rgba(255,213,125,0.82) 54%, rgba(255,157,207,0.22) 78%, transparent 80%);
       animation: particleFly 840ms ease-out forwards;
       pointer-events: none;
       z-index: 30;
@@ -416,11 +560,42 @@
       to { transform: translate(var(--dx), var(--dy)) scale(0.24); opacity: 0; }
     }
 
+    @media (max-width: 720px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-card {
+        width: 120px;
+        height: 148px;
+      }
+    }
+
     @media (max-width: 640px) {
-      .shell { width: min(100vw - 8px, 100%); padding-top: 6px; }
-      .topbar, .main { padding-left: 10px; padding-right: 10px; }
-      .choice-grid, .summary-actions { grid-template-columns: 1fr; }
-      .card-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+      .shell {
+        width: min(100vw - 8px, 100%);
+        padding-top: 6px;
+      }
+
+      .topbar,
+      .main {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .choice-grid,
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-grid .card-btn {
+        aspect-ratio: auto;
+        min-height: 74px;
+      }
+
+      .hero h1 {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
@@ -431,71 +606,68 @@
 
   <main class="shell">
     <section class="app">
-      <div class="topbar">
-        <div class="top-row">
-          <div class="brand">
-            <div class="mini-face"><span>🫧</span></div>
-            <div>
-              <div class="title">こぶぶのお気軽トーク</div>
-              <div class="subtitle">選んで進める、シンプルなトーク</div>
+      <header class="hero">
+        <div class="portrait-card" aria-hidden="true">
+          <div class="kobubu">
+            <div class="body"></div>
+            <div class="neck"></div>
+            <div class="hair-back"></div>
+            <div class="hair-side-left"></div>
+            <div class="hair-side-right"></div>
+            <div class="face">
+              <div class="brow left"></div>
+              <div class="brow right"></div>
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="nose"></div>
+              <div class="lip"></div>
             </div>
-          </div>
-          <div class="meta">
-            <div class="pill"><strong id="etaLabel">約5分</strong></div>
-            <div class="pill">現在: <strong id="stepLabel">はじめに</strong></div>
-            <button id="bgmBtn" class="primary">♪ BGM ON</button>
+            <div class="fringe"></div>
           </div>
         </div>
-        <div class="progress-area">
-          <div class="progress-head">
-            <span id="progressText">1 / 6</span>
-            <span id="modeText">はじめに</span>
-          </div>
-          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+        <div class="hero-copy">
+          <div class="eyebrow">KOBUBU</div>
+          <h1>こぶぶのお気軽トーク</h1>
+          <p>
+            大人っぽくて少しミステリアス。
+            でも話しかけると意外とやさしい、こぶぶと話すモード。
+            きれいに言えなくても、近いものを選ぶだけで大丈夫。
+          </p>
         </div>
-      </div>
+
+        <button id="soundBtn" class="sound-btn">♪ BGM ON</button>
+      </header>
 
       <div class="main">
-        <section class="chat-screen" id="chatScreen">
-          <div class="screen-head">
+        <section class="card" id="chatScreen">
+          <div class="speaker">
+            <div class="speaker-mini"></div>
             <div>
-              <h2 class="section-title">トーク</h2>
-              <div class="section-sub">選ぶだけで進みます。</div>
+              <div class="speaker-name">こぶぶ</div>
+              <div class="speaker-note">話しかけるように返します</div>
             </div>
-            <div class="pill" id="phasePill">1 / 6</div>
           </div>
 
-          <div class="talk-area">
-            <div class="typing-box" id="typingBox">こぶぶが考え中…</div>
-            <div class="message-box" id="messageBox">こんにちは。今日はどんな気分？</div>
-            <div class="current-choice" id="currentChoice" hidden></div>
-            <div class="question-box" id="questionBox">今の気分にいちばん近いものを選んでください。</div>
-            <div class="choice-grid" id="choiceGrid"></div>
-          </div>
+          <div class="typing-box" id="typingBox">こぶぶが考え中…</div>
+          <div class="message-box" id="messageBox">ねえ、今日はどんな感じ？</div>
+          <div class="choice-grid" id="choiceGrid"></div>
         </section>
 
-        <section class="summary-screen" id="summaryScreen" hidden>
-          <div class="screen-head">
-            <div>
-              <h2 class="section-title" id="summaryTitle">途中の総括</h2>
-              <div class="section-sub" id="summarySub">ここまでをまとめます。</div>
-            </div>
-            <div class="pill" id="summaryPill">中間まとめ</div>
-          </div>
-          <div class="summary-body" id="summaryBody">総括はここに表示されます。</div>
-          <div class="summary-actions" id="summaryActions"></div>
-        </section>
-
-        <section class="finale-screen" id="finaleScreen" hidden>
-          <div class="screen-head">
-            <div>
-              <h2 class="section-title">最後のタロット</h2>
-              <div class="section-sub">最後に1枚だけ選びます。</div>
-            </div>
-            <div class="pill">FINAL</div>
-          </div>
+        <section class="card" id="tarotScreen" hidden>
+          <h2 class="tarot-title">最後に1枚だけ</h2>
+          <p class="tarot-sub">ここまでの流れを踏まえて、こぶぶが最後に1枚だけ選ばせてくれる流れです。</p>
           <div class="card-grid" id="cardGrid"></div>
-          <div class="final-body" id="finalBody">1枚選ぶと、そのまま総括画面へ進みます。</div>
+          <div class="final-body" id="finalBody">どれか1枚、気になるものを選んでください。</div>
+        </section>
+
+        <section class="card" id="summaryScreen" hidden>
+          <h2 class="summary-title">こぶぶからの総括</h2>
+          <p class="summary-sub">会話とタロットをふまえて、最後に短くまとめます。</p>
+          <div class="summary-body" id="summaryBody"></div>
+          <div class="summary-actions">
+            <button class="restart-btn" id="restartBtn">最初から話す</button>
+          </div>
         </section>
       </div>
     </section>
@@ -505,28 +677,6 @@
     const stars = document.getElementById('stars');
     const petals = document.getElementById('petals');
     const particles = document.getElementById('particles');
-    const progressFill = document.getElementById('progressFill');
-    const progressText = document.getElementById('progressText');
-    const stepLabel = document.getElementById('stepLabel');
-    const modeText = document.getElementById('modeText');
-    const etaLabel = document.getElementById('etaLabel');
-    const phasePill = document.getElementById('phasePill');
-    const chatScreen = document.getElementById('chatScreen');
-    const summaryScreen = document.getElementById('summaryScreen');
-    const finaleScreen = document.getElementById('finaleScreen');
-    const typingBox = document.getElementById('typingBox');
-    const messageBox = document.getElementById('messageBox');
-    const currentChoice = document.getElementById('currentChoice');
-    const questionBox = document.getElementById('questionBox');
-    const choiceGrid = document.getElementById('choiceGrid');
-    const summaryTitle = document.getElementById('summaryTitle');
-    const summarySub = document.getElementById('summarySub');
-    const summaryPill = document.getElementById('summaryPill');
-    const summaryBody = document.getElementById('summaryBody');
-    const summaryActions = document.getElementById('summaryActions');
-    const cardGrid = document.getElementById('cardGrid');
-    const finalBody = document.getElementById('finalBody');
-    const bgmBtn = document.getElementById('bgmBtn');
 
     for (let i = 0; i < 64; i++) {
       const s = document.createElement('div');
@@ -548,62 +698,127 @@
       petals.appendChild(p);
     }
 
-    const steps = [
-      { name: 'はじめに', question: '今の気分にいちばん近いものを選んでください。', replies: ['ちょっと疲れてる', '焦って空回り', '前向きに整えたい', 'なんとなく話したい'] },
-      { name: '状況', question: 'いま一番ひっかかっているのは、どのあたりですか？', replies: ['優先順位が散ってる', '気持ちが重い', '人間関係が気になる', '自分の軸がぶれる'] },
-      { name: '本音', question: '本当は、どんな状態に近づきたいですか？', replies: ['落ち着いて動きたい', 'はっきり決めたい', '自信を戻したい', 'やさしく前進したい'] },
-      { name: '寄り道', question: '少し寄り道するなら、いま欲しいのはどれですか？', replies: ['偉人の言葉がほしい', '腕時計の話が聞きたい', 'やさしい助言がほしい', 'そのまま続けたい'] },
-      { name: '一手', question: '今日の自分に、ひとつだけ行動を渡すなら？', replies: ['10分だけ着手する', '連絡を1本送る', 'やらないことを決める', '先に休む'] },
-      { name: '締め前', question: '最後に、どんな温度感で会話を閉じたいですか？', replies: ['やさしく終えたい', '背中を押してほしい', '静かに整えたい', '少し元気に締めたい'] }
+    const chatScreen = document.getElementById('chatScreen');
+    const tarotScreen = document.getElementById('tarotScreen');
+    const summaryScreen = document.getElementById('summaryScreen');
+    const typingBox = document.getElementById('typingBox');
+    const messageBox = document.getElementById('messageBox');
+    const choiceGrid = document.getElementById('choiceGrid');
+    const cardGrid = document.getElementById('cardGrid');
+    const finalBody = document.getElementById('finalBody');
+    const summaryBody = document.getElementById('summaryBody');
+    const restartBtn = document.getElementById('restartBtn');
+    const soundBtn = document.getElementById('soundBtn');
+
+    const CHOICES = {
+      mood: [
+        { id: 'tired', label: 'ちょっと疲れてる' },
+        { id: 'swirl', label: '焦って空回り' },
+        { id: 'tidy', label: '前向きに整えたい' },
+        { id: 'talk', label: 'なんとなく話したい' }
+      ],
+      burden: [
+        { id: 'priority', label: '優先順位がぐちゃぐちゃ' },
+        { id: 'heavy', label: '気持ちが重い' },
+        { id: 'people', label: '人のことが気になる' },
+        { id: 'self', label: '自分に自信が持てない' }
+      ],
+      wish: [
+        { id: 'calm', label: '落ち着きたい' },
+        { id: 'decide', label: 'はっきり決めたい' },
+        { id: 'confidence', label: '自信を戻したい' },
+        { id: 'forward', label: 'やさしく前に進みたい' }
+      ],
+      support: [
+        { id: 'gentle', label: 'やさしく返してほしい' },
+        { id: 'sharp', label: '少し鋭く言ってほしい' },
+        { id: 'quote', label: '偉人の言葉がほしい' },
+        { id: 'watch', label: '時計の話でほぐして' }
+      ],
+      action: [
+        { id: 'ten', label: '10分だけ着手する' },
+        { id: 'message', label: '1本だけ連絡する' },
+        { id: 'stop', label: 'やらないことを決める' },
+        { id: 'rest', label: '今日は少し休む' }
+      ],
+      close: [
+        { id: 'summary', label: 'このへんでまとめる' },
+        { id: 'continue', label: 'もう少し話す' },
+        { id: 'push', label: 'ひとこと背中を押して' },
+        { id: 'soft', label: 'やさしく締めて' }
+      ],
+      loop: [
+        { id: 'safe', label: '安心したい' },
+        { id: 'clear', label: '頭を整理したい' },
+        { id: 'light', label: '少し軽くなりたい' },
+        { id: 'one', label: '一歩だけ決めたい' }
+      ],
+      close2: [
+        { id: 'summary', label: 'うん、まとめる' },
+        { id: 'continue', label: 'もう少しだけ話す' }
+      ]
+    };
+
+    const QUOTES = [
+      {
+        who: 'エピクテトス',
+        line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳',
+        tip: 'いま必要なのは、全部を変えることより、見方を少し整えることかもしれないね。'
+      },
+      {
+        who: 'マルクス・アウレリウス',
+        line: '「行く手をふさぐものが、かえって道になる」※意訳',
+        tip: '邪魔に見えるものの中に、次の一手のヒントがあることも多いよ。'
+      },
+      {
+        who: '老子',
+        line: '「千里の道も一歩から」',
+        tip: '今日は大きく変わる日じゃなくていい。小さく動ければ十分。'
+      }
     ];
 
-    const philosopherQuotes = [
-      { who: 'エピクテトス', line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳', tip: 'まず事実と解釈を分けると、心のノイズが少し減ります。' },
-      { who: 'マルクス・アウレリウス', line: '「行く手をふさぐものが、かえって道になる」※意訳', tip: '障害を全部消すより、条件として扱うほうが前に進みやすいです。' },
-      { who: 'セネカ', line: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳', tip: '不安が消えるのを待つより、サイズを小さくして始めるほうが現実的です。' },
-      { who: '老子', line: '「千里の道も一歩から」', tip: '大きい悩みほど、今日中に終わる単位に切ると動けます。' },
-      { who: 'ソクラテス', line: '「吟味されない生は、生きるに値しない」※短訳', tip: '答えがぼやけるときは、問いの立て方を見直す価値があります。' }
+    const WATCH = [
+      {
+        line: '機械式腕時計って、ゼンマイの力を少しずつほどきながら進むんだよね。',
+        tip: '人も似てて、一気に整えるより、少しずつ戻したほうがきれいなことがある。'
+      },
+      {
+        line: 'ケース径より、ラグ・トゥ・ラグで着け心地が変わる時計って多いんだ。',
+        tip: 'つまり数字だけじゃ分からない。今の悩みも、表面だけじゃ測れないってこと。'
+      },
+      {
+        line: 'クロノグラフは情報量が多いけど、整って見えるとすごく美しい。',
+        tip: '少し散らかってるくらいで、あなたの価値は全然下がらないよ。'
+      }
     ];
 
-    const watchTrivia = [
-      { who: 'WATCH TRIVIA', line: '機械式腕時計はゼンマイを動力にして、てんぷという調速機構で進みます。', tip: '魅力は電子の正確さではなく、機械が動き続ける気配そのものです。' },
-      { who: 'WATCH TRIVIA', line: 'クロノグラフは時間を測る追加機構で、三針より構造が複雑です。', tip: '見た目の情報量が増えるので、道具感やメカ感が強く出ます。' },
-      { who: 'WATCH TRIVIA', line: 'ダイバーズウォッチは回転ベゼルで経過時間を読む設計が代表的です。', tip: '実用品としての理屈が、そのままデザインの魅力になっています。' },
-      { who: 'WATCH TRIVIA', line: 'ケース径だけでなく、ラグ・トゥ・ラグの長さで装着感は大きく変わります。', tip: '数字だけではなく、腕にどう収まるかを見るのが本質です。' },
-      { who: 'WATCH TRIVIA', line: 'サファイアクリスタルは硬度が高く、日常の擦り傷に強い素材です。', tip: '透明感と実用性を両立しやすいのが人気の理由の一つです。' }
+    const SOFT = [
+      'いま全部をうまくやる必要はないよ。ひとつ整えば、次のひとつが見えるから。',
+      '疲れてるときに強く進もうとすると、余計に空回ることがある。今日はやさしくでいい。',
+      'ちゃんと悩めてる時点で、もう雑には生きてないよ。'
     ];
 
-    const softAdvice = [
-      '急いで全部を整えなくても大丈夫です。今日は一つだけでも進めば十分です。',
-      '悩みが大きく見える日は、やることを減らしたほうがむしろ前へ進みます。',
-      'やさしさは甘さではありません。心を守りながら進むための技術です。',
-      'ちゃんと疲れている日は、判断より回復を優先したほうが得なこともあります。',
-      '頭の中だけで整理しようとすると重くなりやすいので、言葉にすると楽になります。'
-    ];
-
-    const tarotDeck = [
+    const TAROT = [
       { icon: '☀️', name: '太陽', msg: '迷う時間を少し短くすると、流れが動きます。' },
       { icon: '🌙', name: '月', msg: '不安は敵ではなく、まだ言葉になっていない感覚です。' },
       { icon: '⭐', name: '星', msg: '理想は分解すると、現実の一歩に変わります。' },
       { icon: '🗡️', name: '剣', msg: '曖昧な優しさより、明確な線引きが助けになります。' },
       { icon: '🌸', name: '桜', msg: '急いで咲くより、整って咲くほうが長く持ちます。' },
-      { icon: '👑', name: '王冠', msg: '主導権を戻すタイミングです。人任せでは形になりません。' },
-      { icon: '🪞', name: '鏡', msg: '課題は能力不足ではなく、自己認識の甘さかもしれません。' },
-      { icon: '🕯️', name: '灯', msg: '静かな時間に答えが出やすい日です。' },
-      { icon: '💎', name: '宝石', msg: 'すでに持つ強みを軽く見積もらないこと。' },
-      { icon: '🪽', name: '翼', msg: '場所を少し変えるだけで、運が切り替わる日です。' }
+      { icon: '💎', name: '宝石', msg: 'すでに持つ強みを軽く見積もらないこと。' }
     ];
 
     const state = {
-      step: 0,
-      historyCount: 0,
-      answers: [],
-      done: false,
-      locked: false,
+      stage: 'mood',
+      answers: {},
+      loopCount: 0,
       tarotChosen: false,
       tarot: null,
-      currentScreen: 'chat'
+      locked: false
     };
+
+    function pick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
 
     function spawnParticles(target, count = 12) {
       const rect = target.getBoundingClientRect();
@@ -622,280 +837,291 @@
     }
 
     function showScreen(name) {
-      state.currentScreen = name;
       chatScreen.hidden = name !== 'chat';
+      tarotScreen.hidden = name !== 'tarot';
       summaryScreen.hidden = name !== 'summary';
-      finaleScreen.hidden = name !== 'finale';
     }
 
     function setLocked(flag) {
       state.locked = flag;
       typingBox.classList.toggle('show', flag);
       choiceGrid.hidden = flag;
-      currentChoice.hidden = flag || !currentChoice.textContent;
     }
 
-    function updateStepUI() {
-      const pct = state.done ? 100 : (state.step / steps.length) * 100;
-      progressFill.style.width = `${pct}%`;
-      const currentName = state.done ? 'タロット' : steps[state.step].name;
-      stepLabel.textContent = currentName;
-      progressText.textContent = state.done ? '6 / 6' : `${state.step + 1} / 6`;
-      modeText.textContent = currentName;
-      etaLabel.textContent = state.done ? '会話完了' : `残り約${Math.max(1, 5 - state.step)}分`;
-      phasePill.textContent = state.done ? 'FINAL' : `${state.step + 1} / 6`;
+    function renderChoices(items) {
+      choiceGrid.innerHTML = '';
+      items.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = item.label;
+        btn.addEventListener('click', (e) => {
+          if (state.locked) return;
+          spawnParticles(e.currentTarget, 10);
+          handleChoice(item);
+        });
+        choiceGrid.appendChild(btn);
+      });
     }
 
-    async function typeAiMessage(text) {
+    function renderPrompt(text, items) {
+      messageBox.textContent = text;
+      renderChoices(items);
+    }
+
+    function typeText(text) {
       setLocked(true);
       messageBox.textContent = '';
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         let i = 0;
-        const interval = setInterval(() => {
+        const timer = setInterval(() => {
           messageBox.textContent = text.slice(0, i + 1);
           i += 1;
           if (i >= text.length) {
-            clearInterval(interval);
+            clearInterval(timer);
             setLocked(false);
-            renderActions();
             resolve();
           }
         }, 18);
       });
     }
 
-    function pickInsight(kind = 'auto') {
-      const turn = state.historyCount;
-      if (kind === 'wisdom' || (kind === 'auto' && turn % 3 === 0)) return philosopherQuotes[turn % philosopherQuotes.length];
-      if (kind === 'watch' || (kind === 'auto' && turn % 3 === 1)) return watchTrivia[turn % watchTrivia.length];
-      return { who: 'やわらかい助言', line: softAdvice[turn % softAdvice.length], tip: '' };
+    function moodReply(id) {
+      if (id === 'tired') return pick([
+        'そっか。今日はちょっと疲れが前に出てるんだね。無理に明るくしなくて大丈夫。',
+        'うん、そういう日あるよね。まずは「疲れてる」ってちゃんと認めてあげよう。'
+      ]);
+      if (id === 'swirl') return pick([
+        'それ、しんどいよね。急いでるのに進んでる感じがしないと、気持ちだけが擦り減る。',
+        '焦りだけ先に走る感じかな。あれって体力も気分も持っていかれるんだよね。'
+      ]);
+      if (id === 'tidy') return pick([
+        'いいね。その感じ、好き。前に進みたいからこそ、一度ちゃんと整えたいんだよね。',
+        'その気持ちは強いよ。乱暴に頑張るんじゃなくて、きれいに進みたいんだね。'
+      ]);
+      return pick([
+        'もちろん。理由がはっきりしてなくても大丈夫。話してるうちに形になること、けっこうあるから。',
+        'いいよ、そういう入り方でも。言葉になってない時のほうが、本音が出やすかったりするし。'
+      ]);
     }
 
-    function interimSummaryText() {
-      const first = state.answers[0] || '今の気分';
-      const second = state.answers[1] || '引っかかっていること';
-      const third = state.answers[2] || '望む方向';
-      const action = state.answers[4] || '次の一手';
-      return `ここまでの総括です。
-
-いまのあなたは「${first}」という入口から進み、「${second}」が負荷の中心として見えています。その一方で、本音としては「${third}」に近づきたい気持ちがあります。
-
-現時点で大切なのは、気持ちの重さを全部解決することではなく、次の一手を軽くすることです。今の流れなら「${action}」のような小さい行動が合っています。まだ途中ですが、方向は見え始めています。`;
+    function burdenReply(id) {
+      if (id === 'priority') return 'やることが多いというより、順番がうるさく頭の中でぶつかってる感じかな。';
+      if (id === 'heavy') return '心そのものがちょっと重くなってるんだね。そういう時は理屈より先に感触がある。';
+      if (id === 'people') return '人の気配が強く入ってきてるんだね。相手の顔色や言葉って、意外と深く残るから。';
+      return '自分に向く目が少し厳しくなってるのかも。そういう時ほど、内側の声が強くなるよね。';
     }
 
-    function finalSummaryText(card) {
-      const first = state.answers[0] || '今の気分';
-      const second = state.answers[1] || '引っかかっていること';
-      const third = state.answers[2] || '望む方向';
-      const action = state.answers[4] || '今日の一手';
-      const ending = state.answers[5] || 'いまの終わり方';
-      return `今回の総括です。
-
-今のあなたは「${first}」という入口から話し始め、「${second}」がいまの負荷として見えてきました。その一方で、本音としては「${third}」へ近づきたい気持ちがあります。
-
-今日の現実的な一手としては「${action}」が合っています。そして会話の終わり方として「${ending}」を選んだのは、いまの自分に必要な温度感を分かっているからです。
-
-最後に引いた「${card.name}」は、「${card.msg.replace(/。$/, '')}」という流れを示していました。結論として、いまのテーマは『無理に勢いを出すこと』ではなく、『気持ちのノイズを減らして次の一手を軽くすること』です。今日は全部解決しなくて大丈夫です。`;
+    function wishReply(id) {
+      if (id === 'calm') return 'うん、まず必要なのは勢いじゃなくて落ち着きなんだね。';
+      if (id === 'decide') return '迷いの霧を少し払いたい感じかな。はっきりさせたい時って、気持ちもすり減る。';
+      if (id === 'confidence') return '自分をもう一回ちゃんと信じたいんだね。その気持ち、すごく大事。';
+      return 'やさしく前へ、がいちばんしっくり来るんだね。無理に強く行かないの、私は好き。';
     }
 
-    function openSummary(isFinal) {
-      summaryTitle.textContent = isFinal ? '最後の総括' : '途中の総括';
-      summarySub.textContent = isFinal ? '会話全体とタロットをまとめます。' : 'ここまでをまとめます。';
-      summaryPill.textContent = isFinal ? 'FINAL SUMMARY' : '中間まとめ';
-      summaryBody.textContent = isFinal && state.tarot ? finalSummaryText(state.tarot) : interimSummaryText();
-      summaryActions.innerHTML = '';
-
-      if (isFinal) {
-        const restart = document.createElement('button');
-        restart.className = 'primary';
-        restart.textContent = '最初からやり直す';
-        restart.addEventListener('click', resetSession);
-        summaryActions.appendChild(restart);
-      } else {
-        const back = document.createElement('button');
-        back.className = 'summary-btn';
-        back.textContent = '会話に戻る';
-        back.addEventListener('click', () => showScreen('chat'));
-
-        const wisdom = document.createElement('button');
-        wisdom.className = 'summary-btn';
-        wisdom.textContent = '偉人の言葉';
-        wisdom.addEventListener('click', async () => {
-          showScreen('chat');
-          await injectWisdom();
-        });
-
-        summaryActions.appendChild(back);
-        summaryActions.appendChild(wisdom);
+    function supportReply(id) {
+      if (id === 'gentle') {
+        return pick([
+          'わかった。今日は角を立てずに返すね。ちゃんと受け止めながら進めよう。',
+          'うん、今日はやさしい温度でいこう。深く刺すより、ほどく感じで。'
+        ]);
       }
-
-      showScreen('summary');
-    }
-
-    function showFinale() {
-      showScreen('finale');
-      finalBody.textContent = state.tarotChosen ? 'タロットはすでに選択済みです。総括画面へ進んでください。' : '1枚だけ選んでください。選ぶとそのまま総括画面へ切り替わります。';
-    }
-
-    function makeAiResponse(stepIndex, answer) {
-      const a = answer || 'そのまま進めたい';
-      if (stepIndex === 0) return `うん、${a}なんですね。まずはその感覚をそのまま受け取って大丈夫です。
-次は、今ひっかかっている場所を少しだけ見ていきましょう。`;
-      if (stepIndex === 1) return `いま引っかかっている場所が ${a} なんですね。そこが見えると、対処の仕方がかなり変わります。
-次は「どうなりたいか」を見て、出口の向きをつくりましょう。`;
-      if (stepIndex === 2) return `${a} に近づきたい、というのが今の本音なんですね。良いです。避けたいことではなく行きたい方向が見えると、会話の質が変わります。
-ここで少しだけ寄り道を入れて、気分をほぐしながら続けます。`;
-      if (stepIndex === 3) {
-        if (a.includes('偉人')) {
-          const item = pickInsight('wisdom');
-          return `${item.who}
-${item.line}
-
-${item.tip}
-
-そのあとで、今日の一手を決めましょう。`;
-        }
-        if (a.includes('時計')) {
-          const item = pickInsight('watch');
-          return `${item.who}
-${item.line}
-
-${item.tip}
-
-そのあとで、今日の一手を決めます。`;
-        }
-        if (a.includes('助言')) {
-          const item = pickInsight('soft');
-          return `${item.line}
-
-そのあとで、今日の一手へ進みます。`;
-        }
-        return `そのまま続けましょう。寄り道しない選び方も、今のあなたには合っているのかもしれません。
-次は今日の一手を決めます。`;
+      if (id === 'sharp') {
+        return pick([
+          'じゃあ少しだけ本音で言うね。いま必要なのは、感情の整理より順番の整理かもしれない。',
+          'わかった。少しだけ鋭く言うと、今の苦しさの一部は「決めないまま抱えすぎてること」だと思う。'
+        ]);
       }
-      if (stepIndex === 4) return `今日の一手として ${a} を選ぶのは良いです。抽象的な決意より、具体的な一つのほうが動きやすいです。
-最後に、どんな温度感で会話を閉じるかを選びましょう。`;
-      if (stepIndex === 5) return `わかりました。${a} という終わり方で整えます。
-ここまでの会話はここで区切って、最後にタロットを1枚だけ引きましょう。`;
-      return 'ありがとう。';
+      if (id === 'quote') {
+        const q = pick(QUOTES);
+        return `${q.who}\n${q.line}\n\n${q.tip}`;
+      }
+      const w = pick(WATCH);
+      return `${w.line}\n\n${w.tip}`;
     }
 
-    async function handleChoice(answer) {
-      if (state.locked || state.done) return;
-      const stepIndex = state.step;
-      state.answers[stepIndex] = answer;
-      state.historyCount += 1;
-      currentChoice.textContent = answer;
-      currentChoice.hidden = false;
-      const response = makeAiResponse(stepIndex, answer);
-      await typeAiMessage(response);
+    function actionReply(id) {
+      if (id === 'ten') return 'いいね。10分だけなら、心に言い訳を作らなくて済む。';
+      if (id === 'message') return 'その1本で流れが変わること、けっこうあるよ。小さいけど強い一手。';
+      if (id === 'stop') return 'やらないことを決めるの、実はかなり賢い。空白は守る価値があるから。';
+      return '今日は休むを選べるのも強さだよ。整える前に、まず減らすのも立派な判断。';
+    }
 
-      if (stepIndex >= steps.length - 1) {
-        state.done = true;
-        updateStepUI();
-        renderActions();
-        await typeAiMessage('ここまでありがとう。最後のタロットだけが、いまの次の行動です。');
-        currentChoice.hidden = true;
-        showFinale();
+    function loopReply(id) {
+      if (id === 'safe') return '安心したい、がいちばん近いんだね。じゃあ今は正しさより、心拍が落ちるほうを優先していい。';
+      if (id === 'clear') return '頭を整理したいんだね。散らかったまま頑張るより、先に輪郭をつくったほうがきれいに進める。';
+      if (id === 'light') return '少し軽くなりたいんだね。全部消えなくていいから、持ち方を変えてみようか。';
+      return '一歩だけ決めたいんだね。それで十分。今日は一歩でいい。';
+    }
+
+    function buildFinalSummary() {
+      const mood = state.answers.mood?.label || '今の気分';
+      const burden = state.answers.burden?.label || '引っかかり';
+      const wish = state.answers.wish?.label || '望む方向';
+      const support = state.answers.support?.label || 'ほしい返し';
+      const action = state.answers.action?.label || '次の一手';
+      const tarot = state.tarot;
+
+      return `今回のこぶぶのまとめ。\n\n入口は「${mood}」でした。そこから見えてきたのは「${burden}」という負荷で、ほんとは「${wish}」へ近づきたい気持ちがある。\n\n今日は「${support}」を求めていたのも印象的でした。つまり、ただ答えがほしいだけじゃなくて、いまの自分に合う温度で整理したかったんだと思う。\n\n現実の一手としては「${action}」が合っています。大きく変えるより、まず小さく整えるほうが今の流れには合う。\n\n最後に引いた「${tarot.name}」は、「${tarot.msg.replace(/。$/, '')}」というサインでした。だから今日は、勢いで突破する日じゃなくて、余計なノイズを減らして次の一歩を軽くする日。全部解決しなくて大丈夫。ちゃんと前には進めます。`;
+    }
+
+    async function startTarot() {
+      showScreen('tarot');
+      finalBody.textContent = 'どれか1枚、気になるものを選んでください。';
+    }
+
+    async function handleChoice(item) {
+      const id = item.id;
+
+      if (state.stage === 'mood') {
+        state.answers.mood = item;
+        state.stage = 'burden';
+        await typeText(`${moodReply(id)}\n\n今いちばん引っかかってるの、どれに近い？`);
+        renderChoices(CHOICES.burden);
         return;
       }
 
-      state.step += 1;
-      updateStepUI();
-      renderActions();
-    }
-
-    async function injectWisdom() {
-      if (state.locked || state.currentScreen !== 'chat') return;
-      state.historyCount += 1;
-      const item = pickInsight('wisdom');
-      currentChoice.hidden = true;
-      await typeAiMessage(`${item.who}
-${item.line}
-
-${item.tip}`);
-    }
-
-    function renderActions() {
-      if (state.currentScreen !== 'chat') return;
-      if (state.done) {
-        questionBox.textContent = '最後に1枚、タロットを選んでね。';
-        choiceGrid.innerHTML = '';
-        const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = '最後のタロットへ進む';
-        btn.addEventListener('click', showFinale);
-        choiceGrid.appendChild(btn);
+      if (state.stage === 'burden') {
+        state.answers.burden = item;
+        state.stage = 'wish';
+        await typeText(`${burdenReply(id)}\n\nほんとは、どうなれたら少し楽？`);
+        renderChoices(CHOICES.wish);
         return;
       }
 
-      questionBox.textContent = steps[state.step].question;
-      choiceGrid.innerHTML = '';
-      steps[state.step].replies.forEach(label => {
+      if (state.stage === 'wish') {
+        state.answers.wish = item;
+        state.stage = 'support';
+        await typeText(`${wishReply(id)}\n\n今日は、どんなふうに返してほしい？`);
+        renderChoices(CHOICES.support);
+        return;
+      }
+
+      if (state.stage === 'support') {
+        state.answers.support = item;
+        state.stage = 'action';
+        await typeText(`${supportReply(id)}\n\nじゃあ、今日の自分に渡すならどれがいい？`);
+        renderChoices(CHOICES.action);
+        return;
+      }
+
+      if (state.stage === 'action') {
+        state.answers.action = item;
+        state.stage = 'close';
+        await typeText(`${actionReply(id)}\n\nこのあと、どうしたい？`);
+        renderChoices(CHOICES.close);
+        return;
+      }
+
+      if (state.stage === 'close') {
+        if (id === 'summary') {
+          await typeText('うん、じゃあこのへんでやさしくまとめに入るね。最後に1枚だけ、選んで。');
+          startTarot();
+          return;
+        }
+
+        if (id === 'continue') {
+          state.stage = 'loop';
+          state.loopCount += 1;
+          await typeText('もちろん。じゃあ、もう少しだけ。\n\nいま欲しいのはどれに近い？');
+          renderChoices(CHOICES.loop);
+          return;
+        }
+
+        if (id === 'push') {
+          state.stage = 'close2';
+          await typeText('少しだけ背中を押すね。\n\nいま必要なのは「完璧に整うこと」じゃなくて、「ひとつ決めて楽になること」だと思う。\n\nこのへんでまとめる？');
+          renderChoices(CHOICES.close2);
+          return;
+        }
+
+        if (id === 'soft') {
+          state.stage = 'close2';
+          await typeText('じゃあ、やさしく締めるね。\n\n今日はちゃんと話せただけでも十分。自分を急がせすぎなくて大丈夫。\n\nこのへんでまとめる？');
+          renderChoices(CHOICES.close2);
+          return;
+        }
+      }
+
+      if (state.stage === 'loop') {
+        state.answers.loop = item;
+        state.stage = 'close2';
+        await typeText(`${loopReply(id)}\n\nこのへんで、そろそろまとめる？`);
+        renderChoices(CHOICES.close2);
+        return;
+      }
+
+      if (state.stage === 'close2') {
+        if (id === 'summary') {
+          await typeText('うん、じゃあ最後に1枚だけ。いまの流れに合うカードを選んで。');
+          startTarot();
+          return;
+        }
+
+        state.stage = 'loop';
+        state.loopCount += 1;
+        if (state.loopCount >= 2) {
+          await typeText('じゃあ本当に、もうひとつだけ。\n\nいま近いのはどれ？');
+        } else {
+          await typeText('いいよ。もう少しだけ付き合うね。\n\nいま近いのはどれ？');
+        }
+        renderChoices(CHOICES.loop);
+      }
+    }
+
+    function renderTarotCards() {
+      cardGrid.innerHTML = '';
+      TAROT.forEach((card) => {
         const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = label;
-        btn.addEventListener('click', (e) => {
-          if (state.locked) return;
-          spawnParticles(e.currentTarget, 10);
-          handleChoice(label);
-        });
-        choiceGrid.appendChild(btn);
+        btn.type = 'button';
+        btn.className = 'card-btn';
+        btn.innerHTML = `<span aria-hidden="true">${card.icon}</span>`;
+        btn.title = card.name;
+
+        const choose = () => {
+          if (state.tarotChosen) return;
+          state.tarotChosen = true;
+          state.tarot = card;
+
+          document.querySelectorAll('.card-btn').forEach((el) => {
+            el.disabled = true;
+            el.classList.remove('active');
+          });
+
+          btn.classList.add('active');
+          btn.disabled = false;
+          finalBody.textContent = `【${card.name}】\n${card.msg}\n\nこのカードで確定しました。`;
+          spawnParticles(btn, 16);
+
+          setTimeout(() => {
+            summaryBody.textContent = buildFinalSummary();
+            showScreen('summary');
+          }, 700);
+        };
+
+        btn.addEventListener('click', choose);
+        btn.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          choose();
+        }, { passive: false });
+
+        cardGrid.appendChild(btn);
       });
     }
 
     function resetSession() {
-      state.step = 0;
-      state.historyCount = 0;
-      state.answers = [];
-      state.done = false;
-      state.locked = false;
+      state.stage = 'mood';
+      state.answers = {};
+      state.loopCount = 0;
       state.tarotChosen = false;
       state.tarot = null;
-      currentChoice.textContent = '';
-      currentChoice.hidden = true;
-      finalBody.textContent = '1枚選ぶと、そのまま総括画面へ進みます。';
-      document.querySelectorAll('.card-btn').forEach(btn => {
-        btn.disabled = false;
-        btn.classList.remove('active');
-      });
-      updateStepUI();
+      messageBox.textContent = 'ねえ、今日はどんな感じ？';
       showScreen('chat');
-      messageBox.textContent = 'こんにちは。今日はどんな気分？';
-      questionBox.textContent = '今の気分にいちばん近いものを選んでください。';
-      renderActions();
+      renderChoices(CHOICES.mood);
+      renderTarotCards();
+      finalBody.textContent = 'どれか1枚、気になるものを選んでください。';
+      summaryBody.textContent = '';
+      setLocked(false);
     }
-
-    tarotDeck.forEach(card => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'card-btn';
-      btn.innerHTML = `<span aria-hidden="true">${card.icon}</span>`;
-      btn.title = card.name;
-      const choose = () => {
-        if (!state.done || state.tarotChosen) return;
-        state.tarotChosen = true;
-        state.tarot = card;
-        document.querySelectorAll('.card-btn').forEach(el => {
-          el.disabled = true;
-          el.classList.remove('active');
-        });
-        btn.classList.add('active');
-        btn.disabled = false;
-        finalBody.textContent = `【${card.name}】
-${card.msg}
-
-このカードで確定しました。総括画面へ切り替えます。`;
-        spawnParticles(btn, 16);
-        setTimeout(() => openSummary(true), 700);
-      };
-      btn.addEventListener('click', choose);
-      btn.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        choose();
-      }, { passive: false });
-      cardGrid.appendChild(btn);
-    });
 
     let audioCtx;
     let bgmOn = false;
@@ -905,42 +1131,52 @@ ${card.msg}
     function bellTone(freq, start, amp = 0.024, duration = 1.8, gong = false) {
       const ratios = gong ? [1, 1.48, 2.92, 4.11] : [1, 1.52, 2.17, 3.86];
       const decays = gong ? [1.6, 1.3, 1.0, 0.8] : [1.2, 0.85, 0.55, 0.42];
+
       ratios.forEach((r, i) => {
         const oscA = audioCtx.createOscillator();
         const oscB = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
+
         oscA.type = 'sine';
         oscB.type = 'triangle';
         oscA.frequency.value = freq * r;
         oscB.frequency.value = freq * r * 1.006;
+
         gain.gain.setValueAtTime(0.0001, start);
         gain.gain.exponentialRampToValueAtTime(amp / (i + 1), start + 0.01);
         gain.gain.exponentialRampToValueAtTime(0.0001, start + Math.max(0.18, duration * decays[i]));
+
         oscA.connect(gain);
         oscB.connect(gain);
         gain.connect(audioCtx.destination);
+
         oscA.start(start);
         oscB.start(start);
         oscA.stop(start + duration * decays[i] + 0.08);
         oscB.stop(start + duration * decays[i] + 0.08);
+
         liveNodes.push(oscA, oscB, gain);
       });
     }
 
     function scheduleGamelan() {
       if (!audioCtx || !bgmOn) return;
+
       const now = audioCtx.currentTime + 0.08;
       const pelogish = [220, 247, 277, 330, 370];
       const left = [0, 2, 1, 3, 2, 4, 1, 3];
       const right = [2, 3, 2, 4, 0, 2, 1, 4];
       const spacing = 0.22;
+
       bellTone(110, now, 0.032, 2.6, true);
+
       for (let i = 0; i < left.length; i++) {
         const t1 = now + i * spacing;
         const t2 = now + i * spacing + spacing / 2;
         bellTone(pelogish[left[i]], t1, 0.018, 1.1, false);
         bellTone(pelogish[right[i]], t2, 0.016, 0.95, false);
       }
+
       bellTone(147, now + left.length * spacing - 0.08, 0.024, 1.8, true);
       bgmTimer = setTimeout(scheduleGamelan, left.length * spacing * 1000 + 120);
     }
@@ -948,18 +1184,23 @@ ${card.msg}
     async function toggleBgm() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       if (audioCtx.state === 'suspended') await audioCtx.resume();
+
       bgmOn = !bgmOn;
-      bgmBtn.textContent = bgmOn ? '♪ BGM OFF' : '♪ BGM ON';
+      soundBtn.textContent = bgmOn ? '♪ BGM OFF' : '♪ BGM ON';
+
       if (bgmOn) {
         scheduleGamelan();
       } else {
         clearTimeout(bgmTimer);
-        liveNodes.forEach(node => { try { node.disconnect?.(); } catch (_) {} });
+        liveNodes.forEach((node) => {
+          try { node.disconnect?.(); } catch (_) {}
+        });
         liveNodes = [];
       }
     }
 
-    bgmBtn.addEventListener('click', toggleBgm);
+    soundBtn.addEventListener('click', toggleBgm);
+    restartBtn.addEventListener('click', resetSession);
 
     resetSession();
   </script>
