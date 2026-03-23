@@ -1,4 +1,5 @@
-はい、そのまま index.html に貼れる全文です。
+これを index.html にそのまま丸ごと貼って。
+画像ファイルなしで動く版にしてある。
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -7,568 +8,521 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>こぶぶのお気軽トーク</title>
   <style>
-    :root {
-      --bg-a: #fffafc;
-      --bg-b: #f6f0ff;
-      --bg-c: #eef8ff;
-      --panel: rgba(255,255,255,0.92);
-      --panel-strong: rgba(255,255,255,0.98);
-      --text: #564a72;
-      --muted: #8b80a7;
-      --line: rgba(126, 105, 186, 0.14);
-      --pink: #ff9dce;
-      --lav: #c5b0ff;
-      --sky: #bfe7ff;
-      --gold: #ffd57d;
-      --mint: #baf0de;
-      --shadow: 0 18px 36px rgba(124, 103, 170, 0.14);
-      --shadow-soft: 0 10px 24px rgba(124, 103, 170, 0.09);
+    :root{
+      --bg1:#f9f5ff;
+      --bg2:#eef6ff;
+      --panel:rgba(255,255,255,.82);
+      --panel-strong:rgba(255,255,255,.92);
+      --line:rgba(109,91,158,.12);
+      --text:#4b4064;
+      --muted:#7c7196;
+      --accent:#a67cff;
+      --accent2:#ff9fcb;
+      --accent3:#9fd8ff;
+      --gold:#f4c96b;
+      --shadow:0 18px 40px rgba(85,63,141,.10);
+      --shadow-soft:0 10px 24px rgba(85,63,141,.08);
     }
 
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
-      color: var(--text);
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(255,157,206,0.24), transparent 22%),
-        radial-gradient(circle at 88% 12%, rgba(191,231,255,0.30), transparent 20%),
-        radial-gradient(circle at 50% 100%, rgba(197,176,255,0.18), transparent 35%),
-        linear-gradient(180deg, var(--bg-a), var(--bg-b) 48%, var(--bg-c));
-      overflow-x: hidden;
+        radial-gradient(circle at 10% 10%, rgba(255,159,203,.18), transparent 24%),
+        radial-gradient(circle at 90% 10%, rgba(159,216,255,.18), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(166,124,255,.12), transparent 30%),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
     }
 
-    .stars, .petals, .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
+    .bg-orb{
+      position:fixed;
+      border-radius:50%;
+      filter:blur(24px);
+      opacity:.38;
+      pointer-events:none;
+      z-index:0;
+      animation:float 9s ease-in-out infinite;
+    }
+    .orb1{width:240px;height:240px;left:-40px;top:40px;background:#ffd7e8;}
+    .orb2{width:280px;height:280px;right:-80px;top:160px;background:#d9efff;animation-delay:1.8s;}
+    .orb3{width:220px;height:220px;left:40%;bottom:-60px;background:#eadbff;animation-delay:3.2s;}
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-18px)}
     }
 
-    .star {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.95);
-      box-shadow: 0 0 10px rgba(255,255,255,0.8);
-      animation: twinkle 3.1s ease-in-out infinite;
+    .sparkles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+    }
+    .spark{
+      position:absolute;
+      width:4px;
+      height:4px;
+      border-radius:50%;
+      background:#fff;
+      opacity:.9;
+      box-shadow:0 0 10px rgba(255,255,255,.9);
+      animation:twinkle 3s ease-in-out infinite;
+    }
+    @keyframes twinkle{
+      0%,100%{opacity:.18;transform:scale(.7)}
+      50%{opacity:1;transform:scale(1.45)}
     }
 
-    @keyframes twinkle {
-      0%,100% { opacity: 0.18; transform: scale(0.75); }
-      50% { opacity: 1; transform: scale(1.45); }
+    .wrap{
+      position:relative;
+      z-index:1;
+      width:min(1000px, calc(100vw - 16px));
+      margin:0 auto;
+      padding:12px 0 28px;
     }
 
-    .petal {
-      position: absolute;
-      width: 12px;
-      height: 18px;
-      border-radius: 14px 14px 14px 3px;
-      background: linear-gradient(180deg, rgba(255,188,221,0.95), rgba(255,140,181,0.72));
-      opacity: 0.72;
-      animation: petalFall linear infinite;
+    .app{
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.75);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+      overflow:hidden;
     }
 
-    @keyframes petalFall {
-      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-      12% { opacity: 0.72; }
-      100% { transform: translateY(110vh) translateX(54px) rotate(330deg); opacity: 0; }
+    .hero{
+      display:grid;
+      grid-template-columns:300px 1fr;
+      gap:18px;
+      padding:18px;
+      border-bottom:1px solid rgba(109,91,158,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,.20));
+      align-items:center;
     }
 
-    .shell {
-      width: min(860px, calc(100vw - 12px));
-      margin: 0 auto;
-      min-height: 100vh;
-      padding: 12px 0 24px;
-      position: relative;
-      z-index: 1;
+    .portrait-card{
+      border-radius:26px;
+      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,242,255,.85));
+      border:1px solid rgba(255,255,255,.85);
+      box-shadow:var(--shadow-soft);
+      padding:10px;
+      min-height:360px;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
     }
 
-    .app {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.62);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      backdrop-filter: blur(16px);
-    }
-
-    .hero {
-      padding: 18px;
-      display: grid;
-      grid-template-columns: 112px 1fr auto;
-      gap: 16px;
-      align-items: center;
-      border-bottom: 1px solid rgba(126,105,186,0.08);
-      background: linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255,255,255,0.18));
-    }
-
-    .pixel-card {
-      width: 112px;
-      height: 112px;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,242,255,0.92));
-      border: 1px solid rgba(255,255,255,0.92);
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      flex: 0 0 auto;
-    }
-
-    .pixel-face {
-      width: 96px;
-      height: 96px;
-      display: grid;
-      grid-template-columns: repeat(16, 1fr);
-      grid-template-rows: repeat(16, 1fr);
-      gap: 0;
-      image-rendering: pixelated;
-    }
-
-    .px { width: 100%; height: 100%; }
-    .px.hair { background: #d9d2cf; }
-    .px.hair2 { background: #bdb6b4; }
-    .px.skin { background: #ffd9c9; }
-    .px.eye { background: #7ea7e4; }
-    .px.eye2 { background: #394457; }
-    .px.lip { background: #d36f87; }
-    .px.coat { background: #242536; }
-    .px.coat2 { background: #3b3150; }
-    .px.glow { background: #fff7cf; }
-    .px.bg { background: transparent; }
-
-    .hero-copy { min-width: 0; }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: #8b7da8;
-      margin-bottom: 4px;
-    }
-
-    .hero h1 {
-      margin: 0 0 6px;
-      font-size: 26px;
-      color: #6c5289;
-      letter-spacing: 0.04em;
-    }
-
-    .hero p {
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--muted);
-      max-width: 38em;
-    }
-
-    .sound-btn,
-    .choice-btn,
-    .summary-btn,
-    .card-btn,
-    .restart-btn {
-      appearance: none;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.76));
-      color: var(--text);
-      border-radius: 18px;
-      box-shadow: var(--shadow-soft);
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 0.14s ease, border-color 0.14s ease;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .sound-btn:hover,
-    .choice-btn:hover,
-    .summary-btn:hover,
-    .card-btn:hover,
-    .restart-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(126,105,186,0.24);
-    }
-
-    .sound-btn:active,
-    .choice-btn:active,
-    .summary-btn:active,
-    .card-btn:active,
-    .restart-btn:active {
-      transform: translateY(1px) scale(0.99);
-    }
-
-    .sound-btn,
-    .restart-btn {
-      padding: 11px 16px;
-      background: linear-gradient(180deg, rgba(255,213,125,0.96), rgba(255,157,206,0.88));
-      color: #5b4477;
-      border-color: rgba(255,213,125,0.28);
-      white-space: nowrap;
-    }
-
-    .main {
-      padding: 16px;
-      display: grid;
-      gap: 12px;
-      min-height: 650px;
-    }
-
-    .card {
-      background: var(--panel-strong);
-      border: 1px solid rgba(126,105,186,0.09);
-      border-radius: 26px;
-      box-shadow: var(--shadow-soft);
-      padding: 16px;
-    }
-
-    .card[hidden] { display: none; }
-
-    .speaker {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .speaker-mini {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,239,255,0.88));
-      border: 1px solid rgba(255,255,255,0.92);
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      overflow: hidden;
-    }
-
-    .speaker-mini .pixel-face {
-      width: 36px;
-      height: 36px;
-    }
-
-    .speaker-name {
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: #6c5289;
-    }
-
-    .speaker-note {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .typing-box,
-    .message-box,
-    .quote-box,
-    .summary-body,
-    .final-body {
-      padding: 16px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.8));
-      border: 1px solid rgba(126,105,186,0.08);
-      box-shadow: var(--shadow-soft);
-      white-space: pre-wrap;
-    }
-
-    .message-box,
-    .quote-box,
-    .summary-body,
-    .final-body {
-      font-size: 16px;
-      line-height: 1.85;
-    }
-
-    .typing-box {
-      display: none;
-      font-size: 14px;
-      color: #8a7ba6;
-    }
-
-    .typing-box.show { display: block; }
-
-    .quote-box {
+    .portrait-stage{
+      width:100%;
+      height:100%;
+      border-radius:20px;
+      overflow:hidden;
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,249,255,0.84)),
-        linear-gradient(135deg, rgba(255,213,125,0.08), rgba(191,231,255,0.08));
+        radial-gradient(circle at 50% 15%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, transparent 42%),
+        linear-gradient(180deg,#f6f2ff 0%, #f3f7ff 52%, #efe8ff 100%);
+      position:relative;
     }
 
-    .quote-kicker {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: #9a8ab9;
-      margin-bottom: 6px;
+    .portrait-stage::after{
+      content:"";
+      position:absolute;
+      inset:auto 22px 14px 22px;
+      height:58px;
+      background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.55));
+      border-radius:30px;
+      filter:blur(10px);
     }
 
-    .quote-text {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #5d5078;
-      margin-bottom: 8px;
+    .hero-copy{
+      min-width:0;
     }
 
-    .quote-note {
-      font-size: 14px;
-      line-height: 1.75;
-      color: #796a99;
+    .eyebrow{
+      font-size:11px;
+      letter-spacing:.22em;
+      color:#8b7fad;
+      margin-bottom:6px;
     }
 
-    .choice-grid,
-    .summary-actions {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
+    h1{
+      margin:0 0 8px;
+      font-size:31px;
+      line-height:1.15;
+      color:#604b83;
     }
 
-    .choice-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .lead{
+      margin:0 0 16px;
+      font-size:14px;
+      line-height:1.85;
+      color:var(--muted);
+      max-width:42em;
     }
 
-    .choice-btn {
-      min-height: 64px;
-      padding: 14px 16px;
-      text-align: left;
-      line-height: 1.5;
-      color: #5a4a72;
-      font-size: 15px;
+    .toolbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
 
-    .tarot-toolbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
+    .chip,
+    .option-btn,
+    .tarot-btn,
+    .restart-btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      touch-action:manipulation;
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
 
-    .tarot-title,
-    .summary-title {
-      margin: 0 0 4px;
-      font-size: 20px;
-      color: #6c5289;
+    .chip,
+    .restart-btn{
+      padding:11px 16px;
+      border-radius:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.75));
+      border:1px solid var(--line);
+      color:#5d507a;
+      font-weight:800;
+      box-shadow:var(--shadow-soft);
     }
 
-    .tarot-sub,
-    .summary-sub {
-      margin: 0 0 14px;
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--muted);
+    .chip.primary{
+      background:linear-gradient(180deg, rgba(255,222,129,.96), rgba(255,164,203,.90));
+      border-color:rgba(244,201,107,.35);
     }
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 16px;
+    .chip:hover,
+    .option-btn:hover,
+    .tarot-btn:hover,
+    .restart-btn:hover{
+      transform:translateY(-1px);
     }
 
-    .card-btn {
-      aspect-ratio: 0.74;
-      border-radius: 22px;
-      position: relative;
-      overflow: hidden;
-      padding: 0;
-      display: block;
-      text-align: left;
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(250,245,255,0.82));
-      color: #5f4a7d;
+    .main{
+      padding:16px;
+      display:grid;
+      gap:14px;
     }
 
-    .card-face {
-      position: absolute;
-      inset: 0;
-      padding: 10px;
-      display: grid;
-      grid-template-rows: auto auto 1fr auto auto;
-      gap: 6px;
+    .panel{
+      background:var(--panel-strong);
+      border:1px solid rgba(109,91,158,.10);
+      border-radius:26px;
+      box-shadow:var(--shadow-soft);
+      padding:16px;
+    }
+
+    .hidden{display:none !important}
+
+    .assistant{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .assistant-badge{
+      width:44px;
+      height:44px;
+      border-radius:15px;
+      flex:0 0 auto;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      color:#fff;
+      background:linear-gradient(180deg, #b18aff, #ff9fcb);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .assistant-meta{
+      min-width:0;
+    }
+
+    .assistant-name{
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.08em;
+      color:#644f86;
+      margin-bottom:2px;
+    }
+
+    .assistant-note{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .bubble{
+      padding:16px;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.82));
+      border:1px solid rgba(109,91,158,.08);
+      box-shadow:var(--shadow-soft);
+      white-space:pre-wrap;
+      font-size:16px;
+      line-height:1.82;
+      min-height:86px;
+    }
+
+    .quote{
+      margin-top:12px;
+      padding:15px 16px;
+      border-radius:20px;
       background:
-        radial-gradient(circle at 18% 12%, rgba(255,255,255,0.46), transparent 20%),
-        linear-gradient(160deg, rgba(255,255,255,0.9), rgba(249,243,255,0.88));
+        linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,248,253,.88)),
+        linear-gradient(135deg, rgba(244,201,107,.08), rgba(159,216,255,.08));
+      border:1px solid rgba(109,91,158,.08);
+      box-shadow:var(--shadow-soft);
     }
 
-    .card-roman {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      color: #9c8abb;
-      text-align: center;
+    .quote-kicker{
+      font-size:11px;
+      letter-spacing:.18em;
+      color:#9484b6;
+      margin-bottom:8px;
     }
 
-    .card-art {
-      height: 96px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-size: 42px;
-      color: #5f4a7d;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.36);
+    .quote-text{
+      font-size:15px;
+      line-height:1.8;
+      color:#5d5078;
+      margin-bottom:8px;
+      white-space:pre-wrap;
     }
 
-    .card-name {
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-align: center;
-      color: #6b5488;
+    .quote-meta{
+      font-size:13px;
+      line-height:1.7;
+      color:#7f729a;
     }
 
-    .card-tag {
-      font-size: 10px;
-      line-height: 1.4;
-      color: #8d7ea9;
-      text-align: center;
-      min-height: 28px;
+    .question{
+      margin:16px 0 10px;
+      font-size:20px;
+      color:#644f86;
+      font-weight:900;
     }
 
-    .card-star {
-      text-align: center;
-      font-size: 13px;
-      color: rgba(255,213,125,0.9);
+    .progress{
+      margin:2px 0 12px;
+      font-size:12px;
+      color:#9084ab;
     }
 
-    .card-btn.active {
-      border-color: rgba(255,213,125,0.42);
-      box-shadow: 0 0 0 3px rgba(255,213,125,0.14), var(--shadow-soft);
-      transform: translateY(-2px);
+    .options{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
     }
 
-    .card-btn[disabled] {
-      opacity: 0.58;
-      cursor: default;
-      transform: none;
+    .option-btn{
+      min-height:66px;
+      padding:14px 16px;
+      border-radius:18px;
+      text-align:left;
+      line-height:1.55;
+      background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,255,255,.78));
+      border:1px solid var(--line);
+      color:#54486d;
+      box-shadow:var(--shadow-soft);
+      font-size:15px;
+      font-weight:700;
     }
 
-    .summary-actions {
-      grid-template-columns: 1fr;
+    .option-btn:disabled{
+      opacity:.6;
+      cursor:default;
+      transform:none;
     }
 
-    .summary-btn {
-      padding: 13px 16px;
-      font-size: 14px;
-      color: #5d4c77;
+    .section-title{
+      margin:0 0 6px;
+      font-size:22px;
+      color:#624d84;
     }
 
-    .particle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.98), rgba(255,213,125,0.82) 54%, rgba(255,157,206,0.22) 78%, transparent 80%);
-      animation: particleFly 840ms ease-out forwards;
-      pointer-events: none;
-      z-index: 30;
+    .section-sub{
+      margin:0 0 14px;
+      font-size:13px;
+      line-height:1.75;
+      color:var(--muted);
     }
 
-    @keyframes particleFly {
-      from { transform: translate(0,0) scale(1); opacity: 1; }
-      to { transform: translate(var(--dx), var(--dy)) scale(0.24); opacity: 0; }
+    .tarot-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:12px;
     }
 
-    @media (max-width: 720px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
+    .tarot-btn{
+      padding:0;
+      border-radius:22px;
+      overflow:hidden;
+      position:relative;
+      aspect-ratio:.76;
+      border:1px solid rgba(109,91,158,.12);
+      box-shadow:var(--shadow-soft);
+      background:#fff;
     }
 
-    @media (max-width: 640px) {
-      .shell {
-        width: min(100vw - 8px, 100%);
-        padding-top: 6px;
-      }
+    .tarot-face{
+      position:absolute;
+      inset:0;
+      padding:10px;
+      display:grid;
+      grid-template-rows:auto auto 1fr auto auto;
+      gap:7px;
+      color:#5f4f7e;
+    }
 
-      .topbar,
-      .main {
-        padding-left: 10px;
-        padding-right: 10px;
-      }
+    .tarot-roman{
+      text-align:center;
+      font-size:10px;
+      letter-spacing:.20em;
+      color:#8f7eb1;
+    }
 
-      .choice-grid,
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
+    .tarot-art{
+      height:98px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-size:42px;
+      background:rgba(255,255,255,.25);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
+    }
 
-      .card-grid .card-btn {
-        aspect-ratio: auto;
-        min-height: 188px;
-      }
+    .tarot-name{
+      text-align:center;
+      font-weight:900;
+      letter-spacing:.08em;
+      font-size:12px;
+      color:#644f86;
+    }
 
-      .hero h1 {
-        font-size: 22px;
-      }
+    .tarot-tag{
+      text-align:center;
+      font-size:10px;
+      color:#7f729a;
+      line-height:1.45;
+      min-height:30px;
+    }
+
+    .tarot-stars{
+      text-align:center;
+      color:#d6aa45;
+      font-size:13px;
+    }
+
+    .tarot-btn.active{
+      transform:translateY(-2px);
+      box-shadow:0 0 0 3px rgba(244,201,107,.20), var(--shadow-soft);
+      border-color:rgba(244,201,107,.48);
+    }
+
+    .result-card{
+      margin-top:14px;
+      padding:16px;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.82));
+      border:1px solid rgba(109,91,158,.08);
+      box-shadow:var(--shadow-soft);
+      white-space:pre-wrap;
+      font-size:16px;
+      line-height:1.82;
+    }
+
+    .summary-actions{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 860px){
+      .hero{grid-template-columns:1fr}
+      .portrait-card{min-height:320px}
+      .tarot-grid{grid-template-columns:repeat(3, minmax(0,1fr))}
+    }
+
+    @media (max-width: 640px){
+      .wrap{width:min(100vw - 8px, 100%); padding-top:6px}
+      .hero,.main{padding-left:10px; padding-right:10px}
+      h1{font-size:25px}
+      .options{grid-template-columns:1fr}
+      .tarot-grid{grid-template-columns:1fr}
+      .tarot-btn{aspect-ratio:auto; min-height:180px}
+      .portrait-card{min-height:280px}
     }
   </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
-  <div class="petals" id="petals"></div>
-  <div class="particles" id="particles"></div>
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+  <div class="sparkles" id="sparkles"></div>
 
-  <main class="shell">
+  <main class="wrap">
     <section class="app">
       <header class="hero">
-        <div class="pixel-card" aria-hidden="true">
-          <div class="pixel-face" id="heroPixel"></div>
+        <div class="portrait-card">
+          <div class="portrait-stage" id="portraitStage"></div>
         </div>
 
         <div class="hero-copy">
           <div class="eyebrow">KOBUBU</div>
           <h1>こぶぶのお気軽トーク</h1>
-          <p>
-            こぶぶは、少しスラブっぽい静かな雰囲気のドット絵で登場。
-            会話のたびに短い名言を一つ挟みながら、やさしく一問一答していきます。
-            最後は22枚のタロットから、気になる絵柄を自分で選べます。
+          <p class="lead">
+            一問一答で進んで、答えるたびに短い名言をひとつ挟みます。
+            最後は22枚のタロットから、自分で気になる絵柄を1枚選べます。
           </p>
+          <div class="toolbar">
+            <button class="chip primary" id="restartTopBtn">最初から</button>
+            <span class="chip" aria-hidden="true">画像ファイル不要</span>
+          </div>
         </div>
-
-        <button id="soundBtn" class="sound-btn">♪ BGM ON</button>
       </header>
 
       <div class="main">
-        <section class="card" id="chatScreen">
-          <div class="speaker">
-            <div class="speaker-mini">
-              <div class="pixel-face" id="miniPixel"></div>
-            </div>
-            <div>
-              <div class="speaker-name">こぶぶ</div>
-              <div class="speaker-note">名言を一言ずつ挟みながら返します</div>
+        <section class="panel" id="chatScreen">
+          <div class="assistant">
+            <div class="assistant-badge">こ</div>
+            <div class="assistant-meta">
+              <div class="assistant-name">こぶぶ</div>
+              <div class="assistant-note">短い名言を挟みながら返します</div>
             </div>
           </div>
 
-          <div class="typing-box" id="typingBox">こぶぶが考え中…</div>
-          <div class="message-box" id="messageBox">ねえ、今日はどんな感じ？</div>
+          <div class="bubble" id="messageBox">ねえ、今日はどんな感じ？</div>
 
-          <div class="quote-box" id="quoteBox" hidden>
+          <div class="quote hidden" id="quoteBox">
             <div class="quote-kicker">KOBUBU'S ONE LINE</div>
             <div class="quote-text" id="quoteText"></div>
-            <div class="quote-note" id="quoteNote"></div>
+            <div class="quote-meta" id="quoteMeta"></div>
           </div>
 
-          <div class="choice-grid" id="choiceGrid"></div>
+          <div class="question" id="questionText"></div>
+          <div class="progress" id="progressText"></div>
+          <div class="options" id="options"></div>
         </section>
 
-        <section class="card" id="tarotScreen" hidden>
-          <div class="tarot-toolbar">
-            <div>
-              <h2 class="tarot-title">最後に1枚だけ</h2>
-              <p class="tarot-sub">実際のタロットみたいに、気になる絵柄を自分で選んでください。</p>
-            </div>
-          </div>
-          <div class="card-grid" id="cardGrid"></div>
-          <div class="final-body" id="finalBody">どれか1枚、気になるものを選んでください。</div>
+        <section class="panel hidden" id="tarotScreen">
+          <h2 class="section-title">最後に1枚だけ</h2>
+          <p class="section-sub">気になる絵柄を自分で選んでください。</p>
+          <div class="tarot-grid" id="tarotGrid"></div>
+          <div class="result-card" id="tarotNote">どれか1枚、気になるカードを選んでください。</div>
         </section>
 
-        <section class="card" id="summaryScreen" hidden>
-          <h2 class="summary-title">こぶぶからの総括</h2>
-          <p class="summary-sub">会話・名言・タロットをふまえて、最後に短くまとめます。</p>
-          <div class="summary-body" id="summaryBody"></div>
+        <section class="panel hidden" id="summaryScreen">
+          <h2 class="section-title">こぶぶからの総括</h2>
+          <p class="section-sub">会話とタロットをふまえて、短くまとめます。</p>
+          <div class="result-card" id="summaryText"></div>
           <div class="summary-actions">
             <button class="restart-btn" id="restartBtn">最初から話す</button>
           </div>
@@ -578,713 +532,465 @@
   </main>
 
   <script>
-    const stars = document.getElementById('stars');
-    const petals = document.getElementById('petals');
-    const particles = document.getElementById('particles');
-
-    for (let i = 0; i < 64; i++) {
+    const sparkles = document.getElementById('sparkles');
+    for (let i = 0; i < 56; i++) {
       const s = document.createElement('div');
-      s.className = 'star';
-      s.style.left = `${Math.random() * 100}%`;
-      s.style.top = `${Math.random() * 100}%`;
-      s.style.animationDelay = `${Math.random() * 3}s`;
-      s.style.opacity = Math.random() * 0.8 + 0.2;
-      stars.appendChild(s);
+      s.className = 'spark';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = (Math.random() * 3) + 's';
+      s.style.opacity = (0.3 + Math.random() * 0.7).toFixed(2);
+      sparkles.appendChild(s);
     }
 
-    for (let i = 0; i < 22; i++) {
-      const p = document.createElement('div');
-      p.className = 'petal';
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.animationDuration = `${8 + Math.random() * 10}s`;
-      p.style.animationDelay = `${Math.random() * 8}s`;
-      p.style.transform = `scale(${0.7 + Math.random() * 0.8})`;
-      petals.appendChild(p);
-    }
+    const portraitStage = document.getElementById('portraitStage');
+    portraitStage.innerHTML = `
+      <svg viewBox="0 0 320 380" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-label="女性のイラスト">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fbf7ff"/>
+            <stop offset="55%" stop-color="#f2f6ff"/>
+            <stop offset="100%" stop-color="#efe8ff"/>
+          </linearGradient>
 
-    const PIXEL_ART = [
-      '.....gggggg.....',
-      '....ghhhhhgg....',
-      '...ghhhhhhhhgg...',
-      '..gghhhhhhhhhgg..',
-      '..ghhsssssshhhg..',
-      '.ghhssseeeesshhg.',
-      '.ghhssseeeesshhg.',
-      '.ghhsssss.ssshhg.',
-      '.ghhssssllssssg..',
-      '..ghssssssssshg..',
-      '..ghhsssssshhgg..',
-      '...ghhsssshhg....',
-      '....ggs..sgg.....',
-      '....gcc....cg....',
-      '...gccccccccg....',
-      '..gccccccccccg...'
-    ];
+          <linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#b9b0ab"/>
+            <stop offset="45%" stop-color="#9f958f"/>
+            <stop offset="100%" stop-color="#7d736e"/>
+          </linearGradient>
 
-    const COLOR_MAP = {
-      g: 'glow',
-      h: 'hair',
-      s: 'skin',
-      e: 'eye',
-      l: 'lip',
-      c: 'coat',
-      '.': 'bg'
-    };
+          <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f8d7c6"/>
+            <stop offset="100%" stop-color="#efbea8"/>
+          </linearGradient>
 
-    function paintPixel(targetId) {
-      const target = document.getElementById(targetId);
-      target.innerHTML = '';
-      PIXEL_ART.forEach(row => {
-        row.split('').forEach(ch => {
-          const px = document.createElement('div');
-          px.className = `px ${COLOR_MAP[ch] || 'bg'}`;
-          target.appendChild(px);
-        });
-      });
-      const pixels = target.querySelectorAll('.px.eye');
-      pixels.forEach((el, idx) => {
-        if (idx % 2 === 1) el.classList.add('eye2');
-      });
-    }
+          <linearGradient id="coatGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1e2334"/>
+            <stop offset="100%" stop-color="#31385b"/>
+          </linearGradient>
 
-    paintPixel('heroPixel');
-    paintPixel('miniPixel');
+          <linearGradient id="shirtGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fdfdff"/>
+            <stop offset="100%" stop-color="#ebe7f7"/>
+          </linearGradient>
+
+          <radialGradient id="halo" cx="50%" cy="22%" r="45%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
+            <stop offset="60%" stop-color="rgba(255,255,255,0.3)" />
+            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+          </radialGradient>
+
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="rgba(82,59,129,0.16)"/>
+          </filter>
+        </defs>
+
+        <rect width="320" height="380" rx="26" fill="url(#bgGrad)"/>
+        <circle cx="160" cy="86" r="86" fill="url(#halo)"/>
+
+        <ellipse cx="160" cy="340" rx="92" ry="18" fill="rgba(104,89,148,0.10)"/>
+
+        <g filter="url(#softShadow)">
+          <path d="M80 338 C95 278, 110 248, 160 248 C210 248, 225 278, 240 338 L80 338 Z" fill="url(#coatGrad)"/>
+          <path d="M136 240 L184 240 L198 338 L122 338 Z" fill="url(#shirtGrad)"/>
+          <path d="M145 240 C147 226, 173 226, 175 240 L175 256 C175 266, 145 266, 145 256 Z" fill="url(#skinGrad)"/>
+
+          <path d="M92 128 C92 78, 128 44, 160 44 C197 44, 232 79, 232 132 C232 190, 212 232, 160 232 C108 232, 92 188, 92 128 Z" fill="url(#hairGrad)"/>
+          <path d="M110 112 C112 83, 130 68, 160 64 C194 60, 215 84, 213 117 C211 150, 205 191, 160 198 C114 193, 108 148, 110 112 Z" fill="url(#skinGrad)"/>
+          <path d="M111 115 C119 81, 140 63, 163 60 C196 56, 216 75, 219 117 C208 103, 198 98, 183 92 C161 83, 142 90, 124 104 C120 107, 116 111, 111 115 Z" fill="url(#hairGrad)"/>
+
+          <path d="M111 114 C108 159, 112 197, 130 220 C104 210, 89 183, 87 149 C85 121, 92 92, 111 74 C121 65, 132 58, 145 54 C126 68, 115 88, 111 114 Z" fill="url(#hairGrad)"/>
+          <path d="M209 117 C212 158, 208 196, 191 220 C220 210, 234 184, 235 152 C236 122, 228 91, 209 73 C199 63, 187 56, 175 53 C193 69, 205 89, 209 117 Z" fill="url(#hairGrad)"/>
+
+          <path d="M130 126 C138 122, 147 121, 154 124" stroke="#9e7f78" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <path d="M166 124 C173 121, 183 122, 191 126" stroke="#9e7f78" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+          <path d="M128 140 C134 136, 145 136, 151 140" stroke="#8bb5e9" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+          <path d="M169 140 C175 136, 186 136, 192 140" stroke="#8bb5e9" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+
+          <circle cx="140" cy="142" r="3.1" fill="#46536b"/>
+          <circle cx="181" cy="142" r="3.1" fill="#46536b"/>
+          <circle cx="139" cy="141" r="1.2" fill="#fff"/>
+          <circle cx="180" cy="141" r="1.2" fill="#fff"/>
+
+          <path d="M160 146 C158 155, 157 162, 159 168" stroke="#d6a693" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+          <path d="M146 177 C153 182, 168 182, 175 177" stroke="#c87086" stroke-width="2.7" fill="none" stroke-linecap="round"/>
+          <path d="M147 175 C153 179, 168 179, 174 175" stroke="#e28aa0" stroke-width="5" opacity=".34" fill="none" stroke-linecap="round"/>
+
+          <ellipse cx="121" cy="154" rx="8" ry="5" fill="#efb8aa" opacity=".42"/>
+          <ellipse cx="198" cy="154" rx="8" ry="5" fill="#efb8aa" opacity=".42"/>
+
+          <path d="M120 82 C138 66, 188 61, 207 83" stroke="rgba(255,255,255,0.34)" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+          <path d="M118 231 C133 246, 188 248, 204 231" fill="none" stroke="#c7bdcf" stroke-width="3" stroke-linecap="round"/>
+        </g>
+      </svg>
+    `;
 
     const chatScreen = document.getElementById('chatScreen');
     const tarotScreen = document.getElementById('tarotScreen');
     const summaryScreen = document.getElementById('summaryScreen');
-    const typingBox = document.getElementById('typingBox');
+
     const messageBox = document.getElementById('messageBox');
     const quoteBox = document.getElementById('quoteBox');
     const quoteText = document.getElementById('quoteText');
-    const quoteNote = document.getElementById('quoteNote');
-    const choiceGrid = document.getElementById('choiceGrid');
-    const cardGrid = document.getElementById('cardGrid');
-    const finalBody = document.getElementById('finalBody');
-    const summaryBody = document.getElementById('summaryBody');
-    const restartBtn = document.getElementById('restartBtn');
-    const soundBtn = document.getElementById('soundBtn');
+    const quoteMeta = document.getElementById('quoteMeta');
+    const questionText = document.getElementById('questionText');
+    const progressText = document.getElementById('progressText');
+    const optionsBox = document.getElementById('options');
 
-    const CHOICES = {
-      mood: [
-        { id: 'tired', label: 'ちょっと疲れてる' },
-        { id: 'swirl', label: '焦って空回り' },
-        { id: 'tidy', label: '前向きに整えたい' },
-        { id: 'talk', label: 'なんとなく話したい' }
-      ],
-      burden: [
-        { id: 'priority', label: '優先順位がぐちゃぐちゃ' },
-        { id: 'heavy', label: '気持ちが重い' },
-        { id: 'people', label: '人のことが気になる' },
-        { id: 'self', label: '自分に自信が持てない' }
-      ],
-      wish: [
-        { id: 'calm', label: '落ち着きたい' },
-        { id: 'decide', label: 'はっきり決めたい' },
-        { id: 'confidence', label: '自信を戻したい' },
-        { id: 'forward', label: 'やさしく前に進みたい' }
-      ],
-      support: [
-        { id: 'gentle', label: 'やさしく返してほしい' },
-        { id: 'sharp', label: '少し鋭く言ってほしい' },
-        { id: 'quote', label: '名言多めでほしい' },
-        { id: 'watch', label: '時計の話でほぐして' }
-      ],
-      action: [
-        { id: 'ten', label: '10分だけ着手する' },
-        { id: 'message', label: '1本だけ連絡する' },
-        { id: 'stop', label: 'やらないことを決める' },
-        { id: 'rest', label: '今日は少し休む' }
-      ],
-      close: [
-        { id: 'summary', label: 'このへんでまとめる' },
-        { id: 'continue', label: 'もう少し話す' },
-        { id: 'push', label: 'ひとこと背中を押して' },
-        { id: 'soft', label: 'やさしく締めて' }
-      ],
-      loop: [
-        { id: 'safe', label: '安心したい' },
-        { id: 'clear', label: '頭を整理したい' },
-        { id: 'light', label: '少し軽くなりたい' },
-        { id: 'one', label: '一歩だけ決めたい' }
-      ],
-      close2: [
-        { id: 'summary', label: 'うん、まとめる' },
-        { id: 'continue', label: 'もう少しだけ話す' }
-      ]
-    };
+    const tarotGrid = document.getElementById('tarotGrid');
+    const tarotNote = document.getElementById('tarotNote');
+    const summaryText = document.getElementById('summaryText');
+
+    const restartBtn = document.getElementById('restartBtn');
+    const restartTopBtn = document.getElementById('restartTopBtn');
+
+    const STEPS = [
+      {
+        id: 'mood',
+        prompt: '今日はどんな感じ？',
+        options: [
+          { id: 'tired', label: 'ちょっと疲れてる' },
+          { id: 'swirl', label: '焦って空回りしてる' },
+          { id: 'tidy', label: '前向きに整えたい' },
+          { id: 'talk', label: 'なんとなく話したい' }
+        ],
+        replies: {
+          tired: 'そっか。今日は回復が先に来てる感じだね。無理に元気にしなくて大丈夫。',
+          swirl: 'それはしんどい。急いでいるのに進んでいる感じがない時は、気持ちだけが削られやすい。',
+          tidy: 'いいね。雑に頑張るより、きれいに進みたい感覚なんだね。',
+          talk: 'もちろん。理由がはっきりしてなくても大丈夫。話しているうちに輪郭は出てくる。'
+        }
+      },
+      {
+        id: 'burden',
+        prompt: '今いちばん引っかかってるのは？',
+        options: [
+          { id: 'priority', label: '優先順位がぐちゃぐちゃ' },
+          { id: 'heavy', label: '気持ちが重い' },
+          { id: 'people', label: '人のことが気になる' },
+          { id: 'self', label: '自分に自信が持てない' }
+        ],
+        replies: {
+          priority: 'やることの量より、順番がぶつかってる感じだね。',
+          heavy: '心そのものが重い時は、理屈より先に感触がくる。',
+          people: '人の言葉や空気が強めに入ってきてるんだね。',
+          self: '自分に向ける目が少し厳しくなってるのかもしれない。'
+        }
+      },
+      {
+        id: 'wish',
+        prompt: 'ほんとは、どうなれたら少し楽？',
+        options: [
+          { id: 'calm', label: '落ち着きたい' },
+          { id: 'decide', label: 'はっきり決めたい' },
+          { id: 'confidence', label: '自信を戻したい' },
+          { id: 'forward', label: 'やさしく前に進みたい' }
+        ],
+        replies: {
+          calm: 'うん。まず必要なのは勢いより静けさなんだね。',
+          decide: '迷いの霧を少し払いたいんだね。決めきれない状態は地味に消耗する。',
+          confidence: '自分をもう一度ちゃんと信じたい気持ちがあるんだね。',
+          forward: '強引じゃなくて、やさしく前へ。今の温度にはその進み方が合ってる。'
+        }
+      },
+      {
+        id: 'support',
+        prompt: '今日は、どんなふうに返してほしい？',
+        options: [
+          { id: 'gentle', label: 'やさしく返してほしい' },
+          { id: 'sharp', label: '少し鋭く言ってほしい' },
+          { id: 'quote', label: '名言多めでほしい' },
+          { id: 'watch', label: '時計の話でほぐして' }
+        ],
+        replies: {
+          gentle: 'わかった。今日は角を立てずに、でも曖昧にしすぎず返すね。',
+          sharp: '了解。少しだけ本音で言うと、今の苦しさの一部は「決めないまま抱えすぎてること」かもしれない。',
+          quote: 'いいね。言葉をひとつずつ挟みながら進めよう。',
+          watch: '了解。時計みたいに、一気じゃなく少しずつ整える感じでいこう。'
+        }
+      },
+      {
+        id: 'action',
+        prompt: '今の自分に渡すなら、次の一手はどれ？',
+        options: [
+          { id: 'ten', label: '10分だけ着手する' },
+          { id: 'message', label: '1本だけ連絡する' },
+          { id: 'stop', label: 'やらないことを決める' },
+          { id: 'rest', label: '今日は少し休む' }
+        ],
+        replies: {
+          ten: 'いい選択。10分は小さく見えて、実際はかなり強い。',
+          message: 'その1本で流れが変わることは多い。小さいけど強い一手だよ。',
+          stop: 'やらないことを決めるのは守りじゃない。かなり賢い整理。',
+          rest: '休むは後退じゃない。戻るための整備だよ。'
+        }
+      }
+    ];
 
     const QUOTES = {
       tired: [
-        { who: 'セネカ', line: '難しいから挑まないのではない。挑まないから難しい。', note: 'でも今日は、挑む前に少し回復してもいい。疲れてる時は順番が大事。' },
-        { who: '老子', line: '千里の道も一歩から。', note: '今日は一歩のサイズを小さくしていい日。大きく行く必要はない。' }
+        { who: 'セネカ', text: '難しいから挑まないのではない。挑まないから難しい。', note: '今日は挑む前に、少し回復してもいい。' },
+        { who: '老子', text: '千里の道も一歩から。', note: '今日はその一歩を小さくしていい。' }
       ],
       swirl: [
-        { who: 'マルクス・アウレリウス', line: '行く手をふさぐものが、かえって道になる。', note: 'いまの混乱も、何を削るべきか教えてくれてるのかも。' },
-        { who: 'ドラッカー', line: '成果を上げる者は、まずやらないことを決める。', note: '空回りの時は、足すより減らすほうが効く。' }
+        { who: 'マルクス・アウレリウス', text: '行く手をふさぐものが、かえって道になる。', note: '混乱は、削るべきものを教えてくれる。' },
+        { who: 'ドラッカー', text: '成果を上げる者は、まずやらないことを決める。', note: '空回りの時ほど、足すより減らす。' }
       ],
       tidy: [
-        { who: '渋沢栄一', line: '順序を立てて事を行うことが大切である。', note: '雑に前へ行くより、整えて進むほうが今のあなたには合ってる。' },
-        { who: 'ピーター・ドラッカー', line: '効率より先に、正しいことをする。', note: 'いま必要なのは速さより、向きの確認かもしれないね。' }
+        { who: '渋沢栄一', text: '順序を立てて事を行うことが大切である。', note: '速さより順番が効く時がある。' },
+        { who: 'ドラッカー', text: '効率より先に、正しいことをする。', note: '向きが合うと、後の速さが変わる。' }
       ],
       talk: [
-        { who: 'ソクラテス', line: '問いを立てることが、考えることの始まりである。', note: 'まだぼんやりでも大丈夫。話してるうちに形になる。' },
-        { who: 'モンテーニュ', line: '私は自分を語ることで、自分を知る。', note: 'うまく言えなくても、話すこと自体に意味がある。' }
+        { who: 'ソクラテス', text: '問いを立てることが、考えることの始まりである。', note: 'うまく言えなくても、話すこと自体に意味がある。' },
+        { who: 'モンテーニュ', text: '私は自分を語ることで、自分を知る。', note: '言語化の途中でも進んでいる。' }
       ],
       priority: [
-        { who: 'ドラッカー', line: '最優先事項は、ほかのことをしないことだ。', note: 'いま必要なのは気合いじゃなく、順番の整理。' }
+        { who: 'ドラッカー', text: '最優先事項は、ほかのことをしないことだ。', note: '順番の整理が先。' }
       ],
       heavy: [
-        { who: 'ヴィクトール・フランクル', line: '人生に意味を問うのではない。人生があなたに問いかけている。', note: '重さがある時ほど、答えを急がなくていい。まずは抱え方を変えよう。' }
+        { who: 'フランクル', text: '人生があなたに問いかけている。', note: '答えを急ぎすぎなくていい。' }
       ],
       people: [
-        { who: 'エレノア・ルーズベルト', line: 'あなたの同意なしに、誰もあなたを傷つけられない。', note: '全部を跳ね返せなくても、少し距離を取るのは悪くない。' }
+        { who: 'エレノア・ルーズベルト', text: 'あなたの同意なしに、誰もあなたを傷つけられない。', note: '少し距離を取るのも立派な判断。' }
       ],
       self: [
-        { who: 'ニーチェ', line: '自分自身になれ。', note: '他人の基準で自分を裁きすぎると、声が歪む。戻る場所は自分の中にある。' }
+        { who: 'ニーチェ', text: '自分自身になれ。', note: '他人の基準で裁きすぎないこと。' }
       ],
       calm: [
-        { who: 'パスカル', line: '人間の不幸は、静かに部屋にいられないことから始まる。', note: '今日は先に静けさを作るのが正解かも。' }
+        { who: 'パスカル', text: '人間の不幸は、静かに部屋にいられないことから始まる。', note: 'まず静けさを作る。' }
       ],
       decide: [
-        { who: 'サン＝テグジュペリ', line: '完璧とは、付け加えるものがない状態ではなく、削るものがない状態だ。', note: '決める時は、増やすより絞る。' }
+        { who: 'サン＝テグジュペリ', text: '完璧とは、削るものがない状態だ。', note: '決める時は、足すより絞る。' }
       ],
       confidence: [
-        { who: 'エマーソン', line: '自分を信じること、それが成功の第一歩だ。', note: '自信は待つものじゃなく、少しずつ戻すもの。' }
+        { who: 'エマーソン', text: '自分を信じること、それが成功の第一歩だ。', note: '自信は待つものではなく、戻すもの。' }
       ],
       forward: [
-        { who: 'ゲーテ', line: '知っているだけでは足りない。行わなければならない。', note: 'でも今日は、やさしく行うくらいでちょうどいい。' }
+        { who: 'ゲーテ', text: '知っているだけでは足りない。行わなければならない。', note: '今日はやさしく行えば十分。' }
       ],
       gentle: [
-        { who: 'マヤ・アンジェロウ', line: '人は、あなたが何を言ったかより、どう感じさせたかを覚えている。', note: '今日は強さより、ちゃんと呼吸できる言葉でいこう。' }
+        { who: 'マヤ・アンジェロウ', text: '人は、どう感じさせたかを覚えている。', note: '今日は呼吸できる言葉で進む。' }
       ],
       sharp: [
-        { who: '本田宗一郎', line: '失敗を恐れるより、何もしないことを恐れろ。', note: '少し刺さる言い方をするなら、今の苦しさの一部は止まり続けてることかもしれない。' }
+        { who: '本田宗一郎', text: '失敗を恐れるより、何もしないことを恐れろ。', note: '止まり続ける代償は地味に大きい。' }
       ],
       quote: [
-        { who: 'サマセット・モーム', line: '習慣は第二の天性である。', note: '気持ちの整理も、実は小さい習慣で変わる。' }
+        { who: 'サマセット・モーム', text: '習慣は第二の天性である。', note: '小さい繰り返しが流れを変える。' }
       ],
       watch: [
-        { who: 'WATCH NOTE', line: '機械式時計は、ゼンマイを少しずつほどきながら進む。', note: '人も似てる。一気に整わなくていい。少しずつ戻せばいい。' }
+        { who: 'WATCH NOTE', text: '機械式時計は、少しずつほどけながら進む。', note: '人も一気に整わなくていい。' }
       ],
       ten: [
-        { who: 'ジェームズ・クリア', line: '小さな習慣は、大きな結果の入口になる。', note: '10分の着手は軽く見えない。かなり強い。' }
+        { who: 'ジェームズ・クリア', text: '小さな習慣は、大きな結果の入口になる。', note: '10分は軽くない。' }
       ],
       message: [
-        { who: '松下幸之助', line: '道は無限にある。', note: '1本の連絡で流れが変わることも多い。' }
+        { who: '松下幸之助', text: '道は無限にある。', note: '一本の連絡で道が開くことがある。' }
       ],
       stop: [
-        { who: 'ブルース・リー', line: '足すのではない。削るのだ。', note: 'やらないことを決めるのは守りじゃない。立派な選択。' }
+        { who: 'ブルース・リー', text: '足すのではない。削るのだ。', note: '減らすのは守りではなく設計。' }
       ],
       rest: [
-        { who: 'アリストテレス', line: '休息は労働と同じく必要である。', note: '休むは後退じゃない。戻るための整備。' }
-      ],
-      safe: [
-        { who: 'ルーミー', line: '傷は、光が入る場所だ。', note: '安心がほしい日は、まず身を守るほうが先。' }
-      ],
-      clear: [
-        { who: 'デカルト', line: '困難は分割せよ。', note: '頭を整理したい時は、まとめる前に分ける。' }
-      ],
-      light: [
-        { who: 'イタロ・カルヴィーノ', line: '軽やかさは、重さを否定することではない。', note: '少し軽くなるだけでも十分な前進。' }
-      ],
-      one: [
-        { who: '孔子', line: '過ちて改めざる、これを過ちという。', note: '一歩だけ決めるのは小さくない。軌道修正そのもの。' }
+        { who: 'アリストテレス', text: '休息は労働と同じく必要である。', note: '整備のない前進は続かない。' }
       ],
       default: [
-        { who: 'こぶぶメモ', line: '急がなくていい時に急がないのも、立派な判断。', note: '今日はちゃんと整える日でいい。' }
+        { who: 'こぶぶメモ', text: '急がなくていい時に急がないのも、立派な判断。', note: '今日は整える日にしていい。' }
       ]
     };
 
     const TAROT = [
-      { roman: '0', name: 'FOOL', jp: '愚者', art: '🎒', tag: 'はじまり / 跳躍', bg: 'linear-gradient(160deg, #fff2c9, #ffe0f4, #d7eaff)' },
-      { roman: 'I', name: 'MAGICIAN', jp: '魔術師', art: '🪄', tag: '意志 / 着手', bg: 'linear-gradient(160deg, #ffe7d8, #f6ddff, #d7f1ff)' },
-      { roman: 'II', name: 'PRIESTESS', jp: '女教皇', art: '🌙', tag: '直感 / 静けさ', bg: 'linear-gradient(160deg, #e9e4ff, #f7eaff, #dff6ff)' },
-      { roman: 'III', name: 'EMPRESS', jp: '女帝', art: '🌹', tag: '受容 / 実り', bg: 'linear-gradient(160deg, #ffe0ea, #fff2d8, #eef3ff)' },
-      { roman: 'IV', name: 'EMPEROR', jp: '皇帝', art: '👑', tag: '秩序 / 決断', bg: 'linear-gradient(160deg, #ffe7d4, #fff4dc, #ece8ff)' },
-      { roman: 'V', name: 'HIEROPHANT', jp: '法王', art: '📜', tag: '教え / 意味', bg: 'linear-gradient(160deg, #f4ecff, #fff2dc, #e5f5ff)' },
-      { roman: 'VI', name: 'LOVERS', jp: '恋人', art: '💞', tag: '選択 / 関係', bg: 'linear-gradient(160deg, #ffe1ec, #fff0d8, #e9f0ff)' },
-      { roman: 'VII', name: 'CHARIOT', jp: '戦車', art: '🛞', tag: '前進 / 推進', bg: 'linear-gradient(160deg, #dfe9ff, #f3e4ff, #fff2dc)' },
-      { roman: 'VIII', name: 'STRENGTH', jp: '力', art: '🦁', tag: 'しなやかさ / 内圧', bg: 'linear-gradient(160deg, #ffe9d8, #fff0e9, #efe6ff)' },
-      { roman: 'IX', name: 'HERMIT', jp: '隠者', art: '🕯️', tag: '内省 / 距離', bg: 'linear-gradient(160deg, #eef1ff, #f7ebff, #fff4e4)' },
-      { roman: 'X', name: 'WHEEL', jp: '運命の輪', art: '🜁', tag: '転換 / 流れ', bg: 'linear-gradient(160deg, #fff0d8, #e6efff, #f6e7ff)' },
-      { roman: 'XI', name: 'JUSTICE', jp: '正義', art: '⚖️', tag: '均衡 / 判断', bg: 'linear-gradient(160deg, #e6f3ff, #efe8ff, #fff1dd)' },
-      { roman: 'XII', name: 'HANGED MAN', jp: '吊るされた男', art: '🔻', tag: '保留 / 見直し', bg: 'linear-gradient(160deg, #eae6ff, #fef1ff, #e8f6ff)' },
-      { roman: 'XIII', name: 'DEATH', jp: '死神', art: '🖤', tag: '終わり / 切替', bg: 'linear-gradient(160deg, #e3e2ef, #f1e8ff, #fff2df)' },
-      { roman: 'XIV', name: 'TEMPERANCE', jp: '節制', art: '🕊️', tag: '調和 / 混ぜる', bg: 'linear-gradient(160deg, #def7ef, #e6ecff, #fff1df)' },
-      { roman: 'XV', name: 'DEVIL', jp: '悪魔', art: '⛓️', tag: '執着 / 束縛', bg: 'linear-gradient(160deg, #f2e1ff, #ffe7ea, #fff0db)' },
-      { roman: 'XVI', name: 'TOWER', jp: '塔', art: '⚡', tag: '崩壊 / 目覚め', bg: 'linear-gradient(160deg, #e7ecff, #ffe7d8, #f5e7ff)' },
-      { roman: 'XVII', name: 'STAR', jp: '星', art: '⭐', tag: '希望 / 透明感', bg: 'linear-gradient(160deg, #dff6ff, #e9ebff, #fff0dc)' },
-      { roman: 'XVIII', name: 'MOON', jp: '月', art: '🌘', tag: '曖昧 / 感受', bg: 'linear-gradient(160deg, #e7e3ff, #eef7ff, #fff2ea)' },
-      { roman: 'XIX', name: 'SUN', jp: '太陽', art: '☀️', tag: '明るさ / 解放', bg: 'linear-gradient(160deg, #fff0c7, #ffe9db, #e2f5ff)' },
-      { roman: 'XX', name: 'JUDGEMENT', jp: '審判', art: '📯', tag: '再起 / 呼び声', bg: 'linear-gradient(160deg, #e7f6ff, #f1e6ff, #fff1dc)' },
-      { roman: 'XXI', name: 'WORLD', jp: '世界', art: '🌍', tag: '完成 / 統合', bg: 'linear-gradient(160deg, #e3f7ef, #e8ebff, #fff1de)' }
+      { roman:'0', en:'FOOL', jp:'愚者', art:'🎒', tag:'はじまり / 跳躍', bg:'linear-gradient(160deg,#fff2c9,#ffe0f4,#d7eaff)' },
+      { roman:'I', en:'MAGICIAN', jp:'魔術師', art:'🪄', tag:'意志 / 着手', bg:'linear-gradient(160deg,#ffe7d8,#f6ddff,#d7f1ff)' },
+      { roman:'II', en:'PRIESTESS', jp:'女教皇', art:'🌙', tag:'直感 / 静けさ', bg:'linear-gradient(160deg,#e9e4ff,#f7eaff,#dff6ff)' },
+      { roman:'III', en:'EMPRESS', jp:'女帝', art:'🌹', tag:'受容 / 実り', bg:'linear-gradient(160deg,#ffe0ea,#fff2d8,#eef3ff)' },
+      { roman:'IV', en:'EMPEROR', jp:'皇帝', art:'👑', tag:'秩序 / 決断', bg:'linear-gradient(160deg,#ffe7d4,#fff4dc,#ece8ff)' },
+      { roman:'V', en:'HIEROPHANT', jp:'法王', art:'📜', tag:'教え / 意味', bg:'linear-gradient(160deg,#f4ecff,#fff2dc,#e5f5ff)' },
+      { roman:'VI', en:'LOVERS', jp:'恋人', art:'💞', tag:'選択 / 関係', bg:'linear-gradient(160deg,#ffe1ec,#fff0d8,#e9f0ff)' },
+      { roman:'VII', en:'CHARIOT', jp:'戦車', art:'🛞', tag:'前進 / 推進', bg:'linear-gradient(160deg,#dfe9ff,#f3e4ff,#fff2dc)' },
+      { roman:'VIII', en:'STRENGTH', jp:'力', art:'🦁', tag:'しなやかさ / 内圧', bg:'linear-gradient(160deg,#ffe9d8,#fff0e9,#efe6ff)' },
+      { roman:'IX', en:'HERMIT', jp:'隠者', art:'🕯️', tag:'内省 / 距離', bg:'linear-gradient(160deg,#eef1ff,#f7ebff,#fff4e4)' },
+      { roman:'X', en:'WHEEL', jp:'運命の輪', art:'🜁', tag:'転換 / 流れ', bg:'linear-gradient(160deg,#fff0d8,#e6efff,#f6e7ff)' },
+      { roman:'XI', en:'JUSTICE', jp:'正義', art:'⚖️', tag:'均衡 / 判断', bg:'linear-gradient(160deg,#e6f3ff,#efe8ff,#fff1dd)' },
+      { roman:'XII', en:'HANGED MAN', jp:'吊るされた男', art:'🔻', tag:'保留 / 見直し', bg:'linear-gradient(160deg,#eae6ff,#fef1ff,#e8f6ff)' },
+      { roman:'XIII', en:'DEATH', jp:'死神', art:'🖤', tag:'終わり / 切替', bg:'linear-gradient(160deg,#e3e2ef,#f1e8ff,#fff2df)' },
+      { roman:'XIV', en:'TEMPERANCE', jp:'節制', art:'🕊️', tag:'調和 / 混ぜる', bg:'linear-gradient(160deg,#def7ef,#e6ecff,#fff1df)' },
+      { roman:'XV', en:'DEVIL', jp:'悪魔', art:'⛓️', tag:'執着 / 束縛', bg:'linear-gradient(160deg,#f2e1ff,#ffe7ea,#fff0db)' },
+      { roman:'XVI', en:'TOWER', jp:'塔', art:'⚡', tag:'崩壊 / 目覚め', bg:'linear-gradient(160deg,#e7ecff,#ffe7d8,#f5e7ff)' },
+      { roman:'XVII', en:'STAR', jp:'星', art:'⭐', tag:'希望 / 透明感', bg:'linear-gradient(160deg,#dff6ff,#e9ebff,#fff0dc)' },
+      { roman:'XVIII', en:'MOON', jp:'月', art:'🌘', tag:'曖昧 / 感受', bg:'linear-gradient(160deg,#e7e3ff,#eef7ff,#fff2ea)' },
+      { roman:'XIX', en:'SUN', jp:'太陽', art:'☀️', tag:'明るさ / 解放', bg:'linear-gradient(160deg,#fff0c7,#ffe9db,#e2f5ff)' },
+      { roman:'XX', en:'JUDGEMENT', jp:'審判', art:'📯', tag:'再起 / 呼び声', bg:'linear-gradient(160deg,#e7f6ff,#f1e6ff,#fff1dc)' },
+      { roman:'XXI', en:'WORLD', jp:'世界', art:'🌍', tag:'完成 / 統合', bg:'linear-gradient(160deg,#e3f7ef,#e8ebff,#fff1de)' }
     ];
 
     const state = {
-      stage: 'mood',
+      stepIndex: 0,
       answers: {},
-      loopCount: 0,
-      tarotChosen: false,
-      tarot: null,
-      locked: false
+      tarot: null
     };
 
-    function pick(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
+    function rand(list) {
+      return list[Math.floor(Math.random() * list.length)];
     }
 
-    function pickQuote(key) {
-      return pick(QUOTES[key] || QUOTES.default);
+    function quoteFor(id) {
+      return rand(QUOTES[id] || QUOTES.default);
     }
 
-    function showQuote(key) {
-      const q = pickQuote(key);
-      quoteText.textContent = `${q.who}
-「${q.line}」`;
-      quoteNote.textContent = q.note;
-      quoteBox.hidden = false;
+    function showOnly(screen) {
+      chatScreen.classList.add('hidden');
+      tarotScreen.classList.add('hidden');
+      summaryScreen.classList.add('hidden');
+      screen.classList.remove('hidden');
     }
 
-    function spawnParticles(target, count = 12) {
-      const rect = target.getBoundingClientRect();
-      const baseX = rect.left + rect.width / 2;
-      const baseY = rect.top + rect.height / 2;
-      for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = `${baseX}px`;
-        p.style.top = `${baseY}px`;
-        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 140}px`);
-        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 120 - 20}px`);
-        particles.appendChild(p);
-        setTimeout(() => p.remove(), 900);
-      }
-    }
+    function renderStep() {
+      showOnly(chatScreen);
+      const step = STEPS[state.stepIndex];
+      questionText.textContent = step.prompt;
+      progressText.textContent = `質問 ${state.stepIndex + 1} / ${STEPS.length}`;
+      optionsBox.innerHTML = '';
 
-    function showScreen(name) {
-      chatScreen.hidden = name !== 'chat';
-      tarotScreen.hidden = name !== 'tarot';
-      summaryScreen.hidden = name !== 'summary';
-    }
-
-    function setLocked(flag) {
-      state.locked = flag;
-      typingBox.classList.toggle('show', flag);
-      choiceGrid.hidden = flag;
-    }
-
-    function renderChoices(items) {
-      choiceGrid.innerHTML = '';
-      items.forEach((item) => {
+      step.options.forEach((opt) => {
         const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = item.label;
-        btn.addEventListener('click', (e) => {
-          if (state.locked) return;
-          spawnParticles(e.currentTarget, 10);
-          handleChoice(item);
-        });
-        choiceGrid.appendChild(btn);
+        btn.className = 'option-btn';
+        btn.type = 'button';
+        btn.textContent = opt.label;
+        btn.addEventListener('click', () => handleAnswer(opt));
+        optionsBox.appendChild(btn);
       });
     }
 
-    function typeText(text) {
-      setLocked(true);
-      messageBox.textContent = '';
-      return new Promise((resolve) => {
-        let i = 0;
-        const timer = setInterval(() => {
-          messageBox.textContent = text.slice(0, i + 1);
-          i += 1;
-          if (i >= text.length) {
-            clearInterval(timer);
-            setLocked(false);
-            resolve();
-          }
-        }, 18);
+    function disableOptions(disabled) {
+      optionsBox.querySelectorAll('button').forEach(btn => {
+        btn.disabled = disabled;
       });
     }
 
-    function moodReply(id) {
-      if (id === 'tired') return pick([
-        'そっか。今日はちょっと疲れが前に出てるんだね。無理に明るくしなくて大丈夫。',
-        'うん、そういう日あるよね。まずは「疲れてる」ってちゃんと認めてあげよう。'
-      ]);
-      if (id === 'swirl') return pick([
-        'それ、しんどいよね。急いでるのに進んでる感じがしないと、気持ちだけが擦り減る。',
-        '焦りだけ先に走る感じかな。あれって体力も気分も持っていかれるんだよね。'
-      ]);
-      if (id === 'tidy') return pick([
-        'いいね。その感じ、好き。前に進みたいからこそ、一度ちゃんと整えたいんだよね。',
-        'その気持ちは強いよ。乱暴に頑張るんじゃなくて、きれいに進みたいんだね。'
-      ]);
-      return pick([
-        'もちろん。理由がはっきりしてなくても大丈夫。話してるうちに形になること、けっこうあるから。',
-        'いいよ、そういう入り方でも。言葉になってない時のほうが、本音が出やすかったりするし。'
-      ]);
-    }
+    function handleAnswer(opt) {
+      const step = STEPS[state.stepIndex];
+      const next = STEPS[state.stepIndex + 1];
+      state.answers[step.id] = opt;
 
-    function burdenReply(id) {
-      if (id === 'priority') return 'やることが多いというより、順番が頭の中でぶつかってる感じかな。';
-      if (id === 'heavy') return '心そのものがちょっと重くなってるんだね。そういう時は理屈より先に感触がある。';
-      if (id === 'people') return '人の気配が強く入ってきてるんだね。相手の顔色や言葉って、意外と深く残るから。';
-      return '自分に向く目が少し厳しくなってるのかも。そういう時ほど、内側の声が強くなるよね。';
-    }
+      const reply = step.replies[opt.id] || 'うん。';
+      const q = quoteFor(opt.id);
 
-    function wishReply(id) {
-      if (id === 'calm') return 'うん、まず必要なのは勢いじゃなくて落ち着きなんだね。';
-      if (id === 'decide') return '迷いの霧を少し払いたい感じかな。はっきりさせたい時って、気持ちもすり減る。';
-      if (id === 'confidence') return '自分をもう一回ちゃんと信じたいんだね。その気持ち、すごく大事。';
-      return 'やさしく前へ、がいちばんしっくり来るんだね。無理に強く行かないの、私は好き。';
-    }
+      quoteText.textContent = `「${q.text}」`;
+      quoteMeta.textContent = `${q.who} — ${q.note}`;
+      quoteBox.classList.remove('hidden');
 
-    function supportReply(id) {
-      if (id === 'gentle') {
-        return pick([
-          'わかった。今日は角を立てずに返すね。ちゃんと受け止めながら進めよう。',
-          'うん、今日はやさしい温度でいこう。深く刺すより、ほどく感じで。'
-        ]);
+      disableOptions(true);
+
+      if (next) {
+        messageBox.textContent = `${reply}\n\n${next.prompt}`;
+        state.stepIndex += 1;
+        setTimeout(() => {
+          renderStep();
+          disableOptions(false);
+        }, 180);
+      } else {
+        messageBox.textContent = `${reply}\n\n最後に1枚、気になるカードを選んで。`;
+        setTimeout(() => {
+          renderTarot();
+          showOnly(tarotScreen);
+        }, 180);
       }
-      if (id === 'sharp') {
-        return pick([
-          'じゃあ少しだけ本音で言うね。いま必要なのは、感情の整理より順番の整理かもしれない。',
-          'わかった。少しだけ鋭く言うと、今の苦しさの一部は「決めないまま抱えすぎてること」だと思う。'
-        ]);
-      }
-      if (id === 'quote') {
-        return 'いいよ。じゃあ今日は、一言ずつちゃんと挟みながら進めよう。';
-      }
-      return '了解。時計の話を少し混ぜながら、呼吸を整える感じでいこう。';
     }
 
-    function actionReply(id) {
-      if (id === 'ten') return 'いいね。10分だけなら、心に言い訳を作らなくて済む。';
-      if (id === 'message') return 'その1本で流れが変わること、けっこうあるよ。小さいけど強い一手。';
-      if (id === 'stop') return 'やらないことを決めるの、実はかなり賢い。空白は守る価値があるから。';
-      return '今日は休むを選べるのも強さだよ。整える前に、まず減らすのも立派な判断。';
+    function renderTarot() {
+      tarotGrid.innerHTML = '';
+      tarotNote.textContent = 'どれか1枚、気になるカードを選んでください。';
+
+      TAROT.forEach((card) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tarot-btn';
+        btn.innerHTML = `
+          <div class="tarot-face" style="background:${card.bg}">
+            <div class="tarot-roman">${card.roman}</div>
+            <div class="tarot-art">${card.art}</div>
+            <div class="tarot-name">${card.jp}</div>
+            <div class="tarot-tag">${card.tag}</div>
+            <div class="tarot-stars">✦ ✦</div>
+          </div>
+        `;
+        btn.addEventListener('click', () => chooseTarot(card, btn));
+        tarotGrid.appendChild(btn);
+      });
     }
 
-    function loopReply(id) {
-      if (id === 'safe') return '安心したい、がいちばん近いんだね。じゃあ今は正しさより、心拍が落ちるほうを優先していい。';
-      if (id === 'clear') return '頭を整理したいんだね。散らかったまま頑張るより、先に輪郭をつくったほうがきれいに進める。';
-      if (id === 'light') return '少し軽くなりたいんだね。全部消えなくていいから、持ち方を変えてみようか。';
-      return '一歩だけ決めたいんだね。それで十分。今日は一歩でいい。';
+    function chooseTarot(card, btn) {
+      state.tarot = card;
+      tarotGrid.querySelectorAll('.tarot-btn').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+
+      tarotNote.textContent =
+        `【${card.jp} / ${card.en}】\n${card.tag}\n\nこのカードで確定しました。`;
+
+      setTimeout(() => {
+        summaryText.textContent = buildSummary();
+        showOnly(summaryScreen);
+      }, 220);
     }
 
-    function buildFinalSummary() {
+    function buildSummary() {
       const mood = state.answers.mood?.label || '今の気分';
       const burden = state.answers.burden?.label || '引っかかり';
       const wish = state.answers.wish?.label || '望む方向';
       const support = state.answers.support?.label || 'ほしい返し';
       const action = state.answers.action?.label || '次の一手';
-      const tarot = state.tarot;
-      const q = pickQuote(state.answers.action?.id || 'default');
+      const tarot = state.tarot || { jp:'未選択', tag:'未選択' };
+      const closing = quoteFor(state.answers.action?.id || 'default');
 
       return `今回のこぶぶのまとめ。
 
-入口は「${mood}」でした。そこから見えてきたのは「${burden}」という負荷で、ほんとは「${wish}」へ近づきたい気持ちがある。
+入口は「${mood}」。
+そこから見えてきたのは「${burden}」という負荷で、ほんとは「${wish}」へ近づきたい気持ちがある。
 
-今日は「${support}」を求めていたのも印象的でした。つまり、ただ答えがほしいだけじゃなくて、いまの自分に合う温度で整理したかったんだと思う。
+今日は「${support}」という温度を求めていた。
+つまり、ただ答えがほしいだけじゃなく、今の自分に合う強さで整理したかったということ。
 
-現実の一手としては「${action}」が合っています。大きく変えるより、まず小さく整えるほうが今の流れには合う。
+現実の一手としては「${action}」が合っている。
+大きく変えるより、まず小さく整えるほうが今の流れに合う。
 
-最後に選んだ「${tarot.jp}」は、「${tarot.note}」というサインでした。
+最後に選んだ「${tarot.jp}」は、「${tarot.tag}」のサイン。
+今のあなたには、その感覚を少し取り戻すことが必要そう。
 
-そして最後に、こぶぶからもう一言。
-${q.who} — 「${q.line}」
-${q.note}
+最後にもう一言。
+${closing.who} — 「${closing.text}」
+${closing.note}
 
-だから今日は、勢いで突破する日じゃなくて、余計なノイズを減らして次の一歩を軽くする日。全部解決しなくて大丈夫。ちゃんと前には進めます。`;
+だから今日は、勢いで突破する日ではなく、
+余計なノイズを減らして次の一歩を軽くする日。
+全部を一度に解決しなくて大丈夫。ちゃんと前には進める。`;
     }
 
-    async function startTarot() {
-      showScreen('tarot');
-      finalBody.textContent = 'どれか1枚、気になる絵柄を選んでください。';
-    }
-
-    async function handleChoice(item) {
-      const id = item.id;
-
-      if (state.stage === 'mood') {
-        state.answers.mood = item;
-        await typeText(`${moodReply(id)}
-
-今いちばん引っかかってるの、どれに近い？`);
-        showQuote(id);
-        state.stage = 'burden';
-        renderChoices(CHOICES.burden);
-        return;
-      }
-
-      if (state.stage === 'burden') {
-        state.answers.burden = item;
-        await typeText(`${burdenReply(id)}
-
-ほんとは、どうなれたら少し楽？`);
-        showQuote(id);
-        state.stage = 'wish';
-        renderChoices(CHOICES.wish);
-        return;
-      }
-
-      if (state.stage === 'wish') {
-        state.answers.wish = item;
-        await typeText(`${wishReply(id)}
-
-今日は、どんなふうに返してほしい？`);
-        showQuote(id);
-        state.stage = 'support';
-        renderChoices(CHOICES.support);
-        return;
-      }
-
-      if (state.stage === 'support') {
-        state.answers.support = item;
-        await typeText(`${supportReply(id)}
-
-じゃあ、今日の自分に渡すならどれがいい？`);
-        showQuote(id);
-        state.stage = 'action';
-        renderChoices(CHOICES.action);
-        return;
-      }
-
-      if (state.stage === 'action') {
-        state.answers.action = item;
-        await typeText(`${actionReply(id)}
-
-このあと、どうしたい？`);
-        showQuote(id);
-        state.stage = 'close';
-        renderChoices(CHOICES.close);
-        return;
-      }
-
-      if (state.stage === 'close') {
-        showQuote(id);
-        if (id === 'summary') {
-          await typeText('うん、じゃあこのへんでまとめに入るね。最後に1枚だけ、選んで。');
-          startTarot();
-          return;
-        }
-
-        if (id === 'continue') {
-          state.stage = 'loop';
-          state.loopCount += 1;
-          await typeText('もちろん。じゃあ、もう少しだけ。
-
-いま欲しいのはどれに近い？');
-          renderChoices(CHOICES.loop);
-          return;
-        }
-
-        if (id === 'push') {
-          state.stage = 'close2';
-          await typeText('少しだけ背中を押すね。
-
-いま必要なのは「完璧に整うこと」じゃなくて、「ひとつ決めて楽になること」だと思う。
-
-このへんでまとめる？');
-          renderChoices(CHOICES.close2);
-          return;
-        }
-
-        if (id === 'soft') {
-          state.stage = 'close2';
-          await typeText('じゃあ、やさしく締めるね。
-
-今日はちゃんと話せただけでも十分。自分を急がせすぎなくて大丈夫。
-
-このへんでまとめる？');
-          renderChoices(CHOICES.close2);
-          return;
-        }
-      }
-
-      if (state.stage === 'loop') {
-        state.answers.loop = item;
-        await typeText(`${loopReply(id)}
-
-このへんで、そろそろまとめる？`);
-        showQuote(id);
-        state.stage = 'close2';
-        renderChoices(CHOICES.close2);
-        return;
-      }
-
-      if (state.stage === 'close2') {
-        if (id === 'summary') {
-          await typeText('うん、じゃあ最後に1枚だけ。いまの流れに合うカードを選んで。');
-          startTarot();
-          return;
-        }
-
-        state.stage = 'loop';
-        state.loopCount += 1;
-        if (state.loopCount >= 2) {
-          await typeText('じゃあ本当に、もうひとつだけ。
-
-いま近いのはどれ？');
-        } else {
-          await typeText('いいよ。もう少しだけ付き合うね。
-
-いま近いのはどれ？');
-        }
-        renderChoices(CHOICES.loop);
-      }
-    }
-
-    function renderTarotCards() {
-      cardGrid.innerHTML = '';
-      TAROT.forEach((card) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'card-btn';
-        btn.innerHTML = `
-          <div class="card-face" style="background:${card.bg}">
-            <div class="card-roman">${card.roman}</div>
-            <div class="card-art">${card.art}</div>
-            <div class="card-name">${card.jp}</div>
-            <div class="card-tag">${card.tag}</div>
-            <div class="card-star">✦ ✦</div>
-          </div>
-        `;
-        card.note = `${card.jp} は「${card.tag}」のカード。${card.note || card.tag}`;
-
-        const choose = () => {
-          if (state.tarotChosen) return;
-          state.tarotChosen = true;
-          state.tarot = {
-            ...card,
-            note: `${card.jp} は「${card.tag}」を示すカード。今のあなたには、その感覚が必要そう。`
-          };
-
-          document.querySelectorAll('.card-btn').forEach((el) => {
-            el.disabled = true;
-            el.classList.remove('active');
-          });
-
-          btn.classList.add('active');
-          btn.disabled = false;
-          finalBody.textContent = `【${card.jp} / ${card.name}】
-${card.tag}
-
-このカードで確定しました。`;
-          spawnParticles(btn, 16);
-
-          setTimeout(() => {
-            summaryBody.textContent = buildFinalSummary();
-            showScreen('summary');
-          }, 700);
-        };
-
-        btn.addEventListener('click', choose);
-        btn.addEventListener('touchend', (e) => {
-          e.preventDefault();
-          choose();
-        }, { passive: false });
-
-        cardGrid.appendChild(btn);
-      });
-    }
-
-    function resetSession() {
-      state.stage = 'mood';
+    function resetApp() {
+      state.stepIndex = 0;
       state.answers = {};
-      state.loopCount = 0;
-      state.tarotChosen = false;
       state.tarot = null;
-      quoteBox.hidden = true;
+
       messageBox.textContent = 'ねえ、今日はどんな感じ？';
-      showScreen('chat');
-      renderChoices(CHOICES.mood);
-      renderTarotCards();
-      finalBody.textContent = 'どれか1枚、気になる絵柄を選んでください。';
-      summaryBody.textContent = '';
-      setLocked(false);
+      quoteBox.classList.add('hidden');
+      quoteText.textContent = '';
+      quoteMeta.textContent = '';
+      summaryText.textContent = '';
+      tarotNote.textContent = 'どれか1枚、気になるカードを選んでください。';
+
+      renderStep();
+      renderTarot();
     }
 
-    let audioCtx;
-    let bgmOn = false;
-    let bgmTimer;
-    let liveNodes = [];
+    restartBtn.addEventListener('click', resetApp);
+    restartTopBtn.addEventListener('click', resetApp);
 
-    function bellTone(freq, start, amp = 0.024, duration = 1.8, gong = false) {
-      const ratios = gong ? [1, 1.48, 2.92, 4.11] : [1, 1.52, 2.17, 3.86];
-      const decays = gong ? [1.6, 1.3, 1.0, 0.8] : [1.2, 0.85, 0.55, 0.42];
-
-      ratios.forEach((r, i) => {
-        const oscA = audioCtx.createOscillator();
-        const oscB = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        oscA.type = 'sine';
-        oscB.type = 'triangle';
-        oscA.frequency.value = freq * r;
-        oscB.frequency.value = freq * r * 1.006;
-
-        gain.gain.setValueAtTime(0.0001, start);
-        gain.gain.exponentialRampToValueAtTime(amp / (i + 1), start + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.0001, start + Math.max(0.18, duration * decays[i]));
-
-        oscA.connect(gain);
-        oscB.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        oscA.start(start);
-        oscB.start(start);
-        oscA.stop(start + duration * decays[i] + 0.08);
-        oscB.stop(start + duration * decays[i] + 0.08);
-
-        liveNodes.push(oscA, oscB, gain);
-      });
-    }
-
-    function scheduleGamelan() {
-      if (!audioCtx || !bgmOn) return;
-
-      const now = audioCtx.currentTime + 0.08;
-      const pelogish = [220, 247, 277, 330, 370];
-      const left = [0, 2, 1, 3, 2, 4, 1, 3];
-      const right = [2, 3, 2, 4, 0, 2, 1, 4];
-      const spacing = 0.22;
-
-      bellTone(110, now, 0.032, 2.6, true);
-
-      for (let i = 0; i < left.length; i++) {
-        const t1 = now + i * spacing;
-        const t2 = now + i * spacing + spacing / 2;
-        bellTone(pelogish[left[i]], t1, 0.018, 1.1, false);
-        bellTone(pelogish[right[i]], t2, 0.016, 0.95, false);
-      }
-
-      bellTone(147, now + left.length * spacing - 0.08, 0.024, 1.8, true);
-      bgmTimer = setTimeout(scheduleGamelan, left.length * spacing * 1000 + 120);
-    }
-
-    async function toggleBgm() {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') await audioCtx.resume();
-
-      bgmOn = !bgmOn;
-      soundBtn.textContent = bgmOn ? '♪ BGM OFF' : '♪ BGM ON';
-
-      if (bgmOn) {
-        scheduleGamelan();
-      } else {
-        clearTimeout(bgmTimer);
-        liveNodes.forEach((node) => {
-          try { node.disconnect?.(); } catch (_) {}
-        });
-        liveNodes = [];
-      }
-    }
-
-    soundBtn.addEventListener('click', toggleBgm);
-    restartBtn.addEventListener('click', resetSession);
-
-    resetSession();
+    resetApp();
   </script>
 </body>
 </html>
+
+前の問題点はかなり明確で、見せたくない説明文が残っていたことと、演出を盛りすぎて壊れやすくなっていたこと。
+今回はそこを切って、まず 動くこと を優先してある。
+
+次に直すなら、女性の見た目だけを差し替える版でやるのが正しい。
