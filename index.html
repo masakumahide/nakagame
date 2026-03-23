@@ -1,1208 +1,153 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>こぶぶのお気軽トーク</title>
-  <style>
-    :root {
-      --bg-a: #fffafc;
-      --bg-b: #f6f0ff;
-      --bg-c: #eef8ff;
-      --panel: rgba(255,255,255,0.9);
-      --panel-strong: rgba(255,255,255,0.97);
-      --text: #53476f;
-      --muted: #8a7da8;
-      --line: rgba(127, 107, 180, 0.14);
-      --pink: #ff9dcf;
-      --lav: #c5b0ff;
-      --sky: #bfe7ff;
-      --gold: #ffd57d;
-      --shadow: 0 18px 36px rgba(124, 103, 170, 0.14);
-      --shadow-soft: 0 10px 24px rgba(124, 103, 170, 0.09);
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 10%, rgba(255,157,207,0.24), transparent 22%),
-        radial-gradient(circle at 88% 12%, rgba(191,231,255,0.30), transparent 20%),
-        radial-gradient(circle at 50% 100%, rgba(197,176,255,0.18), transparent 35%),
-        linear-gradient(180deg, var(--bg-a), var(--bg-b) 48%, var(--bg-c));
-      overflow-x: hidden;
-    }
-
-    .stars, .petals, .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .star {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.95);
-      box-shadow: 0 0 10px rgba(255,255,255,0.8);
-      animation: twinkle 3.1s ease-in-out infinite;
-    }
-
-    @keyframes twinkle {
-      0%,100% { opacity: 0.18; transform: scale(0.75); }
-      50% { opacity: 1; transform: scale(1.45); }
-    }
-
-    .petal {
-      position: absolute;
-      width: 12px;
-      height: 18px;
-      border-radius: 14px 14px 14px 3px;
-      background: linear-gradient(180deg, rgba(255,188,221,0.95), rgba(255,140,181,0.72));
-      opacity: 0.72;
-      animation: petalFall linear infinite;
-    }
-
-    @keyframes petalFall {
-      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-      12% { opacity: 0.72; }
-      100% { transform: translateY(110vh) translateX(54px) rotate(330deg); opacity: 0; }
-    }
-
-    .shell {
-      width: min(780px, calc(100vw - 12px));
-      margin: 0 auto;
-      min-height: 100vh;
-      padding: 12px 0 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .app {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.62);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      backdrop-filter: blur(16px);
-    }
-
-    .hero {
-      padding: 16px;
-      display: grid;
-      grid-template-columns: 132px 1fr auto;
-      gap: 14px;
-      align-items: center;
-      border-bottom: 1px solid rgba(127,107,180,0.08);
-      background: linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255,255,255,0.18));
-    }
-
-    .portrait-card {
-      width: 132px;
-      height: 164px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(247,242,255,0.92));
-      border: 1px solid rgba(255,255,255,0.92);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .kobubu {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-    }
-
-    .hair-back {
-      position: absolute;
-      top: 22px;
-      width: 92px;
-      height: 96px;
-      border-radius: 48px 48px 38px 38px;
-      background: linear-gradient(180deg, #d8d3df, #b9b6c3 42%, #8a8a98 100%);
-      filter: drop-shadow(0 6px 12px rgba(84, 74, 108, 0.14));
-    }
-
-    .face {
-      position: absolute;
-      top: 34px;
-      width: 56px;
-      height: 68px;
-      border-radius: 28px 28px 22px 22px;
-      background: linear-gradient(180deg, #ffe9de, #ffd7c8 84%);
-      box-shadow: inset 0 -3px 0 rgba(241, 181, 151, 0.18);
-      z-index: 3;
-    }
-
-    .fringe {
-      position: absolute;
-      top: 24px;
-      width: 66px;
-      height: 28px;
-      border-radius: 32px 32px 14px 14px;
-      background: linear-gradient(180deg, #d9d4df, #adaab7 70%, #9693a0);
-      z-index: 4;
-    }
-
-    .fringe::after {
-      content: "";
-      position: absolute;
-      right: 4px;
-      top: 8px;
-      width: 20px;
-      height: 16px;
-      border-radius: 0 12px 12px 12px;
-      background: #a9a7b4;
-      transform: rotate(16deg);
-    }
-
-    .hair-side-left,
-    .hair-side-right {
-      position: absolute;
-      top: 50px;
-      width: 18px;
-      height: 76px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #cdc9d6, #9a97a4 75%);
-      z-index: 2;
-    }
-
-    .hair-side-left { left: 20px; transform: rotate(8deg); }
-    .hair-side-right { right: 20px; transform: rotate(-8deg); }
-
-    .eye {
-      position: absolute;
-      top: 28px;
-      width: 10px;
-      height: 8px;
-      border-radius: 50%;
-      background: #8eb7ff;
-      box-shadow: 0 0 8px rgba(142,183,255,0.32);
-      z-index: 5;
-    }
-
-    .eye.left { left: 12px; }
-    .eye.right { right: 12px; }
-
-    .eye::after {
-      content: "";
-      position: absolute;
-      left: 3px;
-      top: 2px;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: #3b4760;
-    }
-
-    .brow {
-      position: absolute;
-      top: 20px;
-      width: 12px;
-      height: 2px;
-      background: rgba(110, 104, 122, 0.7);
-      border-radius: 999px;
-      z-index: 5;
-    }
-
-    .brow.left { left: 11px; transform: rotate(-8deg); }
-    .brow.right { right: 11px; transform: rotate(8deg); }
-
-    .lip {
-      position: absolute;
-      left: 50%;
-      top: 48px;
-      width: 14px;
-      height: 6px;
-      transform: translateX(-50%);
-      border-bottom: 3px solid #d07087;
-      border-radius: 0 0 12px 12px;
-      z-index: 5;
-    }
-
-    .nose {
-      position: absolute;
-      left: 50%;
-      top: 34px;
-      width: 4px;
-      height: 10px;
-      transform: translateX(-50%);
-      border-right: 2px solid rgba(214, 157, 136, 0.35);
-      border-radius: 0 4px 4px 0;
-      z-index: 5;
-    }
-
-    .neck {
-      position: absolute;
-      top: 94px;
-      width: 18px;
-      height: 18px;
-      background: linear-gradient(180deg, #ffdacc, #efc1a8);
-      border-radius: 10px;
-      z-index: 1;
-    }
-
-    .body {
-      position: absolute;
-      bottom: 0;
-      width: 108px;
-      height: 78px;
-      border-radius: 54px 54px 0 0;
-      background: linear-gradient(180deg, #151722, #262130 65%, #3c3250);
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .body::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 36px;
-      height: 22px;
-      transform: translateX(-50%);
-      border-radius: 0 0 22px 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
-    }
-
-    .body::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 10px;
-      width: 84px;
-      height: 26px;
-      transform: translateX(-50%);
-      border-radius: 22px 22px 0 0;
-      border-top: 1px solid rgba(255,255,255,0.14);
-    }
-
-    .hero-copy {
-      min-width: 0;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: #8b7da8;
-      margin-bottom: 4px;
-    }
-
-    .hero h1 {
-      margin: 0 0 6px;
-      font-size: 24px;
-      color: #6c5289;
-      letter-spacing: 0.04em;
-    }
-
-    .hero p {
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: 34em;
-    }
-
-    .sound-btn,
-    .choice-btn,
-    .summary-btn,
-    .card-btn,
-    .restart-btn {
-      appearance: none;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.76));
-      color: var(--text);
-      border-radius: 18px;
-      box-shadow: var(--shadow-soft);
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 0.14s ease, border-color 0.14s ease;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .sound-btn:hover,
-    .choice-btn:hover,
-    .summary-btn:hover,
-    .card-btn:hover,
-    .restart-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(127,107,180,0.22);
-    }
-
-    .sound-btn:active,
-    .choice-btn:active,
-    .summary-btn:active,
-    .card-btn:active,
-    .restart-btn:active {
-      transform: translateY(1px) scale(0.99);
-    }
-
-    .sound-btn,
-    .restart-btn {
-      padding: 11px 16px;
-      background: linear-gradient(180deg, rgba(255,213,125,0.96), rgba(255,157,207,0.88));
-      color: #5b4477;
-      border-color: rgba(255,213,125,0.28);
-      white-space: nowrap;
-    }
-
-    .main {
-      padding: 16px;
-      display: grid;
-      gap: 12px;
-      min-height: 640px;
-    }
-
-    .card {
-      background: var(--panel-strong);
-      border: 1px solid rgba(127,107,180,0.09);
-      border-radius: 26px;
-      box-shadow: var(--shadow-soft);
-      padding: 16px;
-    }
-
-    .card[hidden] {
-      display: none;
-    }
-
-    .speaker {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .speaker-mini {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,239,255,0.88));
-      border: 1px solid rgba(255,255,255,0.92);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      flex: 0 0 auto;
-    }
-
-    .speaker-mini::before {
-      content: "";
-      position: absolute;
-      left: 10px;
-      top: 7px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, #d8d3df, #a8a6b2);
-    }
-
-    .speaker-mini::after {
-      content: "";
-      position: absolute;
-      left: 7px;
-      bottom: -3px;
-      width: 28px;
-      height: 18px;
-      border-radius: 16px 16px 0 0;
-      background: linear-gradient(180deg, #232334, #3a3150);
-    }
-
-    .speaker-name {
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      color: #6c5289;
-    }
-
-    .speaker-note {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .typing-box,
-    .message-box,
-    .summary-body,
-    .final-body {
-      padding: 16px;
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.8));
-      border: 1px solid rgba(127,107,180,0.08);
-      box-shadow: var(--shadow-soft);
-      white-space: pre-wrap;
-    }
-
-    .message-box,
-    .summary-body,
-    .final-body {
-      font-size: 16px;
-      line-height: 1.85;
-    }
-
-    .typing-box {
-      display: none;
-      font-size: 14px;
-      color: #8a7ba6;
-    }
-
-    .typing-box.show {
-      display: block;
-    }
-
-    .choice-grid,
-    .summary-actions {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .choice-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .choice-btn {
-      min-height: 64px;
-      padding: 14px 16px;
-      text-align: left;
-      line-height: 1.5;
-      color: #5a4a72;
-      font-size: 15px;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .card-btn {
-      aspect-ratio: 2 / 3;
-      border-radius: 18px;
-      font-size: 28px;
-      display: grid;
-      place-items: center;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 26%, rgba(255,255,255,0.54), transparent 20%),
-        linear-gradient(180deg, rgba(255,213,125,0.44), rgba(255,157,207,0.28), rgba(191,231,255,0.34));
-      color: #5f4a7d;
-    }
-
-    .card-btn::after {
-      content: "✦";
-      position: absolute;
-      font-size: 58px;
-      color: rgba(255,255,255,0.28);
-      pointer-events: none;
-    }
-
-    .card-btn.active {
-      border-color: rgba(255,213,125,0.38);
-      box-shadow: 0 0 0 3px rgba(255,213,125,0.14), var(--shadow-soft);
-      transform: translateY(-2px);
-    }
-
-    .card-btn[disabled] {
-      opacity: 0.55;
-      cursor: default;
-      transform: none;
-    }
-
-    .summary-title,
-    .tarot-title {
-      margin: 0 0 4px;
-      font-size: 20px;
-      color: #6c5289;
-    }
-
-    .summary-sub,
-    .tarot-sub {
-      margin: 0 0 14px;
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    .summary-actions {
-      grid-template-columns: 1fr;
-    }
-
-    .summary-btn {
-      padding: 13px 16px;
-      font-size: 14px;
-      color: #5d4c77;
-    }
-
-    .particle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.98), rgba(255,213,125,0.82) 54%, rgba(255,157,207,0.22) 78%, transparent 80%);
-      animation: particleFly 840ms ease-out forwards;
-      pointer-events: none;
-      z-index: 30;
-    }
-
-    @keyframes particleFly {
-      from { transform: translate(0,0) scale(1); opacity: 1; }
-      to { transform: translate(var(--dx), var(--dy)) scale(0.24); opacity: 0; }
-    }
-
-    @media (max-width: 720px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .portrait-card {
-        width: 120px;
-        height: 148px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .shell {
-        width: min(100vw - 8px, 100%);
-        padding-top: 6px;
-      }
-
-      .topbar,
-      .main {
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-
-      .choice-grid,
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card-grid .card-btn {
-        aspect-ratio: auto;
-        min-height: 74px;
-      }
-
-      .hero h1 {
-        font-size: 22px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>こぶぶのお気軽トーク</title>
+
+<style>
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont;
+  background:linear-gradient(180deg,#fff6fb,#eef6ff);
+  color:#444;
+}
+
+.container{
+  max-width:420px;
+  margin:0 auto;
+  padding:20px;
+}
+
+/* ===== キャラ ===== */
+.kobubu{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.kobubu img{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+.kobubu-name{
+  font-weight:600;
+  font-size:16px;
+}
+
+/* ===== 会話 ===== */
+.message{
+  background:#fff;
+  padding:16px;
+  border-radius:16px;
+  line-height:1.7;
+  box-shadow:0 10px 20px rgba(0,0,0,0.05);
+  margin-bottom:16px;
+}
+
+/* ===== 選択肢 ===== */
+.choices{
+  display:grid;
+  gap:10px;
+}
+
+.choice{
+  background:#fff;
+  border:none;
+  padding:16px;
+  border-radius:16px;
+  text-align:left;
+  font-size:15px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.05);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.choice:hover{
+  transform:translateY(-2px);
+}
+</style>
 </head>
+
 <body>
-  <div class="stars" id="stars"></div>
-  <div class="petals" id="petals"></div>
-  <div class="particles" id="particles"></div>
 
-  <main class="shell">
-    <section class="app">
-      <header class="hero">
-        <div class="portrait-card" aria-hidden="true">
-          <div class="kobubu">
-            <div class="body"></div>
-            <div class="neck"></div>
-            <div class="hair-back"></div>
-            <div class="hair-side-left"></div>
-            <div class="hair-side-right"></div>
-            <div class="face">
-              <div class="brow left"></div>
-              <div class="brow right"></div>
-              <div class="eye left"></div>
-              <div class="eye right"></div>
-              <div class="nose"></div>
-              <div class="lip"></div>
-            </div>
-            <div class="fringe"></div>
-          </div>
-        </div>
+<div class="container">
 
-        <div class="hero-copy">
-          <div class="eyebrow">KOBUBU</div>
-          <h1>こぶぶのお気軽トーク</h1>
-          <p>
-            大人っぽくて少しミステリアス。
-            でも話しかけると意外とやさしい、こぶぶと話すモード。
-            きれいに言えなくても、近いものを選ぶだけで大丈夫。
-          </p>
-        </div>
+  <!-- キャラ -->
+  <div class="kobubu">
+    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400" id="avatar">
+    <div class="kobubu-name">こぶぶ</div>
+  </div>
 
-        <button id="soundBtn" class="sound-btn">♪ BGM ON</button>
-      </header>
+  <!-- 会話 -->
+  <div class="message" id="message">
+    ねえ、今日はどんな感じ？
+  </div>
 
-      <div class="main">
-        <section class="card" id="chatScreen">
-          <div class="speaker">
-            <div class="speaker-mini"></div>
-            <div>
-              <div class="speaker-name">こぶぶ</div>
-              <div class="speaker-note">話しかけるように返します</div>
-            </div>
-          </div>
+  <!-- 選択肢 -->
+  <div class="choices" id="choices"></div>
 
-          <div class="typing-box" id="typingBox">こぶぶが考え中…</div>
-          <div class="message-box" id="messageBox">ねえ、今日はどんな感じ？</div>
-          <div class="choice-grid" id="choiceGrid"></div>
-        </section>
+</div>
 
-        <section class="card" id="tarotScreen" hidden>
-          <h2 class="tarot-title">最後に1枚だけ</h2>
-          <p class="tarot-sub">ここまでの流れを踏まえて、こぶぶが最後に1枚だけ選ばせてくれる流れです。</p>
-          <div class="card-grid" id="cardGrid"></div>
-          <div class="final-body" id="finalBody">どれか1枚、気になるものを選んでください。</div>
-        </section>
+<script>
 
-        <section class="card" id="summaryScreen" hidden>
-          <h2 class="summary-title">こぶぶからの総括</h2>
-          <p class="summary-sub">会話とタロットをふまえて、最後に短くまとめます。</p>
-          <div class="summary-body" id="summaryBody"></div>
-          <div class="summary-actions">
-            <button class="restart-btn" id="restartBtn">最初から話す</button>
-          </div>
-        </section>
-      </div>
-    </section>
-  </main>
+const flow = [
+  {
+    text: "ねえ、今日はどんな感じ？",
+    choices: ["ちょっと疲れてる","焦って空回り","前向きに整えたい","なんとなく話したい"]
+  },
+  {
+    text: (a)=>`そっか、${a}なんだね。\nちょっとだけ深掘りしてもいい？`,
+    choices: ["うん","まあ少しだけ","まだ整理できてない"]
+  },
+  {
+    text: ()=>"今いちばん引っかかってるのって、どれに近い？",
+    choices: ["人","仕事","自分","よくわからない"]
+  },
+  {
+    text: ()=>"いいね、その感じ。\nじゃあ今日は、小さく一歩だけ決めよっか。",
+    choices: ["10分だけやる","誰かに連絡","今日は休む"]
+  }
+];
 
-  <script>
-    const stars = document.getElementById('stars');
-    const petals = document.getElementById('petals');
-    const particles = document.getElementById('particles');
+let step = 0;
 
-    for (let i = 0; i < 64; i++) {
-      const s = document.createElement('div');
-      s.className = 'star';
-      s.style.left = `${Math.random() * 100}%`;
-      s.style.top = `${Math.random() * 100}%`;
-      s.style.animationDelay = `${Math.random() * 3}s`;
-      s.style.opacity = Math.random() * 0.8 + 0.2;
-      stars.appendChild(s);
-    }
+function render(){
+  const data = flow[step];
 
-    for (let i = 0; i < 22; i++) {
-      const p = document.createElement('div');
-      p.className = 'petal';
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.animationDuration = `${8 + Math.random() * 10}s`;
-      p.style.animationDelay = `${Math.random() * 8}s`;
-      p.style.transform = `scale(${0.7 + Math.random() * 0.8})`;
-      petals.appendChild(p);
-    }
+  document.getElementById("message").innerText =
+    typeof data.text === "function" ? data.text(last) : data.text;
 
-    const chatScreen = document.getElementById('chatScreen');
-    const tarotScreen = document.getElementById('tarotScreen');
-    const summaryScreen = document.getElementById('summaryScreen');
-    const typingBox = document.getElementById('typingBox');
-    const messageBox = document.getElementById('messageBox');
-    const choiceGrid = document.getElementById('choiceGrid');
-    const cardGrid = document.getElementById('cardGrid');
-    const finalBody = document.getElementById('finalBody');
-    const summaryBody = document.getElementById('summaryBody');
-    const restartBtn = document.getElementById('restartBtn');
-    const soundBtn = document.getElementById('soundBtn');
+  const c = document.getElementById("choices");
+  c.innerHTML = "";
 
-    const CHOICES = {
-      mood: [
-        { id: 'tired', label: 'ちょっと疲れてる' },
-        { id: 'swirl', label: '焦って空回り' },
-        { id: 'tidy', label: '前向きに整えたい' },
-        { id: 'talk', label: 'なんとなく話したい' }
-      ],
-      burden: [
-        { id: 'priority', label: '優先順位がぐちゃぐちゃ' },
-        { id: 'heavy', label: '気持ちが重い' },
-        { id: 'people', label: '人のことが気になる' },
-        { id: 'self', label: '自分に自信が持てない' }
-      ],
-      wish: [
-        { id: 'calm', label: '落ち着きたい' },
-        { id: 'decide', label: 'はっきり決めたい' },
-        { id: 'confidence', label: '自信を戻したい' },
-        { id: 'forward', label: 'やさしく前に進みたい' }
-      ],
-      support: [
-        { id: 'gentle', label: 'やさしく返してほしい' },
-        { id: 'sharp', label: '少し鋭く言ってほしい' },
-        { id: 'quote', label: '偉人の言葉がほしい' },
-        { id: 'watch', label: '時計の話でほぐして' }
-      ],
-      action: [
-        { id: 'ten', label: '10分だけ着手する' },
-        { id: 'message', label: '1本だけ連絡する' },
-        { id: 'stop', label: 'やらないことを決める' },
-        { id: 'rest', label: '今日は少し休む' }
-      ],
-      close: [
-        { id: 'summary', label: 'このへんでまとめる' },
-        { id: 'continue', label: 'もう少し話す' },
-        { id: 'push', label: 'ひとこと背中を押して' },
-        { id: 'soft', label: 'やさしく締めて' }
-      ],
-      loop: [
-        { id: 'safe', label: '安心したい' },
-        { id: 'clear', label: '頭を整理したい' },
-        { id: 'light', label: '少し軽くなりたい' },
-        { id: 'one', label: '一歩だけ決めたい' }
-      ],
-      close2: [
-        { id: 'summary', label: 'うん、まとめる' },
-        { id: 'continue', label: 'もう少しだけ話す' }
-      ]
+  data.choices.forEach(choice=>{
+    const btn = document.createElement("button");
+    btn.className="choice";
+    btn.innerText = choice;
+
+    btn.onclick = ()=>{
+      last = choice;
+      step++;
+
+      if(step < flow.length){
+        render();
+      }else{
+        end();
+      }
     };
 
-    const QUOTES = [
-      {
-        who: 'エピクテトス',
-        line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳',
-        tip: 'いま必要なのは、全部を変えることより、見方を少し整えることかもしれないね。'
-      },
-      {
-        who: 'マルクス・アウレリウス',
-        line: '「行く手をふさぐものが、かえって道になる」※意訳',
-        tip: '邪魔に見えるものの中に、次の一手のヒントがあることも多いよ。'
-      },
-      {
-        who: '老子',
-        line: '「千里の道も一歩から」',
-        tip: '今日は大きく変わる日じゃなくていい。小さく動ければ十分。'
-      }
-    ];
+    c.appendChild(btn);
+  });
+}
 
-    const WATCH = [
-      {
-        line: '機械式腕時計って、ゼンマイの力を少しずつほどきながら進むんだよね。',
-        tip: '人も似てて、一気に整えるより、少しずつ戻したほうがきれいなことがある。'
-      },
-      {
-        line: 'ケース径より、ラグ・トゥ・ラグで着け心地が変わる時計って多いんだ。',
-        tip: 'つまり数字だけじゃ分からない。今の悩みも、表面だけじゃ測れないってこと。'
-      },
-      {
-        line: 'クロノグラフは情報量が多いけど、整って見えるとすごく美しい。',
-        tip: '少し散らかってるくらいで、あなたの価値は全然下がらないよ。'
-      }
-    ];
+function end(){
+  document.getElementById("message").innerText =
+  "今日はちゃんと整えようとしてる時点で大丈夫。\n少しずつでいいよ。";
 
-    const SOFT = [
-      'いま全部をうまくやる必要はないよ。ひとつ整えば、次のひとつが見えるから。',
-      '疲れてるときに強く進もうとすると、余計に空回ることがある。今日はやさしくでいい。',
-      'ちゃんと悩めてる時点で、もう雑には生きてないよ。'
-    ];
-
-    const TAROT = [
-      { icon: '☀️', name: '太陽', msg: '迷う時間を少し短くすると、流れが動きます。' },
-      { icon: '🌙', name: '月', msg: '不安は敵ではなく、まだ言葉になっていない感覚です。' },
-      { icon: '⭐', name: '星', msg: '理想は分解すると、現実の一歩に変わります。' },
-      { icon: '🗡️', name: '剣', msg: '曖昧な優しさより、明確な線引きが助けになります。' },
-      { icon: '🌸', name: '桜', msg: '急いで咲くより、整って咲くほうが長く持ちます。' },
-      { icon: '💎', name: '宝石', msg: 'すでに持つ強みを軽く見積もらないこと。' }
-    ];
-
-    const state = {
-      stage: 'mood',
-      answers: {},
-      loopCount: 0,
-      tarotChosen: false,
-      tarot: null,
-      locked: false
-    };
-
-    function pick(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function spawnParticles(target, count = 12) {
-      const rect = target.getBoundingClientRect();
-      const baseX = rect.left + rect.width / 2;
-      const baseY = rect.top + rect.height / 2;
-      for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = `${baseX}px`;
-        p.style.top = `${baseY}px`;
-        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 140}px`);
-        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 120 - 20}px`);
-        particles.appendChild(p);
-        setTimeout(() => p.remove(), 900);
-      }
-    }
-
-    function showScreen(name) {
-      chatScreen.hidden = name !== 'chat';
-      tarotScreen.hidden = name !== 'tarot';
-      summaryScreen.hidden = name !== 'summary';
-    }
-
-    function setLocked(flag) {
-      state.locked = flag;
-      typingBox.classList.toggle('show', flag);
-      choiceGrid.hidden = flag;
-    }
-
-    function renderChoices(items) {
-      choiceGrid.innerHTML = '';
-      items.forEach((item) => {
-        const btn = document.createElement('button');
-        btn.className = 'choice-btn';
-        btn.textContent = item.label;
-        btn.addEventListener('click', (e) => {
-          if (state.locked) return;
-          spawnParticles(e.currentTarget, 10);
-          handleChoice(item);
-        });
-        choiceGrid.appendChild(btn);
-      });
-    }
-
-    function renderPrompt(text, items) {
-      messageBox.textContent = text;
-      renderChoices(items);
-    }
-
-    function typeText(text) {
-      setLocked(true);
-      messageBox.textContent = '';
-      return new Promise((resolve) => {
-        let i = 0;
-        const timer = setInterval(() => {
-          messageBox.textContent = text.slice(0, i + 1);
-          i += 1;
-          if (i >= text.length) {
-            clearInterval(timer);
-            setLocked(false);
-            resolve();
-          }
-        }, 18);
-      });
-    }
-
-    function moodReply(id) {
-      if (id === 'tired') return pick([
-        'そっか。今日はちょっと疲れが前に出てるんだね。無理に明るくしなくて大丈夫。',
-        'うん、そういう日あるよね。まずは「疲れてる」ってちゃんと認めてあげよう。'
-      ]);
-      if (id === 'swirl') return pick([
-        'それ、しんどいよね。急いでるのに進んでる感じがしないと、気持ちだけが擦り減る。',
-        '焦りだけ先に走る感じかな。あれって体力も気分も持っていかれるんだよね。'
-      ]);
-      if (id === 'tidy') return pick([
-        'いいね。その感じ、好き。前に進みたいからこそ、一度ちゃんと整えたいんだよね。',
-        'その気持ちは強いよ。乱暴に頑張るんじゃなくて、きれいに進みたいんだね。'
-      ]);
-      return pick([
-        'もちろん。理由がはっきりしてなくても大丈夫。話してるうちに形になること、けっこうあるから。',
-        'いいよ、そういう入り方でも。言葉になってない時のほうが、本音が出やすかったりするし。'
-      ]);
-    }
-
-    function burdenReply(id) {
-      if (id === 'priority') return 'やることが多いというより、順番がうるさく頭の中でぶつかってる感じかな。';
-      if (id === 'heavy') return '心そのものがちょっと重くなってるんだね。そういう時は理屈より先に感触がある。';
-      if (id === 'people') return '人の気配が強く入ってきてるんだね。相手の顔色や言葉って、意外と深く残るから。';
-      return '自分に向く目が少し厳しくなってるのかも。そういう時ほど、内側の声が強くなるよね。';
-    }
-
-    function wishReply(id) {
-      if (id === 'calm') return 'うん、まず必要なのは勢いじゃなくて落ち着きなんだね。';
-      if (id === 'decide') return '迷いの霧を少し払いたい感じかな。はっきりさせたい時って、気持ちもすり減る。';
-      if (id === 'confidence') return '自分をもう一回ちゃんと信じたいんだね。その気持ち、すごく大事。';
-      return 'やさしく前へ、がいちばんしっくり来るんだね。無理に強く行かないの、私は好き。';
-    }
-
-    function supportReply(id) {
-      if (id === 'gentle') {
-        return pick([
-          'わかった。今日は角を立てずに返すね。ちゃんと受け止めながら進めよう。',
-          'うん、今日はやさしい温度でいこう。深く刺すより、ほどく感じで。'
-        ]);
-      }
-      if (id === 'sharp') {
-        return pick([
-          'じゃあ少しだけ本音で言うね。いま必要なのは、感情の整理より順番の整理かもしれない。',
-          'わかった。少しだけ鋭く言うと、今の苦しさの一部は「決めないまま抱えすぎてること」だと思う。'
-        ]);
-      }
-      if (id === 'quote') {
-        const q = pick(QUOTES);
-        return `${q.who}\n${q.line}\n\n${q.tip}`;
-      }
-      const w = pick(WATCH);
-      return `${w.line}\n\n${w.tip}`;
-    }
-
-    function actionReply(id) {
-      if (id === 'ten') return 'いいね。10分だけなら、心に言い訳を作らなくて済む。';
-      if (id === 'message') return 'その1本で流れが変わること、けっこうあるよ。小さいけど強い一手。';
-      if (id === 'stop') return 'やらないことを決めるの、実はかなり賢い。空白は守る価値があるから。';
-      return '今日は休むを選べるのも強さだよ。整える前に、まず減らすのも立派な判断。';
-    }
-
-    function loopReply(id) {
-      if (id === 'safe') return '安心したい、がいちばん近いんだね。じゃあ今は正しさより、心拍が落ちるほうを優先していい。';
-      if (id === 'clear') return '頭を整理したいんだね。散らかったまま頑張るより、先に輪郭をつくったほうがきれいに進める。';
-      if (id === 'light') return '少し軽くなりたいんだね。全部消えなくていいから、持ち方を変えてみようか。';
-      return '一歩だけ決めたいんだね。それで十分。今日は一歩でいい。';
-    }
-
-    function buildFinalSummary() {
-      const mood = state.answers.mood?.label || '今の気分';
-      const burden = state.answers.burden?.label || '引っかかり';
-      const wish = state.answers.wish?.label || '望む方向';
-      const support = state.answers.support?.label || 'ほしい返し';
-      const action = state.answers.action?.label || '次の一手';
-      const tarot = state.tarot;
-
-      return `今回のこぶぶのまとめ。\n\n入口は「${mood}」でした。そこから見えてきたのは「${burden}」という負荷で、ほんとは「${wish}」へ近づきたい気持ちがある。\n\n今日は「${support}」を求めていたのも印象的でした。つまり、ただ答えがほしいだけじゃなくて、いまの自分に合う温度で整理したかったんだと思う。\n\n現実の一手としては「${action}」が合っています。大きく変えるより、まず小さく整えるほうが今の流れには合う。\n\n最後に引いた「${tarot.name}」は、「${tarot.msg.replace(/。$/, '')}」というサインでした。だから今日は、勢いで突破する日じゃなくて、余計なノイズを減らして次の一歩を軽くする日。全部解決しなくて大丈夫。ちゃんと前には進めます。`;
-    }
-
-    async function startTarot() {
-      showScreen('tarot');
-      finalBody.textContent = 'どれか1枚、気になるものを選んでください。';
-    }
-
-    async function handleChoice(item) {
-      const id = item.id;
-
-      if (state.stage === 'mood') {
-        state.answers.mood = item;
-        state.stage = 'burden';
-        await typeText(`${moodReply(id)}\n\n今いちばん引っかかってるの、どれに近い？`);
-        renderChoices(CHOICES.burden);
-        return;
-      }
-
-      if (state.stage === 'burden') {
-        state.answers.burden = item;
-        state.stage = 'wish';
-        await typeText(`${burdenReply(id)}\n\nほんとは、どうなれたら少し楽？`);
-        renderChoices(CHOICES.wish);
-        return;
-      }
-
-      if (state.stage === 'wish') {
-        state.answers.wish = item;
-        state.stage = 'support';
-        await typeText(`${wishReply(id)}\n\n今日は、どんなふうに返してほしい？`);
-        renderChoices(CHOICES.support);
-        return;
-      }
-
-      if (state.stage === 'support') {
-        state.answers.support = item;
-        state.stage = 'action';
-        await typeText(`${supportReply(id)}\n\nじゃあ、今日の自分に渡すならどれがいい？`);
-        renderChoices(CHOICES.action);
-        return;
-      }
-
-      if (state.stage === 'action') {
-        state.answers.action = item;
-        state.stage = 'close';
-        await typeText(`${actionReply(id)}\n\nこのあと、どうしたい？`);
-        renderChoices(CHOICES.close);
-        return;
-      }
-
-      if (state.stage === 'close') {
-        if (id === 'summary') {
-          await typeText('うん、じゃあこのへんでやさしくまとめに入るね。最後に1枚だけ、選んで。');
-          startTarot();
-          return;
-        }
-
-        if (id === 'continue') {
-          state.stage = 'loop';
-          state.loopCount += 1;
-          await typeText('もちろん。じゃあ、もう少しだけ。\n\nいま欲しいのはどれに近い？');
-          renderChoices(CHOICES.loop);
-          return;
-        }
-
-        if (id === 'push') {
-          state.stage = 'close2';
-          await typeText('少しだけ背中を押すね。\n\nいま必要なのは「完璧に整うこと」じゃなくて、「ひとつ決めて楽になること」だと思う。\n\nこのへんでまとめる？');
-          renderChoices(CHOICES.close2);
-          return;
-        }
-
-        if (id === 'soft') {
-          state.stage = 'close2';
-          await typeText('じゃあ、やさしく締めるね。\n\n今日はちゃんと話せただけでも十分。自分を急がせすぎなくて大丈夫。\n\nこのへんでまとめる？');
-          renderChoices(CHOICES.close2);
-          return;
-        }
-      }
-
-      if (state.stage === 'loop') {
-        state.answers.loop = item;
-        state.stage = 'close2';
-        await typeText(`${loopReply(id)}\n\nこのへんで、そろそろまとめる？`);
-        renderChoices(CHOICES.close2);
-        return;
-      }
-
-      if (state.stage === 'close2') {
-        if (id === 'summary') {
-          await typeText('うん、じゃあ最後に1枚だけ。いまの流れに合うカードを選んで。');
-          startTarot();
-          return;
-        }
-
-        state.stage = 'loop';
-        state.loopCount += 1;
-        if (state.loopCount >= 2) {
-          await typeText('じゃあ本当に、もうひとつだけ。\n\nいま近いのはどれ？');
-        } else {
-          await typeText('いいよ。もう少しだけ付き合うね。\n\nいま近いのはどれ？');
-        }
-        renderChoices(CHOICES.loop);
-      }
-    }
-
-    function renderTarotCards() {
-      cardGrid.innerHTML = '';
-      TAROT.forEach((card) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'card-btn';
-        btn.innerHTML = `<span aria-hidden="true">${card.icon}</span>`;
-        btn.title = card.name;
-
-        const choose = () => {
-          if (state.tarotChosen) return;
-          state.tarotChosen = true;
-          state.tarot = card;
-
-          document.querySelectorAll('.card-btn').forEach((el) => {
-            el.disabled = true;
-            el.classList.remove('active');
-          });
-
-          btn.classList.add('active');
-          btn.disabled = false;
-          finalBody.textContent = `【${card.name}】\n${card.msg}\n\nこのカードで確定しました。`;
-          spawnParticles(btn, 16);
-
-          setTimeout(() => {
-            summaryBody.textContent = buildFinalSummary();
-            showScreen('summary');
-          }, 700);
-        };
-
-        btn.addEventListener('click', choose);
-        btn.addEventListener('touchend', (e) => {
-          e.preventDefault();
-          choose();
-        }, { passive: false });
-
-        cardGrid.appendChild(btn);
-      });
-    }
-
-    function resetSession() {
-      state.stage = 'mood';
-      state.answers = {};
-      state.loopCount = 0;
-      state.tarotChosen = false;
-      state.tarot = null;
-      messageBox.textContent = 'ねえ、今日はどんな感じ？';
-      showScreen('chat');
-      renderChoices(CHOICES.mood);
-      renderTarotCards();
-      finalBody.textContent = 'どれか1枚、気になるものを選んでください。';
-      summaryBody.textContent = '';
-      setLocked(false);
-    }
-
-    let audioCtx;
-    let bgmOn = false;
-    let bgmTimer;
-    let liveNodes = [];
-
-    function bellTone(freq, start, amp = 0.024, duration = 1.8, gong = false) {
-      const ratios = gong ? [1, 1.48, 2.92, 4.11] : [1, 1.52, 2.17, 3.86];
-      const decays = gong ? [1.6, 1.3, 1.0, 0.8] : [1.2, 0.85, 0.55, 0.42];
-
-      ratios.forEach((r, i) => {
-        const oscA = audioCtx.createOscillator();
-        const oscB = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        oscA.type = 'sine';
-        oscB.type = 'triangle';
-        oscA.frequency.value = freq * r;
-        oscB.frequency.value = freq * r * 1.006;
-
-        gain.gain.setValueAtTime(0.0001, start);
-        gain.gain.exponentialRampToValueAtTime(amp / (i + 1), start + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.0001, start + Math.max(0.18, duration * decays[i]));
-
-        oscA.connect(gain);
-        oscB.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        oscA.start(start);
-        oscB.start(start);
-        oscA.stop(start + duration * decays[i] + 0.08);
-        oscB.stop(start + duration * decays[i] + 0.08);
-
-        liveNodes.push(oscA, oscB, gain);
-      });
-    }
-
-    function scheduleGamelan() {
-      if (!audioCtx || !bgmOn) return;
-
-      const now = audioCtx.currentTime + 0.08;
-      const pelogish = [220, 247, 277, 330, 370];
-      const left = [0, 2, 1, 3, 2, 4, 1, 3];
-      const right = [2, 3, 2, 4, 0, 2, 1, 4];
-      const spacing = 0.22;
-
-      bellTone(110, now, 0.032, 2.6, true);
-
-      for (let i = 0; i < left.length; i++) {
-        const t1 = now + i * spacing;
-        const t2 = now + i * spacing + spacing / 2;
-        bellTone(pelogish[left[i]], t1, 0.018, 1.1, false);
-        bellTone(pelogish[right[i]], t2, 0.016, 0.95, false);
-      }
-
-      bellTone(147, now + left.length * spacing - 0.08, 0.024, 1.8, true);
-      bgmTimer = setTimeout(scheduleGamelan, left.length * spacing * 1000 + 120);
-    }
-
-    async function toggleBgm() {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') await audioCtx.resume();
-
-      bgmOn = !bgmOn;
-      soundBtn.textContent = bgmOn ? '♪ BGM OFF' : '♪ BGM ON';
-
-      if (bgmOn) {
-        scheduleGamelan();
-      } else {
-        clearTimeout(bgmTimer);
-        liveNodes.forEach((node) => {
-          try { node.disconnect?.(); } catch (_) {}
-        });
-        liveNodes = [];
-      }
-    }
-
-    soundBtn.addEventListener('click', toggleBgm);
-    restartBtn.addEventListener('click', resetSession);
-
-    resetSession();
-  </script>
-</body>
-</html>
+  document.getElementBy
