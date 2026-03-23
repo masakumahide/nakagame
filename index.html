@@ -1,1471 +1,1200 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>ヒデちゃん八百万</title>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
-<style>
-:root {
-  --bg: #0d0d0d;
-  --surface: #141414;
-  --card: #1c1c1c;
-  --gold: #c9a84c;
-  --gold2: #e8cc80;
-  --gold-dim: rgba(201,168,76,.15);
-  --text: #f0ece4;
-  --muted: #7a7060;
-  --hide-bg: #1e1c18;
-  --hide-border: rgba(201,168,76,.25);
-  --radius: 18px;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; background: var(--bg); font-family: 'Zen Maru Gothic', sans-serif; color: var(--text); overflow: hidden; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIDEKO YAOYOROZU</title>
+  <style>
+    :root {
+      --bg1: #10051f;
+      --bg2: #2f124b;
+      --bg3: #7c3aed;
+      --panel: rgba(14, 10, 32, 0.86);
+      --line: rgba(255,255,255,0.16);
+      --text: #fff6fe;
+      --sub: #dbcdf9;
+      --gold: #ffd76d;
+      --pink: #ff7dd1;
+      --mint: #8ff7d4;
+      --shadow: 0 10px 35px rgba(0,0,0,0.35);
+    }
 
-/* ── grain overlay ── */
-body::before {
-content: ‘’;
-position: fixed; inset: 0; z-index: 0; pointer-events: none;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-opacity: .5;
-}
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,125,209,0.22), transparent 25%),
+        radial-gradient(circle at 80% 18%, rgba(143,247,212,0.15), transparent 25%),
+        radial-gradient(circle at 50% 100%, rgba(124,58,237,0.40), transparent 45%),
+        linear-gradient(180deg, var(--bg2), var(--bg1));
+      overflow-x: hidden;
+    }
 
-#app {
-display: flex; flex-direction: column; height: 100dvh;
-max-width: 620px; margin: 0 auto;
-position: relative; z-index: 1;
-}
+    body.night {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(124,58,237,0.22), transparent 25%),
+        radial-gradient(circle at 80% 18%, rgba(255,215,109,0.12), transparent 25%),
+        radial-gradient(circle at 50% 100%, rgba(13,10,42,0.60), transparent 45%),
+        linear-gradient(180deg, #07030f, #13071f 60%, #1d0d32);
+    }
 
-/* ── Header ── */
-#header {
-padding: 16px 20px 14px;
-background: linear-gradient(180deg, #1a1710 0%, #0d0d0d 100%);
-border-bottom: 1px solid rgba(201,168,76,.18);
-flex-shrink: 0; position: relative; overflow: hidden;
-}
-#header::after {
-content: ‘’;
-position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-background: linear-gradient(90deg, transparent, var(–gold), transparent);
-}
-.hdr-inner { display: flex; align-items: center; gap: 14px; }
+    .stars, .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-.hdr-av-wrap { position: relative; flex-shrink: 0; }
-.hdr-av {
-width: 54px; height: 54px; border-radius: 50%;
-background: linear-gradient(135deg, #2a2218, #1a1710);
-border: 1.5px solid var(–gold);
-display: flex; align-items: center; justify-content: center;
-font-size: 28px;
-box-shadow: 0 0 24px rgba(201,168,76,.2), inset 0 1px 0 rgba(201,168,76,.1);
-}
-.hdr-av-ring {
-position: absolute; inset: -4px; border-radius: 50%;
-border: 1px solid rgba(201,168,76,.2);
-animation: ring-pulse 3s ease-in-out infinite;
-}
-@keyframes ring-pulse {
-0%,100% { opacity:.3; transform: scale(1); }
-50% { opacity:.8; transform: scale(1.04); }
-}
-.status-dot {
-position: absolute; bottom: 2px; right: 2px;
-width: 10px; height: 10px; border-radius: 50%;
-background: #4ade80; border: 2px solid #0d0d0d;
-box-shadow: 0 0 6px #4ade80;
-animation: sblink 2.5s ease-in-out infinite;
-}
-@keyframes sblink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      animation: twinkle 2.8s infinite ease-in-out;
+      box-shadow: 0 0 10px rgba(255,255,255,0.7);
+    }
 
-.hdr-txt { flex: 1; }
-.hdr-name {
-font-size: 18px; font-weight: 900; color: var(–text);
-letter-spacing: .06em;
-text-shadow: 0 0 20px rgba(201,168,76,.3);
-}
-.hdr-name span { color: var(–gold); font-family: ‘Cormorant Garamond’, serif; font-style: italic; font-size: 20px; }
-.hdr-sub { font-size: 10px; color: var(–muted); margin-top: 3px; letter-spacing: .1em; }
+    @keyframes twinkle {
+      0%,100% { opacity: 0.15; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
 
-/* BGM button */
-#bgm-btn {
-background: var(–gold-dim); border: 1px solid var(–gold);
-color: var(–gold); border-radius: 20px; padding: 6px 12px;
-font-size: 11px; font-family: inherit; cursor: pointer;
-transition: all .2s; letter-spacing: .06em; font-weight: 700;
-white-space: nowrap;
-}
-#bgm-btn:hover { background: rgba(201,168,76,.25); }
-#bgm-btn.playing { background: rgba(201,168,76,.2); box-shadow: 0 0 10px rgba(201,168,76,.3); }
+    .shell {
+      width: min(1120px, calc(100vw - 24px));
+      margin: 0 auto;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 18px;
+      padding: 16px 0 24px;
+      position: relative;
+      z-index: 2;
+    }
 
-/* ── Messages ── */
-#messages {
-flex: 1; overflow-y: auto; padding: 20px 16px 10px;
-display: flex; flex-direction: column; gap: 16px;
-scroll-behavior: smooth;
-}
-#messages::-webkit-scrollbar { width: 3px; }
-#messages::-webkit-scrollbar-thumb { background: rgba(201,168,76,.2); border-radius: 3px; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
 
-.msg-row { display: flex; gap: 10px; align-items: flex-end; animation: msgin .35s cubic-bezier(.34,1.56,.64,1) both; }
-@keyframes msgin { from{opacity:0;transform:translateY(16px) scale(.95)} to{opacity:1;transform:none} }
-.msg-row.user { flex-direction: row-reverse; }
+    .stage {
+      min-height: 680px;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-.avatar {
-width: 36px; height: 36px; border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-font-size: 18px; flex-shrink: 0;
-}
-.avatar.hide {
-background: linear-gradient(135deg, #2a2218, #1a1710);
-border: 1px solid rgba(201,168,76,.4);
-box-shadow: 0 0 12px rgba(201,168,76,.15);
-}
-.avatar.user {
-background: linear-gradient(135deg, #1a2030, #0d1525);
-border: 1px solid rgba(100,130,200,.3);
-}
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 82%, rgba(255,255,255,0.12), transparent 22%),
+        radial-gradient(circle at 50% 75%, rgba(255,125,209,0.08), transparent 28%);
+      pointer-events: none;
+    }
 
-.bubble-wrap { max-width: calc(100% - 54px); display: flex; flex-direction: column; gap: 4px; }
-.msg-row.user .bubble-wrap { align-items: flex-end; }
-.sender-name { font-size: 10px; font-weight: 700; color: var(–muted); padding: 0 6px; letter-spacing: .08em; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+    }
 
-.bubble {
-padding: 12px 16px; font-size: 14px; line-height: 1.8;
-font-weight: 500; word-break: break-word; white-space: pre-wrap;
-border-radius: 4px 18px 18px 18px;
-}
-.bubble.hide {
-background: var(–hide-bg);
-border: 1px solid var(–hide-border);
-color: var(–text);
-box-shadow: 0 4px 20px rgba(0,0,0,.4), inset 0 1px 0 rgba(201,168,76,.05);
-}
-.bubble.user {
-background: linear-gradient(135deg, #1a2030, #151d2e);
-border: 1px solid rgba(100,130,200,.2);
-color: var(–text);
-border-radius: 18px 4px 18px 18px;
-box-shadow: 0 4px 20px rgba(0,0,0,.4);
-}
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-/* quote decoration */
-.bubble.hide::before {
-content: ‘”’;
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 36px; line-height: 0;
-color: rgba(201,168,76,.2);
-position: relative; top: 8px; margin-right: 4px;
-vertical-align: middle;
-}
+    .brand .title {
+      font-size: 14px;
+      letter-spacing: 0.24em;
+      color: var(--gold);
+      font-weight: 700;
+    }
 
-/* Typing */
-.typing-row { display: flex; gap: 10px; align-items: flex-end; }
-.typing-bbl {
-background: var(–hide-bg); border: 1px solid var(–hide-border);
-padding: 14px 18px; border-radius: 4px 18px 18px 18px;
-display: flex; gap: 6px; align-items: center;
-}
-.td { width: 6px; height: 6px; border-radius: 50%; background: var(–gold); animation: tdot 1.3s ease-in-out infinite; }
-.td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
-@keyframes tdot { 0%,80%,100%{opacity:.15;transform:scale(.7)} 40%{opacity:1;transform:scale(1)} }
+    .brand .sub {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--sub);
+      opacity: 0.95;
+    }
 
-/* ── Choices ── */
-#choices {
-padding: 12px 14px 14px;
-background: linear-gradient(180deg, #0d0d0d 0%, #111008 100%);
-border-top: 1px solid rgba(201,168,76,.1);
-display: flex; flex-direction: column; gap: 8px;
-flex-shrink: 0;
-}
-#choices-label {
-font-size: 9px; color: var(–muted); letter-spacing: .14em;
-text-transform: uppercase; padding: 0 2px; font-weight: 700;
-}
-.choice-btn {
-background: transparent;
-border: 1px solid rgba(201,168,76,.22);
-color: #c8bfa0;
-padding: 10px 16px; border-radius: 8px;
-font-size: 13px; font-family: inherit; cursor: pointer;
-transition: all .18s; font-weight: 500; text-align: left;
-line-height: 1.4; letter-spacing: .02em;
-position: relative; overflow: hidden;
-}
-.choice-btn::before {
-content: ‘’;
-position: absolute; left: 0; top: 0; bottom: 0;
-width: 2px;
-background: linear-gradient(180deg, transparent, var(–gold), transparent);
-opacity: 0; transition: opacity .2s;
-}
-.choice-btn:hover {
-border-color: rgba(201,168,76,.6);
-color: var(–gold2);
-background: var(–gold-dim);
-transform: translateX(4px);
-}
-.choice-btn:hover::before { opacity: 1; }
-.choice-btn:disabled { opacity: .3; cursor: not-allowed; transform: none; }
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
 
-/* Reset */
-#reset-btn {
-margin: 4px 14px 10px;
-background: transparent; border: 1px solid rgba(255,255,255,.06);
-color: var(–muted); padding: 8px; border-radius: 8px;
-font-size: 11px; font-family: inherit; cursor: pointer;
-transition: all .15s; letter-spacing: .06em;
-}
-#reset-btn:hover { border-color: rgba(201,168,76,.3); color: var(–gold); }
+    button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      color: var(--text);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.20);
+    }
 
-/* ── Divider label ── */
-.day-divider {
-text-align: center; font-size: 10px; color: var(–muted);
-letter-spacing: .1em; position: relative; margin: 4px 0;
-}
-.day-divider::before, .day-divider::after {
-content: ‘’;
-position: absolute; top: 50%; width: 30%;
-height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,.15));
-}
-.day-divider::before { left: 0; }
-.day-divider::after { right: 0; transform: scaleX(-1); }
-</style>
+    button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.28);
+    }
 
+    button:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .btn-gold {
+      background: linear-gradient(180deg, rgba(255,215,109,0.25), rgba(255,125,209,0.08));
+      border-color: rgba(255,215,109,0.35);
+      color: #fff9e6;
+    }
+
+    .character-zone {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-top: 16px;
+    }
+
+    .glow {
+      position: absolute;
+      bottom: 110px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,125,209,0.28) 0%, rgba(255,215,109,0.12) 30%, transparent 68%);
+      filter: blur(10px);
+      animation: pulse 2.6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(0.96); opacity: 0.7; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+
+    .character {
+      position: relative;
+      width: 260px;
+      height: 500px;
+      filter: drop-shadow(0 12px 26px rgba(0,0,0,0.35));
+      cursor: pointer;
+      transform-origin: center bottom;
+      animation: floaty 3.2s ease-in-out infinite;
+      user-select: none;
+    }
+
+    .character.talk {
+      animation-duration: 1.7s;
+    }
+
+    @keyframes floaty {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hair-back {
+      position: absolute;
+      left: 54px;
+      top: 54px;
+      width: 156px;
+      height: 218px;
+      background: linear-gradient(180deg, #2a153f, #13061b 72%);
+      border-radius: 76px 76px 46px 46px;
+    }
+
+    .face {
+      position: absolute;
+      left: 82px;
+      top: 70px;
+      width: 100px;
+      height: 122px;
+      background: linear-gradient(180deg, #ffe3cf, #ffd2ba 82%);
+      border-radius: 48px 48px 42px 42px;
+      z-index: 4;
+      box-shadow: inset 0 -6px 0 rgba(255,183,149,0.26);
+    }
+
+    .fringe {
+      position: absolute;
+      left: 74px;
+      top: 58px;
+      width: 116px;
+      height: 74px;
+      background: linear-gradient(180deg, #2e163f, #16071f);
+      border-radius: 58px 58px 24px 24px;
+      z-index: 5;
+    }
+
+    .fringe::after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: 22px;
+      width: 38px;
+      height: 28px;
+      background: #16071f;
+      border-radius: 0 20px 30px 20px;
+      transform: rotate(18deg);
+    }
+
+    .hair-side-left,
+    .hair-side-right {
+      position: absolute;
+      top: 94px;
+      width: 34px;
+      height: 125px;
+      background: linear-gradient(180deg, #2c143c, #12061a);
+      z-index: 3;
+      border-radius: 20px;
+    }
+
+    .hair-side-left { left: 62px; transform: rotate(10deg); }
+    .hair-side-right { right: 62px; transform: rotate(-10deg); }
+
+    .eye {
+      position: absolute;
+      top: 50px;
+      width: 18px;
+      height: 12px;
+      background: #3b233b;
+      border-radius: 50%;
+      z-index: 6;
+      animation: blink 4.7s infinite;
+    }
+
+    .eye.left { left: 22px; }
+    .eye.right { right: 22px; }
+
+    .eye::after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 2px;
+      width: 4px;
+      height: 4px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 50%;
+    }
+
+    @keyframes blink {
+      0%, 45%, 48%, 100% { transform: scaleY(1); }
+      46%, 47% { transform: scaleY(0.12); }
+    }
+
+    .cheek {
+      position: absolute;
+      top: 72px;
+      width: 18px;
+      height: 10px;
+      background: rgba(255,120,150,0.24);
+      border-radius: 50%;
+      z-index: 5;
+    }
+
+    .cheek.left { left: 12px; }
+    .cheek.right { right: 12px; }
+
+    .mouth {
+      position: absolute;
+      left: 40px;
+      top: 84px;
+      width: 20px;
+      height: 9px;
+      border-bottom: 3px solid #c4627f;
+      border-radius: 0 0 18px 18px;
+      z-index: 6;
+    }
+
+    .ear {
+      position: absolute;
+      top: 84px;
+      width: 14px;
+      height: 22px;
+      background: #ffd4be;
+      border-radius: 50%;
+      z-index: 3;
+    }
+
+    .ear.left { left: 72px; }
+    .ear.right { right: 72px; }
+
+    .earring {
+      position: absolute;
+      top: 102px;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #ffffff 0%, #d7f3ff 60%, #9fdcff 100%);
+      border-radius: 50%;
+      z-index: 8;
+      box-shadow: 0 0 12px rgba(255,255,255,0.65);
+    }
+
+    .earring.left { left: 78px; }
+    .earring.right { right: 78px; }
+
+    .neck {
+      position: absolute;
+      left: 110px;
+      top: 180px;
+      width: 44px;
+      height: 42px;
+      background: linear-gradient(180deg, #ffd9c3, #f4c3a7);
+      border-radius: 18px;
+      z-index: 2;
+    }
+
+    .body {
+      position: absolute;
+      left: 54px;
+      top: 204px;
+      width: 150px;
+      height: 196px;
+      background: linear-gradient(180deg, #ff7dc4 0%, #a74aff 52%, #6b2de2 100%);
+      clip-path: polygon(24% 0, 76% 0, 100% 100%, 0 100%);
+      border-radius: 20px 20px 36px 36px;
+      z-index: 2;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.14), inset 0 -14px 28px rgba(0,0,0,0.18);
+    }
+
+    .body::before {
+      content: "";
+      position: absolute;
+      left: 32px;
+      right: 32px;
+      top: 12px;
+      height: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0));
+      border-radius: 18px 18px 24px 24px;
+    }
+
+    .collar {
+      position: absolute;
+      left: 96px;
+      top: 204px;
+      width: 66px;
+      height: 24px;
+      background: linear-gradient(180deg, #ffe4f5, #ffc3ee);
+      clip-path: polygon(0 0, 100% 0, 78% 100%, 22% 100%);
+      z-index: 3;
+      opacity: 0.95;
+    }
+
+    .arm {
+      position: absolute;
+      top: 222px;
+      width: 26px;
+      height: 126px;
+      background: linear-gradient(180deg, #ffd7c2, #f0bca2);
+      border-radius: 18px;
+      z-index: 1;
+    }
+
+    .arm.left {
+      left: 48px;
+      transform: rotate(14deg);
+      transform-origin: top center;
+      animation: swayL 3.2s ease-in-out infinite;
+    }
+
+    .arm.right {
+      right: 48px;
+      transform: rotate(-14deg);
+      transform-origin: top center;
+      animation: swayR 3.2s ease-in-out infinite;
+    }
+
+    @keyframes swayL {
+      0%,100% { transform: rotate(14deg); }
+      50% { transform: rotate(21deg); }
+    }
+
+    @keyframes swayR {
+      0%,100% { transform: rotate(-14deg); }
+      50% { transform: rotate(-21deg); }
+    }
+
+    .hand {
+      position: absolute;
+      bottom: -8px;
+      left: 1px;
+      width: 24px;
+      height: 24px;
+      background: #ffd9c4;
+      border-radius: 50%;
+    }
+
+    .leg {
+      position: absolute;
+      top: 386px;
+      width: 34px;
+      height: 92px;
+      background: linear-gradient(180deg, #ffd7c2, #ecb89c);
+      border-radius: 18px;
+      z-index: 0;
+    }
+
+    .leg.left { left: 94px; }
+    .leg.right { right: 94px; }
+
+    .shoe {
+      position: absolute;
+      bottom: -2px;
+      width: 44px;
+      height: 16px;
+      background: linear-gradient(180deg, #f9e7ff, #c78cff);
+      border-radius: 18px 18px 10px 10px;
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12);
+    }
+
+    .shoe.left { left: 88px; }
+    .shoe.right { right: 88px; }
+
+    .tiara {
+      position: absolute;
+      left: 97px;
+      top: 38px;
+      width: 68px;
+      height: 18px;
+      z-index: 9;
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .tiara span {
+      display: block;
+      width: 8px;
+      background: linear-gradient(180deg, #fffdf5, #ffd76d);
+      border-radius: 8px 8px 2px 2px;
+      box-shadow: 0 0 10px rgba(255,215,109,0.65);
+    }
+
+    .tiara span:nth-child(1), .tiara span:nth-child(5) { height: 8px; }
+    .tiara span:nth-child(2), .tiara span:nth-child(4) { height: 12px; }
+    .tiara span:nth-child(3) { height: 16px; }
+
+    .sparkle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      z-index: 9;
+      opacity: 0.8;
+      animation: floatSpark 2.4s ease-in-out infinite;
+    }
+
+    .sparkle::before,
+    .sparkle::after {
+      content: "";
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.94);
+      border-radius: 2px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.65);
+    }
+
+    .sparkle::before { width: 2px; height: 12px; }
+    .sparkle::after { width: 12px; height: 2px; }
+
+    .sparkle.s1 { left: 64px; top: 120px; animation-delay: 0s; }
+    .sparkle.s2 { right: 60px; top: 88px; animation-delay: 0.8s; }
+    .sparkle.s3 { left: 192px; top: 166px; animation-delay: 1.4s; }
+
+    @keyframes floatSpark {
+      0%,100% { transform: translateY(0px) scale(0.8); opacity: 0.4; }
+      50% { transform: translateY(-9px) scale(1.08); opacity: 1; }
+    }
+
+    .love-bubble {
+      position: absolute;
+      right: 12px;
+      top: 78px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #fff6ff;
+      backdrop-filter: blur(10px);
+      transform: translateY(6px);
+      opacity: 0;
+      transition: 0.25s ease;
+      pointer-events: none;
+      max-width: 180px;
+      text-align: center;
+    }
+
+    .love-bubble.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .pedestal {
+      position: absolute;
+      bottom: 70px;
+      width: 250px;
+      height: 34px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.22), rgba(255,255,255,0.03) 60%, transparent 70%);
+      filter: blur(2px);
+    }
+
+    .dialog {
+      position: relative;
+      z-index: 2;
+      padding: 14px;
+      border-radius: 22px;
+      border: 2px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(18,12,38,0.92), rgba(11,8,27,0.96));
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.04), var(--shadow);
+    }
+
+    .dialog .nameplate {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #fffce9;
+      background: linear-gradient(90deg, rgba(255,215,109,0.28), rgba(255,125,209,0.18));
+      border: 1px solid rgba(255,215,109,0.26);
+    }
+
+    .dialog-text {
+      min-height: 84px;
+      font-size: 20px;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-shadow: 0 0 10px rgba(255,255,255,0.05);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      animation: cursorBlink 0.9s steps(1) infinite;
+    }
+
+    @keyframes cursorBlink {
+      0%,49% { opacity: 1; }
+      50%,100% { opacity: 0; }
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .choice {
+      text-align: left;
+      min-height: 56px;
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.45;
+      background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+    }
+
+    .side {
+      padding: 16px;
+      display: grid;
+      grid-template-rows: auto auto auto 1fr;
+      gap: 16px;
+      min-height: 680px;
+    }
+
+    .card {
+      padding: 16px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      color: #fff8ea;
+    }
+
+    .muted {
+      color: var(--sub);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .fortune-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tarot-card {
+      aspect-ratio: 2 / 3;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255,255,255,0.25), transparent 20%),
+        linear-gradient(180deg, rgba(255,125,209,0.25), rgba(124,58,237,0.18));
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      font-size: 28px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.16);
+    }
+
+    .tarot-card:hover { transform: translateY(-2px) rotate(1deg); }
+
+    .tarot-card::after {
+      content: "✦";
+      position: absolute;
+      color: rgba(255,255,255,0.18);
+      font-size: 60px;
+    }
+
+    .story-box textarea {
+      width: 100%;
+      min-height: 96px;
+      border-radius: 16px;
+      padding: 14px;
+      resize: vertical;
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+      outline: none;
+      font: inherit;
+    }
+
+    .story-output, .fortune-output {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      line-height: 1.7;
+      color: #fffafc;
+      min-height: 80px;
+      white-space: pre-wrap;
+    }
+
+    .quotes-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+      max-height: 280px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .quote {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .footer-note {
+      font-size: 12px;
+      color: #d7c8fa;
+      text-align: right;
+      opacity: 0.82;
+    }
+
+    .particle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(255,215,109,0.78) 52%, rgba(255,125,209,0.18) 76%, transparent 78%);
+      animation: particleFly 820ms ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes particleFly {
+      from { transform: translate(0, 0) scale(1); opacity: 1; }
+      to { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+    }
+
+    @media (max-width: 980px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+      .side, .stage {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100vw - 16px, 100%);
+        padding-top: 8px;
+      }
+      .stage, .side { padding: 12px; }
+      .dialog-text { font-size: 17px; min-height: 98px; }
+      .choices { grid-template-columns: 1fr; }
+      .fortune-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+      .character { transform: scale(0.9); }
+      .love-bubble { right: 0; top: 58px; }
+    }
+  </style>
 </head>
 <body>
-<div id="app">
+  <div class="stars" id="stars"></div>
+  <div class="particles" id="particles"></div>
 
-  <!-- Header -->
-
-  <div id="header">
-    <div class="hdr-inner">
-      <div class="hdr-av-wrap">
-        <div class="hdr-av">👩‍💼</div>
-        <div class="hdr-av-ring"></div>
-        <div class="status-dot"></div>
+  <main class="shell">
+    <section class="panel stage">
+      <div class="topbar">
+        <div class="brand">
+          <div class="title">HIDEKO YAOYOROZU</div>
+          <div class="sub">cute fantasy dialogue edition / no voice</div>
+        </div>
+        <div class="controls">
+          <button id="bgmBtn" class="btn-gold">♪ BGM ON</button>
+          <button id="nextBtn">▶ つづきを見る</button>
+        </div>
       </div>
-      <div class="hdr-txt">
-        <div class="hdr-name"><span>Hidechan</span> 八百万</div>
-        <div class="hdr-sub">⌚ WATCH CONNOISSEUR · ▶ TREND ORACLE · 💼 CEO MENTOR</div>
+
+      <div class="character-zone">
+        <div class="glow"></div>
+        <div class="pedestal"></div>
+        <div class="love-bubble" id="loveBubble">タップしてくれて、うれしいよ ✨</div>
+
+        <div class="character" id="character" aria-label="キャラクター" title="タップして反応を見る">
+          <div class="tiara"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="sparkle s1"></div>
+          <div class="sparkle s2"></div>
+          <div class="sparkle s3"></div>
+          <div class="hair-back"></div>
+          <div class="hair-side-left"></div>
+          <div class="hair-side-right"></div>
+          <div class="ear left"></div>
+          <div class="ear right"></div>
+          <div class="earring left"></div>
+          <div class="earring right"></div>
+          <div class="face">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="cheek left"></div>
+            <div class="cheek right"></div>
+            <div class="mouth"></div>
+          </div>
+          <div class="fringe"></div>
+          <div class="neck"></div>
+          <div class="arm left"><div class="hand"></div></div>
+          <div class="arm right"><div class="hand"></div></div>
+          <div class="collar"></div>
+          <div class="body"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+          <div class="shoe left"></div>
+          <div class="shoe right"></div>
+        </div>
       </div>
-      <button id="bgm-btn" onclick="toggleBGM()">♪ BGM</button>
-    </div>
-  </div>
 
-  <!-- Messages -->
+      <div class="dialog">
+        <div class="nameplate">✦ HIDEKO</div>
+        <div class="dialog-text" id="dialogText"></div>
+        <div class="choices" id="choices"></div>
+      </div>
+    </section>
 
-  <div id="messages">
-    <div class="day-divider">— 相談室へようこそ —</div>
-  </div>
+    <aside class="side">
+      <section class="panel card">
+        <h2>機能メモ</h2>
+        <div class="muted">
+          かわいい寄りのキャラに差し替え、読み上げは削除済み。<br>
+          残しているのは、FF風ダイアログ、簡易会話ツリー、ガムラン風BGM、タロット、短編ストーリー、語録です。
+        </div>
+        <div class="chips">
+          <div class="chip">読み上げなし</div>
+          <div class="chip">1ファイル完結</div>
+          <div class="chip">GitHub Pages向け</div>
+          <div class="chip">スマホ対応</div>
+        </div>
+      </section>
 
-  <!-- Choices -->
+      <section class="panel card">
+        <h2>タロット占い</h2>
+        <div class="muted">1枚選ぶとメッセージが出ます。</div>
+        <div class="fortune-grid" id="fortuneGrid"></div>
+        <div class="fortune-output" id="fortuneOutput">カードを選んでください。</div>
+      </section>
 
-  <div id="choices">
-    <div id="choices-label">Select a topic</div>
-  </div>
-  <button id="reset-btn" onclick="resetChat()">↺ はじめからやり直す</button>
+      <section class="panel card story-box">
+        <h2>短編ストーリー</h2>
+        <div class="muted">悩みやテーマを入れると、短い物語にします。</div>
+        <textarea id="storyInput" placeholder="例：新しい環境で、自分らしく前に進みたい"></textarea>
+        <div class="chips" style="margin-top:12px;">
+          <button id="storyBtn" class="btn-gold">物語をつくる</button>
+        </div>
+        <div class="story-output" id="storyOutput">ここに物語が表示されます。</div>
+      </section>
 
-</div>
+      <section class="panel card">
+        <h2>語録集</h2>
+        <div class="quotes-list" id="quotesList"></div>
+        <div class="footer-note">※ 読み上げ機能は意図的に外しています。</div>
+      </section>
+    </aside>
+  </main>
 
-<script>
-// ============================================================
-//  BALINESE-STYLE GENERATIVE BGM
-//  ガムランの音律（スレンドロ音階）+ 鐘 + ドローン + パーカッション
-// ============================================================
-let audioCtx = null;
-let bgmPlaying = false;
-let bgmNodes = [];
+  <script>
+    const stars = document.getElementById('stars');
+    const particles = document.getElementById('particles');
+    const dialogText = document.getElementById('dialogText');
+    const choicesEl = document.getElementById('choices');
+    const nextBtn = document.getElementById('nextBtn');
+    const character = document.getElementById('character');
+    const loveBubble = document.getElementById('loveBubble');
+    const bgmBtn = document.getElementById('bgmBtn');
+    const fortuneGrid = document.getElementById('fortuneGrid');
+    const fortuneOutput = document.getElementById('fortuneOutput');
+    const storyBtn = document.getElementById('storyBtn');
+    const storyInput = document.getElementById('storyInput');
+    const storyOutput = document.getElementById('storyOutput');
+    const quotesList = document.getElementById('quotesList');
 
-// スレンドロ音階（バリガムラン風：5音）
-const SLENDRO = [261.63, 294.33, 349.23, 392.00, 466.16]; // C D F G A♭
-const SLENDRO2 = SLENDRO.map(f => f * 2);
-const SLENDRO_LOW = SLENDRO.map(f => f / 2);
-
-function getCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
-}
-
-function makeMaster() {
-  const ctx = getCtx();
-  const master = ctx.createGain();
-  master.gain.setValueAtTime(0.0, ctx.currentTime);
-  master.gain.linearRampToValueAtTime(0.55, ctx.currentTime + 3);
-  master.connect(ctx.destination);
-  return master;
-}
-
-// リバーブ（コンボリューションリバーブの簡易版）
-function makeReverb(ctx, seconds = 3) {
-  const convolver = ctx.createConvolver();
-  const length = ctx.sampleRate * seconds;
-  const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
-  for (let ch = 0; ch < 2; ch++) {
-    const data = impulse.getChannelData(ch);
-    for (let i = 0; i < length; i++) {
-      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2.5);
+    for (let i = 0; i < 48; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = `${Math.random() * 100}%`;
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.animationDelay = `${Math.random() * 3}s`;
+      s.style.opacity = Math.random() * 0.8 + 0.2;
+      stars.appendChild(s);
     }
-  }
-  convolver.buffer = impulse;
-  return convolver;
-}
 
-// ガムラン系金属打楽器トーン
-function playGong(ctx, dest, freq, time, vol = 0.12, dur = 2.5) {
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  const osc2 = ctx.createOscillator();
-  const gain2 = ctx.createGain();
+    const quotes = [
+      '焦らなくていい。でも止まったままは、もっともったいない。',
+      '優しさは弱さじゃない。扱い方を間違えると損をするだけ。',
+      '運は待つより、見つけに行くほうが早い。',
+      '迷いが消えてから進むんじゃない。進むから迷いが薄くなる。',
+      '遠慮して縮むくらいなら、丁寧に前へ出たほうがいい。',
+      'うまくやることより、続けられる形にすること。',
+      '誰かの期待に合わせすぎると、自分の輪郭が消える。',
+      '才能より先に、観察の深さで差がつく。',
+      '一度で完璧より、三回で改善。',
+      '機嫌ではなく、基準で動く。',
+      '強さは声の大きさじゃない。手放さない姿勢。',
+      '逃げ道を減らすと、覚悟は自然に育つ。',
+      '今日の小さな前進は、未来の自信の前払い。',
+      '見たくない現実ほど、先に見たほうが得をする。',
+      'かわいさは飾りじゃない。空気を変える力。'
+    ];
 
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(freq, time);
-  osc.frequency.exponentialRampToValueAtTime(freq * 0.98, time + dur);
-
-  osc2.type = 'sine';
-  osc2.frequency.setValueAtTime(freq * 2.756, time); // 倍音（ガムラン特有）
-  osc2.frequency.exponentialRampToValueAtTime(freq * 2.73, time + dur);
-
-  gain.gain.setValueAtTime(vol, time);
-  gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
-  gain2.gain.setValueAtTime(vol * 0.4, time);
-  gain2.gain.exponentialRampToValueAtTime(0.001, time + dur * 0.7);
-
-  osc.connect(gain); gain.connect(dest);
-  osc2.connect(gain2); gain2.connect(dest);
-  osc.start(time); osc.stop(time + dur + 0.1);
-  osc2.start(time); osc2.stop(time + dur * 0.7 + 0.1);
-}
-
-// ドローン（持続低音）
-function startDrone(ctx, dest) {
-  const freqs = [SLENDRO_LOW[0], SLENDRO_LOW[2]];
-  freqs.forEach((f, i) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(f, ctx.currentTime);
-    // ゆっくりビート（うなり）
-    osc.frequency.setValueAtTime(f + (i === 0 ? 0.3 : -0.2), ctx.currentTime + 4);
-    osc.frequency.setValueAtTime(f, ctx.currentTime + 8);
-    gain.gain.setValueAtTime(0.04, ctx.currentTime);
-    osc.connect(gain); gain.connect(dest);
-    osc.start();
-    bgmNodes.push(osc, gain);
-  });
-}
-
-// バリ風パーカッション（チャック音）
-function schedulePercussion(ctx, dest, startTime, endTime) {
-  const patterns = [0, 0.5, 1.0, 1.5, 2.0, 2.25, 2.5, 3.0, 3.5, 3.75];
-  let t = startTime;
-  function tick() {
-    if (!bgmPlaying) return;
-    patterns.forEach(offset => {
-      const time = t + offset;
-      if (time > endTime) return;
-      // wood block 風
-      const buf = ctx.createBuffer(1, ctx.sampleRate * 0.04, ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < data.length; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.008));
-      }
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      const g = ctx.createGain();
-      const vol = offset === 0 ? 0.06 : (offset % 1 === 0 ? 0.04 : 0.02);
-      g.gain.setValueAtTime(vol, time);
-      src.connect(g); g.connect(dest);
-      src.start(time);
+    quotes.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'quote';
+      div.textContent = `${i + 1}. ${q}`;
+      quotesList.appendChild(div);
     });
-    t += 4;
-    if (t < endTime) setTimeout(tick, 3800);
-  }
-  tick();
-}
 
-// メロディシーケンス（ガムランの旋律）
-function scheduleMelody(ctx, dest, startTime, endTime) {
-  // ガムランらしいインターロッキングパターン
-  const pattern1 = [0,2,1,3,2,4,3,2,1,0,2,3]; // スレンドロインデックス
-  const pattern2 = [2,4,3,4,2,1,3,4,3,2,4,1];
-  const noteLen = 0.42;
+    const tree = {
+      start: {
+        text: 'こんばんは。今日は、どんな気分でここに来たの？',
+        choices: [
+          { label: 'ちょっと癒やされたい', next: 'heal' },
+          { label: '背中を押してほしい', next: 'push' },
+          { label: '運勢を見てみたい', next: 'fortune' },
+          { label: 'なんとなく話したい', next: 'chat' }
+        ]
+      },
+      heal: {
+        text: 'じゃあ、まず深呼吸。急いで答えを出さなくても、整えるだけで見えるものは変わるよ。',
+        choices: [
+          { label: 'もう少し優しい言葉がほしい', next: 'soft' },
+          { label: '次へ進むヒントがほしい', next: 'push' }
+        ]
+      },
+      push: {
+        text: '今必要なのは、気合いより整理。やることを増やすより、捨てるものを決めよう。',
+        choices: [
+          { label: '何を捨てるべき？', next: 'focus' },
+          { label: '少し和みたい', next: 'soft' }
+        ]
+      },
+      fortune: {
+        text: '右側のカードを1枚選んでみて。直感で大丈夫。',
+        choices: [
+          { label: '会話に戻る', next: 'start' },
+          { label: '短編ストーリーも試す', next: 'story' }
+        ]
+      },
+      chat: {
+        text: '言葉になっていなくても平気。曖昧なまま触れていくと、本音は少しずつ形になる。',
+        choices: [
+          { label: 'そのまま続ける', next: 'soft' },
+          { label: '前向きな話に切り替える', next: 'push' }
+        ]
+      },
+      soft: {
+        text: '大丈夫。全部を一度にうまくやる必要はないよ。今日を少しだけ軽くできたら、それで充分えらい。',
+        choices: [
+          { label: '最初の質問に戻る', next: 'start' },
+          { label: '運勢を見てみる', next: 'fortune' }
+        ]
+      },
+      focus: {
+        text: '捨てるべきなのは、目的に関係ない頑張り方。忙しさで自分を納得させるのをやめると、進み方が変わる。',
+        choices: [
+          { label: 'もう一段だけ踏み込む', next: 'deep' },
+          { label: '少しやさしく戻る', next: 'soft' }
+        ]
+      },
+      deep: {
+        text: '本当に欲しい結果があるなら、気分でやる日を減らして、基準でやる日を増やそう。かわいさも強さも、習慣で育つ。',
+        choices: [
+          { label: '最初に戻る', next: 'start' },
+          { label: '短編ストーリーへ', next: 'story' }
+        ]
+      },
+      story: {
+        text: '右側にテーマを入れて「物語をつくる」を押してみて。短いけれど、今の気分に寄せて返すよ。',
+        choices: [
+          { label: '最初に戻る', next: 'start' },
+          { label: '運勢を見る', next: 'fortune' }
+        ]
+      }
+    };
 
-  let t = startTime;
-  function tick() {
-    if (!bgmPlaying || t > endTime) return;
-    const beat = Math.floor((t - startTime) / noteLen) % pattern1.length;
-    const f1 = SLENDRO2[pattern1[beat]];
-    const f2 = SLENDRO2[pattern2[beat]];
-    playGong(ctx, dest, f1, t, 0.06, 0.8);
-    if (beat % 3 === 0) playGong(ctx, dest, f2, t + noteLen * 0.5, 0.04, 0.8);
-    t += noteLen;
-    const delay = (t - ctx.currentTime) * 1000 - 50;
-    setTimeout(tick, Math.max(0, delay));
-  }
-  tick();
-}
+    let currentNode = 'start';
+    let typingTimer;
 
-// 低音ゴング（アクセント）
-function scheduleBass(ctx, dest, startTime, endTime) {
-  const bassPattern = [0, 2, 0, 4, 2, 0, 3, 0];
-  let step = 0;
-  let t = startTime;
-  function tick() {
-    if (!bgmPlaying || t > endTime) return;
-    playGong(ctx, dest, SLENDRO_LOW[bassPattern[step % bassPattern.length]], t, 0.09, 3.5);
-    step++;
-    t += 2.0 + (step % 3 === 0 ? 0.5 : 0);
-    const delay = (t - ctx.currentTime) * 1000 - 50;
-    setTimeout(tick, Math.max(0, delay));
-  }
-  tick();
-}
+    function typeText(text, done) {
+      clearInterval(typingTimer);
+      dialogText.innerHTML = '';
+      character.classList.add('talk');
+      let i = 0;
+      typingTimer = setInterval(() => {
+        const shown = text.slice(0, i + 1);
+        dialogText.innerHTML = `${escapeHtml(shown)}<span class="cursor">▌</span>`;
+        i++;
+        if (i >= text.length) {
+          clearInterval(typingTimer);
+          dialogText.innerHTML = `${escapeHtml(text)}<span class="cursor">▌</span>`;
+          character.classList.remove('talk');
+          done?.();
+        }
+      }, 28);
+    }
 
-// 高音チャイム（アクセント）
-function scheduleChime(ctx, dest, startTime, endTime) {
-  let t = startTime + 1.5;
-  function tick() {
-    if (!bgmPlaying || t > endTime) return;
-    const idx = Math.floor(Math.random() * SLENDRO.length);
-    playGong(ctx, dest, SLENDRO2[idx] * 2, t, 0.05, 1.2);
-    t += 3 + Math.random() * 4;
-    const delay = (t - ctx.currentTime) * 1000 - 50;
-    setTimeout(tick, Math.max(0, delay));
-  }
-  tick();
-}
+    function renderNode(key) {
+      currentNode = key;
+      const node = tree[key];
+      choicesEl.innerHTML = '';
+      typeText(node.text, () => {
+        node.choices.forEach(choice => {
+          const btn = document.createElement('button');
+          btn.className = 'choice';
+          btn.textContent = choice.label;
+          btn.addEventListener('click', (e) => {
+            spawnParticles(e.currentTarget);
+            renderNode(choice.next);
+          });
+          choicesEl.appendChild(btn);
+        });
+      });
+    }
 
-function startBGM() {
-  const ctx = getCtx();
-  if (ctx.state === 'suspended') ctx.resume();
+    nextBtn.addEventListener('click', () => {
+      const fallbackOrder = ['start', 'heal', 'push', 'soft', 'focus', 'deep'];
+      const index = fallbackOrder.indexOf(currentNode);
+      const next = fallbackOrder[(index + 1) % fallbackOrder.length];
+      renderNode(next);
+    });
 
-  bgmPlaying = true;
-  const master = makeMaster();
-  bgmNodes.push(master);
+    const tapLines = [
+      'その調子。かわいく、でも芯は強くね。',
+      'ふふ、ちゃんと見てるよ。',
+      '今日のあなた、少し光ってる。',
+      '無理してない？ 深呼吸して。',
+      '急がなくていいけど、止まりすぎないでね。'
+    ];
 
-  const reverb = makeReverb(ctx, 4);
-  reverb.connect(master);
+    character.addEventListener('click', (e) => {
+      const line = tapLines[Math.floor(Math.random() * tapLines.length)];
+      loveBubble.textContent = line;
+      loveBubble.classList.add('show');
+      spawnParticles(character, 18);
+      setTimeout(() => loveBubble.classList.remove('show'), 1800);
+    });
 
-  const dryGain = ctx.createGain();
-  dryGain.gain.setValueAtTime(0.4, ctx.currentTime);
-  dryGain.connect(master);
+    function spawnParticles(target, count = 12) {
+      const rect = target.getBoundingClientRect();
+      const baseX = rect.left + rect.width / 2;
+      const baseY = rect.top + rect.height / 2;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const dx = (Math.random() - 0.5) * 140 + 'px';
+        const dy = (Math.random() - 0.5) * 120 - 30 + 'px';
+        p.style.left = `${baseX}px`;
+        p.style.top = `${baseY}px`;
+        p.style.setProperty('--dx', dx);
+        p.style.setProperty('--dy', dy);
+        particles.appendChild(p);
+        setTimeout(() => p.remove(), 900);
+      }
+    }
 
-  const wetGain = ctx.createGain();
-  wetGain.gain.setValueAtTime(0.6, ctx.currentTime);
-  wetGain.connect(reverb);
+    function escapeHtml(str) {
+      return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+    }
 
-  // ミックスバス
-  const mix = ctx.createGain();
-  mix.connect(dryGain);
-  mix.connect(wetGain);
+    const tarotDeck = [
+      { icon: '☀️', name: '太陽', msg: '停滞より前進。今日は、迷う時間を短くすると運が動きます。' },
+      { icon: '🌙', name: '月', msg: '不安は敵ではなく、まだ言葉になっていない感覚です。焦って切り捨てないで。' },
+      { icon: '⭐', name: '星', msg: '理想を小さくしないで。現実化するには、今日の一手に分解すること。' },
+      { icon: '🗡️', name: '剣', msg: '曖昧な優しさより、明確な線引きが助けになります。' },
+      { icon: '🌹', name: '薔薇', msg: '魅力は飾りではなく影響力。出し惜しみしないほうがいい日です。' },
+      { icon: '👑', name: '王冠', msg: '主導権を戻すタイミング。人任せをやめるほど、流れが整います。' },
+      { icon: '🪞', name: '鏡', msg: '今の課題は能力不足ではなく、自己認識の甘さかもしれません。見直す価値あり。' },
+      { icon: '🕯️', name: '灯', msg: '静かな時間に答えが出やすい日。騒がしさから少し離れて。' },
+      { icon: '💎', name: '宝石', msg: 'すでに持っている強みを軽く見積もらないこと。価値は使って初めて届きます。' },
+      { icon: '🪽', name: '翼', msg: '環境を変える、小さく旅する、席を移す。移動が運気の引き金になります。' }
+    ];
 
-  const duration = 9999;
-  const now = ctx.currentTime + 0.1;
+    tarotDeck.forEach((card, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'tarot-card';
+      btn.innerHTML = `<span>${card.icon}</span>`;
+      btn.title = `${idx + 1}: ${card.name}`;
+      btn.addEventListener('click', (e) => {
+        spawnParticles(e.currentTarget, 14);
+        fortuneOutput.textContent = `【${card.name}】\n${card.msg}`;
+        renderNode('fortune');
+      });
+      fortuneGrid.appendChild(btn);
+    });
 
-  startDrone(ctx, mix);
-  scheduleMelody(ctx, mix, now, now + duration);
-  scheduleBass(ctx, mix, now + 0.2, now + duration);
-  scheduleChime(ctx, mix, now + 1, now + duration);
-  schedulePercussion(ctx, mix, now, now + duration);
+    storyBtn.addEventListener('click', () => {
+      const theme = storyInput.value.trim();
+      if (!theme) {
+        storyOutput.textContent = 'テーマをひとつ入れてください。';
+        return;
+      }
+      const stories = [
+        `ある夜、${theme}を胸にした旅人は、光る階段の前で立ち止まりました。\n上るたびに不安は少しずつ形を失い、代わりに「今できる一歩」だけがはっきり見えるようになりました。\n旅人は完璧な答えではなく、次の一段を選びました。その瞬間、未来は静かに動き始めました。`,
+        `小さな王国に、${theme}で迷う案内人がいました。\n案内人は遠くを見るのをやめ、今日守るべき約束を一つだけ決めました。\nすると城の灯りがひとつずつ戻り、人々はその背中を見て安心しました。強さは、大きな声ではなく、決めたことを続ける姿に宿っていました。`,
+        `月明かりの庭で、${theme}を抱えた人が一輪の花を見つけました。\nその花は「急がなくていい。でも、見ないふりはやめて」とだけ言いました。\n人は花をポケットにしまい、帰り道に最初の連絡を一本送りました。魔法みたいに見えた変化は、実はその小さな行動から始まっていました。`
+      ];
+      storyOutput.textContent = stories[Math.floor(Math.random() * stories.length)];
+      renderNode('story');
+    });
 
-  document.getElementById('bgm-btn').textContent = '♪ ON';
-  document.getElementById('bgm-btn').classList.add('playing');
-}
+    const hour = new Date().getHours();
+    if (hour >= 23 || hour < 5) {
+      document.body.classList.add('night');
+    }
 
-function stopBGM() {
-  bgmPlaying = false;
-  bgmNodes.forEach(n => {
-    try { n.stop ? n.stop() : n.disconnect(); } catch(e) {}
-  });
-  bgmNodes = [];
-  if (audioCtx) { audioCtx.close(); audioCtx = null; }
-  document.getElementById('bgm-btn').textContent = '♪ BGM';
-  document.getElementById('bgm-btn').classList.remove('playing');
-}
+    let audioCtx;
+    let bgmNodes = [];
+    let bgmOn = false;
+    let bgmLoopTimer;
 
-function toggleBGM() {
-  bgmPlaying ? stopBGM() : startBGM();
-}
+    function playTone(freq, start, duration, gainValue = 0.018, type = 'sine') {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(start);
+      osc.stop(start + duration + 0.05);
+      bgmNodes.push(osc, gain);
+    }
 
-// ============================================================
-//  CONVERSATION TREE
-// ============================================================
-const TREE = {
-  start: {
-    hide: "——\n私はヒデちゃん八百万。\n何でも話して。仕事でも、恋愛でも、将来でも。\n…時計とYouTubeの話も、いつでも歓迎よ。",
-    choices: [
-      { label: "💼 仕事の悩みを話したい", next: "work_top" },
-      { label: "👥 人間関係について", next: "human_top" },
-      { label: "💕 恋愛のこと", next: "love_top" },
-      { label: "🔮 将来・キャリアのこと", next: "future_top" },
-      { label: "😔 なんかしんどい", next: "tired_top" },
-      { label: "⌚ 時計の話を聞きたい", next: "watch_top" },
-      { label: "▶ YouTubeトレンドを教えて", next: "youtube_top" },
-    ]
-  },
+    function scheduleGamelanLikeLoop() {
+      if (!audioCtx || !bgmOn) return;
+      const now = audioCtx.currentTime + 0.05;
+      const scale = [293.66, 329.63, 392.00, 440.00, 587.33];
+      const pattern = [0, 2, 1, 3, 2, 4, 3, 1];
+      const spacing = 0.42;
+      pattern.forEach((noteIdx, i) => {
+        const t = now + i * spacing;
+        playTone(scale[noteIdx], t, 0.36, 0.017, i % 2 === 0 ? 'sine' : 'triangle');
+        playTone(scale[noteIdx] * 2, t + 0.06, 0.18, 0.006, 'triangle');
+      });
+      bgmLoopTimer = setTimeout(scheduleGamelanLikeLoop, pattern.length * spacing * 1000);
+    }
 
-  // ── 仕事 ──
-  work_top: {
-    hide: "仕事ね。\nどんな状況？",
-    choices: [
-      { label: "上司がとにかくしんどい", next: "work_boss" },
-      { label: "やる気がまったく出ない", next: "work_motivation" },
-      { label: "転職を真剣に考えてる", next: "work_transfer" },
-      { label: "残業・業務量が限界", next: "work_busy" },
-      { label: "評価されてない気がする", next: "work_noreward" },
-    ]
-  },
-  work_boss: {
-    hide: "上司か。\nどんなタイプ？",
-    choices: [
-      { label: "細かすぎるマイクロマネジメント", next: "work_boss_micro" },
-      { label: "感情的で怒鳴ってくる", next: "work_boss_anger" },
-      { label: "手柄を横取りしてくる", next: "work_boss_steal" },
-    ]
-  },
-  work_boss_micro: {
-    hide: "細かい上司、わかるわ。\nIWCのインジュニアみたいなもの——精度は高いけど、使う側に余白がない。\n先に細かく報告すると、向こうが安心して口数が減る。先手を打つの。",
-    choices: [
-      { label: "試してみる", next: "work_encourage" },
-      { label: "もう少し聞かせて", next: "work_boss_micro2" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_boss_micro2: {
-    hide: "もうひとつ言うなら。\n上司がマイクロマネジメントするのは、本人が不安だから。\n『ここまで完了です、どうですか？』って細かく確認を入れると、相手は管理できてると感じて落ち着く。\n本質を理解して動くのが、一番スマートよ。",
-    choices: [
-      { label: "視点が変わった", next: "work_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_boss_anger: {
-    hide: "感情的な人間は相手にしない。\nグランドセイコーが嵐の日でも静かに正確に動き続けるみたいに——自分のリズムを崩さないこと。\n怒鳴りは相手の問題。あなたのものじゃないわ。",
-    choices: [
-      { label: "少し楽になった", next: "work_encourage" },
-      { label: "でも限界かもしれない", next: "work_limit" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_boss_steal: {
-    hide: "横取りね。古典的な手口だけど、対策は単純。\nメール、チャット、議事録——あらゆるところに『自分がやった』という記録を残す。\nロレックスのデイトジャストじゃないけれど、日付と事実は正直なの。",
-    choices: [
-      { label: "記録を残す習慣をつける", next: "work_encourage" },
-      { label: "もう転職したい", next: "work_transfer" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_motivation: {
-    hide: "やる気が出ない。\n正直に言える？その原因、どれに一番近い？",
-    choices: [
-      { label: "仕事が自分に合ってない気がする", next: "work_mismatch" },
-      { label: "単純に疲れ切ってる", next: "work_tired" },
-      { label: "頑張っても評価されない", next: "work_noreward" },
-    ]
-  },
-  work_mismatch: {
-    hide: "合わない仕事を続けるのは、オメガのスピードマスターを水中で使い続けるようなもの。\n性能は高くても、用途が違えば輝けない。\nそれを正直に感じているなら、変えるべきタイミングかもしれないわね。",
-    choices: [
-      { label: "転職を考えてみる", next: "work_transfer" },
-      { label: "もう少し今の環境で試す", next: "work_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_tired: {
-    hide: "疲れが根にあるとき、やる気を出そうとしても無意味。\n時計だってオーバーホールせずに動かし続けたら、精度が落ちる。\n今必要なのは『休むこと』。それはサボりじゃなくてメンテナンスよ。",
-    choices: [
-      { label: "休む決断をしてみる", next: "work_encourage" },
-      { label: "休めない状況なんだよね", next: "work_busy" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_noreward: {
-    hide: "評価されない辛さ、わかる。\nでも短期の評価に振り回されるより、自分の成長記録をつけてみて。\nパテック フィリップが『次の世代のために』作り続けるように——今の積み上げは必ず後で意味を持つ。",
-    choices: [
-      { label: "記録をつけてみる", next: "work_encourage" },
-      { label: "転職を真剣に考えたい", next: "work_transfer" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_transfer: {
-    hide: "転職。\n逃げの転職か、攻めの転職か——どちら？",
-    choices: [
-      { label: "正直、逃げたい気持ちが強い", next: "work_transfer_escape" },
-      { label: "やりたいことがあって動きたい", next: "work_transfer_attack" },
-      { label: "どちらかわからない", next: "work_transfer_unclear" },
-    ]
-  },
-  work_transfer_escape: {
-    hide: "逃げたい気持ちを否定しない。\nただ一つだけ。『何が嫌か』を言語化してから動くこと。\nそれをせずに転職すると、同じ問題を次の職場に持ち込む。\nパテックの職人みたいに、次は精度よく選んで。",
-    choices: [
-      { label: "言語化してみる", next: "work_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_transfer_attack: {
-    hide: "それは応援する。\nヴァシュロン・コンスタンタンが270年、ブレずに最高品質を追い続けてきたように——意志のある行動は必ず形になる。\n動いて。",
-    choices: [
-      { label: "背中を押してもらえた", next: "work_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_transfer_unclear: {
-    hide: "わからないのは正直でいいわ。\nまず転職サイトに登録して、外の世界を見るだけでいい。\n市場価値を知るだけで、視野が変わる。\nウィンドウショッピングから始めればいい。",
-    choices: [
-      { label: "まず見てみる", next: "work_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_busy: {
-    hide: "残業が続いているのね。\n原因はどちら？",
-    choices: [
-      { label: "仕事量が多すぎる（会社の構造問題）", next: "work_busy_company" },
-      { label: "自分が断れない・効率の問題かも", next: "work_busy_self" },
-    ]
-  },
-  work_busy_company: {
-    hide: "それは個人の努力でどうにかなる話じゃない。\n記録を取って上司や人事に相談する。それでも変わらないなら、環境を変える選択肢を真剣に考えて。\nあなたの時間と健康は、有限なの。",
-    choices: [
-      { label: "相談してみる", next: "work_encourage" },
-      { label: "転職を考えたい", next: "work_transfer" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_busy_self: {
-    hide: "断れない、わかるわ。\nでも時計のゼンマイも、巻きすぎたら切れる。\nまず小さいことから——『今日はここまで』というラインを、自分で引く練習を始めて。",
-    choices: [
-      { label: "少しずつ断ってみる", next: "work_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_limit: {
-    hide: "限界を感じているなら、それを無視しないで。\nメンタルクリニックや産業医に相談することは、弱さじゃない。\n早めに動くほど、回復も早い。\n一人で抱えないで。",
-    choices: [
-      { label: "病院を考えてみる", next: "work_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  work_encourage: {
-    hide: "話してくれてありがとう。\n真剣に向き合っているのが伝わったわ。\nまだ話したいことある？",
-    choices: [
-      { label: "仕事のこと、もっと話す", next: "work_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
+    async function toggleBgm() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+      }
+      bgmOn = !bgmOn;
+      bgmBtn.textContent = bgmOn ? '♪ BGM OFF' : '♪ BGM ON';
+      if (bgmOn) {
+        scheduleGamelanLikeLoop();
+      } else {
+        clearTimeout(bgmLoopTimer);
+        bgmNodes.forEach(node => {
+          try { node.disconnect?.(); } catch (_) {}
+        });
+        bgmNodes = [];
+      }
+    }
 
-  // ── 人間関係 ──
-  human_top: {
-    hide: "人間関係ね。\nどんな話？",
-    choices: [
-      { label: "友人関係がしんどい", next: "human_friend" },
-      { label: "職場の人間関係が辛い", next: "human_work" },
-      { label: "家族との関係がうまくいかない", next: "human_family" },
-      { label: "孤独を感じている", next: "human_lonely" },
-    ]
-  },
-  human_friend: {
-    hide: "友人との関係。\nどんな感じでしんどい？",
-    choices: [
-      { label: "疎遠になってきた", next: "human_friend_distant" },
-      { label: "価値観が合わなくなった気がする", next: "human_friend_mismatch" },
-      { label: "嫉妬や比較がある", next: "human_friend_jealous" },
-    ]
-  },
-  human_friend_distant: {
-    hide: "疎遠になること、それは自然なプロセスよ。\nパテックが『世代を超えて受け継がれる』ように——本当の縁は時間が経っても消えない。\n焦らなくていい。",
-    choices: [
-      { label: "少し楽になった", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_friend_mismatch: {
-    hide: "価値観が変わること、それは成長している証拠。\nYouTubeで好きなチャンネルが変わるのと同じ——自分が変わっただけ。\n新しい縁を探すタイミングかもしれない。",
-    choices: [
-      { label: "前向きに考えてみる", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_friend_jealous: {
-    hide: "比較されること、本当に疲弊するわね。\nでも——ロレックスとグランドセイコーを比較する必要がないように、あなたと誰かを並べる必要もない。\nそれぞれが、それぞれの文字盤で時を刻んでいる。",
-    choices: [
-      { label: "自分を大切にする", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_work: {
-    hide: "職場の人間関係。\nどんな状況？",
-    choices: [
-      { label: "特定の人とどうしても合わない", next: "human_work_person" },
-      { label: "グループがあって居心地が悪い", next: "human_work_group" },
-      { label: "無視・陰口がある", next: "human_work_harassment" },
-    ]
-  },
-  human_work_person: {
-    hide: "合わない人は、どこにでもいる。\n全員と仲良くなる義務はない。\nジャガー・ルクルトみたいに静かに自分の仕事をこなす——必要最低限の関係を保てれば十分よ。",
-    choices: [
-      { label: "割り切ってみる", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_work_group: {
-    hide: "グループ文化、消耗するわね。\n無理に溶け込もうとしなくていい。\n『仕事はちゃんとやる、人間関係は最小限』——この距離感が一番長続きするわ。",
-    choices: [
-      { label: "その距離感でやってみる", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_work_harassment: {
-    hide: "はっきり言う。\nそれはあなたのせいじゃない。\n日時・内容をメモして、信頼できる人か人事に相談すること。\n一人で抱えるのは得策じゃない。",
-    choices: [
-      { label: "相談する勇気が出た", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_family: {
-    hide: "家族か。\n近い分だけ複雑よね。どんなこと？",
-    choices: [
-      { label: "親との関係がうまくいかない", next: "human_family_parent" },
-      { label: "家族に理解されない感覚がある", next: "human_family_misunderstood" },
-    ]
-  },
-  human_family_parent: {
-    hide: "親との関係、愛情と干渉が混ざって難しいわね。\nIWCのポルトギーゼみたいにシンプルで上品な関係を目指してみて——感謝しながら、自分の人生は自分で決める。\nそのバランスが大事。",
-    choices: [
-      { label: "自分の人生は自分で決める", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_family_misunderstood: {
-    hide: "理解されない感覚、孤独よね。\nでも——あなたの感覚や価値観は間違っていない。\n全員にわかってもらう必要はない。一人でもわかってくれる人がいれば、それで十分よ。",
-    choices: [
-      { label: "少し楽になった", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_lonely: {
-    hide: "孤独。\n正直に話してくれてありがとう。\n今どんな感じ？",
-    choices: [
-      { label: "新しい繋がりを作りたい", next: "human_newstart" },
-      { label: "一人の時間は好きだけど、バランスが難しい", next: "human_lonely2" },
-    ]
-  },
-  human_lonely2: {
-    hide: "一人が好きなのと、孤独でつらいのは違う。\n自分のペースで、少しずつ人と関われる場所を広げていけばいい。\n急がなくて大丈夫。",
-    choices: [
-      { label: "そのペースでやってみる", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_newstart: {
-    hide: "新しい縁を求めているなら、動くしかない。\n趣味のコミュニティ、SNS、社会人サークル——今は繋がる手段がいくらでもある。\n共通の話題がある場所が一番自然よ。",
-    choices: [
-      { label: "動いてみる", next: "human_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  human_encourage: {
-    hide: "話してくれてよかった。\nまだ話したいことある？",
-    choices: [
-      { label: "人間関係、もっと話す", next: "human_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
+    bgmBtn.addEventListener('click', toggleBgm);
 
-  // ── 恋愛 ──
-  love_top: {
-    hide: "恋愛の話ね。\n聞くわ。",
-    choices: [
-      { label: "好きな人がいる", next: "love_crush" },
-      { label: "付き合っている人との悩み", next: "love_dating" },
-      { label: "失恋した", next: "love_breakup" },
-      { label: "なかなか出会いがない", next: "love_nodate" },
-    ]
-  },
-  love_crush: {
-    hide: "好きな人がいる。\nどんな状況？",
-    choices: [
-      { label: "相手の気持ちがわからない", next: "love_crush_unknown" },
-      { label: "告白しようか迷っている", next: "love_crush_confess" },
-      { label: "片思いが辛い", next: "love_crush_pain" },
-    ]
-  },
-  love_crush_unknown: {
-    hide: "気持ちがわからない、一番ドキドキするフェーズね。\n距離を縮める小さい行動から始めて。ランチに誘う、返信スピードを観察する——データを集めながら動く。感情と論理、両方使って。",
-    choices: [
-      { label: "小さいアクションをしてみる", next: "love_encourage" },
-      { label: "怖くてなかなか動けない", next: "love_crush_fear" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_crush_fear: {
-    hide: "怖い気持ちはわかる。\nオーデマ ピゲのロイヤルオークは、発売当初『ステンレスで高価格は非常識』と笑われた。\nでも信じて出し続けた結果、伝説になった。\n伝えなければ、始まらない。",
-    choices: [
-      { label: "勇気を出してみる", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_crush_confess: {
-    hide: "タイミングと環境が大事。\n二人でいるとき、楽しい会話の流れで——準備しすぎると逆効果よ。\n自然体で、シンプルに。",
-    choices: [
-      { label: "告白する", next: "love_encourage" },
-      { label: "もう少し様子を見る", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_crush_pain: {
-    hide: "片思いは報われない分だけ純粋。\nグランドセイコーの職人が一枚の文字盤に何時間もかけるみたいに——その感情を丁寧に育てること自体に、意味がある。",
-    choices: [
-      { label: "気持ちを大切にする", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_dating: {
-    hide: "パートナーとの悩みね。\nどんなこと？",
-    choices: [
-      { label: "すれ違いが増えた", next: "love_dating_gap" },
-      { label: "喧嘩が多い", next: "love_dating_fight" },
-      { label: "将来について意見が合わない", next: "love_dating_future" },
-    ]
-  },
-  love_dating_gap: {
-    hide: "すれ違いは積み重なると大きくなる。\nジャガー・ルクルトのメンテナンスみたいに、定期的に『話す時間』を意図的に作ること。\n週に一度でいい。それだけで違う。",
-    choices: [
-      { label: "話す時間を作る", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_dating_fight: {
-    hide: "喧嘩が多いのは、真剣に向き合っている証拠でもある。\n大事なのは勝ち負けじゃなくて解決。\nまず相手の話を最後まで聞く——それだけで喧嘩の半分はやわらぐわ。",
-    choices: [
-      { label: "相手の話を先に聞く", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_dating_future: {
-    hide: "将来の意見の違いは、早めに話し合うべきテーマ。\n結婚・子供・住む場所——どれも大事。\n違いがあっても歩み寄れるかが重要。どちらかだけが我慢する関係は長続きしない。",
-    choices: [
-      { label: "ちゃんと話し合ってみる", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_breakup: {
-    hide: "失恋か。\n話してくれてありがとう。\n今、どんな気持ち？",
-    choices: [
-      { label: "悲しくて立ち直れない", next: "love_breakup_sad" },
-      { label: "自分のせいだと思ってしまう", next: "love_breakup_selfblame" },
-      { label: "前に進みたいけど怖い", next: "love_breakup_forward" },
-    ]
-  },
-  love_breakup_sad: {
-    hide: "ちゃんと悲しんでいい。\n時計が止まってもまた動き出せるように——あなたも必ずそうなる。\n今は悲しむことに、全力で向き合って。",
-    choices: [
-      { label: "少し楽になった", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_breakup_selfblame: {
-    hide: "自分を責めているのね。\nでも関係はどちらか一方だけのものじゃない。\n振り返ることは大事。でも必要以上に責めないで。\nあなたはちゃんと向き合っていたはずよ。",
-    choices: [
-      { label: "振り返りながら前向きに", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_breakup_forward: {
-    hide: "前に進みたいという気持ちがある。それだけで十分よ。\nいきなり次の恋愛をしなくていい。\nまず自分を満たすところから——好きなものを食べて、好きな動画を見て、自分のためだけに時間を使って。",
-    choices: [
-      { label: "自分を満たすところから始める", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_nodate: {
-    hide: "出会いがない。\n今はチャンスが多い時代よ。\nどんなアプローチが気になる？",
-    choices: [
-      { label: "マッチングアプリについて聞きたい", next: "love_nodate_app" },
-      { label: "リアルな出会いが欲しい", next: "love_nodate_real" },
-      { label: "そもそも自信がない", next: "love_nodate_confidence" },
-    ]
-  },
-  love_nodate_app: {
-    hide: "アプリなら、プロフィールが8割ね。\n自然な笑顔の写真と、趣味が伝わるコメント——ロレックスの文字盤みたいに、シンプルで信頼感があるものが最強。",
-    choices: [
-      { label: "プロフィールを見直す", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_nodate_real: {
-    hide: "リアルな出会いなら、趣味のコミュニティが一番自然よ。\n登山、料理、ボードゲーム、スポーツ——共通の話題があると、仲良くなるのが早い。",
-    choices: [
-      { label: "コミュニティを探してみる", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_nodate_confidence: {
-    hide: "自信は、行動の後からついてくるもの。\n先に持とうとしなくていい。\nまず小さい変化から——新しい服、髪型、習慣。\n外が変わると、内側から動き始めるわ。",
-    choices: [
-      { label: "小さいことから変えてみる", next: "love_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  love_encourage: {
-    hide: "応援しているわ。\nまだ話したいことある？",
-    choices: [
-      { label: "恋愛のこと、もっと話す", next: "love_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-
-  // ── 将来 ──
-  future_top: {
-    hide: "将来のこと。\nどんなことを考えてる？",
-    choices: [
-      { label: "やりたいことが見つからない", next: "future_noidea" },
-      { label: "夢があるけど不安", next: "future_dream" },
-      { label: "お金・キャリアが心配", next: "future_money" },
-      { label: "このままでいいのか迷っている", next: "future_doubt" },
-    ]
-  },
-  future_noidea: {
-    hide: "やりたいことがわからない——それは珍しくない。\nヴァシュロンが270年、少しずつ積み上げてきたように。\nまず『嫌なことを消す』ところから始めて。それだけで方向が見えてくる。",
-    choices: [
-      { label: "嫌なことを消すところから", next: "future_encourage" },
-      { label: "もっとヒントが欲しい", next: "future_noidea2" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_noidea2: {
-    hide: "三つの重なりを探して。\n——子供の頃好きだったこと。\n——時間を忘れてできること。\n——お金をもらえなくてもやりたいこと。\nその交差点に、やりたいことがある。",
-    choices: [
-      { label: "考えてみる", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_dream: {
-    hide: "夢がある——それだけで価値がある。\n不安の種類は？",
-    choices: [
-      { label: "失敗が怖い", next: "future_dream_fail" },
-      { label: "周りに反対されている", next: "future_dream_oppose" },
-      { label: "現実的にうまくいくか不安", next: "future_dream_realistic" },
-    ]
-  },
-  future_dream_fail: {
-    hide: "ロレックスは創業当初、既存メーカーに笑われた。\nそれでも信じて動き続けた結果が今よ。\n失敗は学習コスト。無駄にはならない。",
-    choices: [
-      { label: "挑戦してみる", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_dream_oppose: {
-    hide: "反対には二種類ある。心配からと、嫉妬から。\n親の反対なら、具体的な計画を見せること。\n数字と根拠があれば、人は動く。",
-    choices: [
-      { label: "計画を具体的にする", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_dream_realistic: {
-    hide: "『できるか』じゃなくて、『どうすればできるか』を考える癖をつけて。\nまずその夢に近いことをやっている人を探してみて。\nYouTubeやSNSに必ずいる——彼らから学べばいい。",
-    choices: [
-      { label: "リサーチしてみる", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_money: {
-    hide: "お金とキャリア。\n何が一番気になっている？",
-    choices: [
-      { label: "収入が上がる気がしない", next: "future_money_income" },
-      { label: "貯金・投資がわからない", next: "future_money_save" },
-      { label: "キャリアの方向性がわからない", next: "future_money_career" },
-    ]
-  },
-  future_money_income: {
-    hide: "収入を上げる道は二つ。今の会社でキャリアアップするか、転職・副業か。\nまず自分のスキルを棚卸しして。\n意外なところに市場価値が眠っているわ。",
-    choices: [
-      { label: "スキルを棚卸しする", next: "future_encourage" },
-      { label: "副業について聞きたい", next: "future_money_sidejob" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_money_sidejob: {
-    hide: "副業はクラウドワークスやランサーズで小さい案件から始めるのが現実的。\n文章・デザイン・教える・動画編集——人より少しできることが武器になる。\n最初の一件を取るまでが勝負よ。",
-    choices: [
-      { label: "試してみる", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_money_save: {
-    hide: "まず先取り貯金から。\n給料日に自動で貯金口座に移す設定にするだけ——意志力は使わない。\n投資はNISAから。少額でもいい、早く始めた方が複利が効く。",
-    choices: [
-      { label: "NISAを調べてみる", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_money_career: {
-    hide: "キャリアの方向性は、好き×得意×需要の重なりを探すこと。\n転職エージェントへの無料相談は、自分のキャリアを整理するためだけでも価値がある。\n動いてみて。",
-    choices: [
-      { label: "エージェントに相談してみる", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_doubt: {
-    hide: "『このままでいいのか』——それは大事な問いよ。\n何かを変えたいサインかもしれない。\n具体的に変えたいのはどこ？",
-    choices: [
-      { label: "仕事を変えたい", next: "work_transfer" },
-      { label: "生活スタイルを変えたい", next: "future_life" },
-      { label: "自分自身を変えたい", next: "future_self" },
-    ]
-  },
-  future_life: {
-    hide: "生活を変えるのは、小さいことから始められる。\n朝の習慣、部屋の環境、新しい趣味——ひとつ変えると連鎖が起きる。\n何か一つだけ変えてみて。",
-    choices: [
-      { label: "一つだけ変えてみる", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_self: {
-    hide: "自分を変えたい。\nまず『なりたい自分』を言葉にすること。\nグランドセイコーの職人が文字盤の理想を細かく描くように——ぼんやりしたままでは動けない。",
-    choices: [
-      { label: "なりたい自分を書き出す", next: "future_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  future_encourage: {
-    hide: "将来について真剣に考えている。\nそれ自体が、すでに動き始めている証拠よ。\nまだ話したいことある？",
-    choices: [
-      { label: "将来のこと、もっと話す", next: "future_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-
-  // ── しんどい ──
-  tired_top: {
-    hide: "しんどいのね。\n話してくれてありがとう。\n今、どんな感じ？",
-    choices: [
-      { label: "気力がまったく湧かない", next: "tired_energy" },
-      { label: "ずっとモヤモヤしている", next: "tired_moya" },
-      { label: "眠れない・食べられない", next: "tired_body" },
-      { label: "うまく言えないけど、つらい", next: "tired_unknown" },
-    ]
-  },
-  tired_energy: {
-    hide: "気力が湧かないとき、無理に出そうとしなくていい。\nオーバーホールが必要な状態よ。\nまず何もしない時間を意図的に作って。\n罪悪感を持たなくていい——それがメンテナンス。",
-    choices: [
-      { label: "休む時間を作る", next: "tired_encourage" },
-      { label: "でも休めない", next: "tired_cantstop" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  tired_moya: {
-    hide: "モヤモヤを紙に書き出したことある？\n言語化すると、意外と整理できる。\n頭の中のものをアウトプットすると、原因が見えてくることが多いわ。",
-    choices: [
-      { label: "書き出してみる", next: "tired_encourage" },
-      { label: "もう少し話したい", next: "tired_listen" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  tired_body: {
-    hide: "眠れない、食べられない——それは体が出しているサイン。\n一週間以上続いているなら、メンタルクリニックに相談してほしい。\n早めに動くほど、回復も早い。\n一人で抱えないで。",
-    choices: [
-      { label: "病院を考えてみる", next: "tired_encourage" },
-      { label: "もう少し話したい", next: "tired_listen" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  tired_unknown: {
-    hide: "うまく言えなくていい。\n話してくれただけで十分よ。\nここにいる。",
-    choices: [
-      { label: "なんか疲れている感じ", next: "tired_energy" },
-      { label: "先が見えない感じ", next: "future_doubt" },
-      { label: "誰かに聞いてほしかっただけ", next: "tired_listen" },
-    ]
-  },
-  tired_cantstop: {
-    hide: "休めない事情があるのはわかる。\nでも限界になる前に、5分でいい。\n通勤中の音楽、お風呂でぼーっとする時間——小さい余白を意識して作って。",
-    choices: [
-      { label: "小さい余白を作ってみる", next: "tired_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  tired_listen: {
-    hide: "話してくれてありがとう。\nあなたのことを、ちゃんと気にかけているわ。\nもし本当につらいなら、信頼できる人や専門家にも話してみて。",
-    choices: [
-      { label: "少し楽になった", next: "tired_encourage" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  tired_encourage: {
-    hide: "あなたが話してくれて、よかった。\n無理しないでね。\nまだ話したいことある？",
-    choices: [
-      { label: "もう少し話す", next: "tired_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-
-  // ── 時計 ──
-  watch_top: {
-    hide: "時計の話。\nどのブランドが気になる？",
-    choices: [
-      { label: "ロレックス", next: "watch_rolex" },
-      { label: "パテック フィリップ", next: "watch_patek" },
-      { label: "グランドセイコー", next: "watch_gs" },
-      { label: "オーデマ ピゲ・IWC・ジャガー・ルクルト・ヴァシュロン", next: "watch_others" },
-    ]
-  },
-  watch_rolex: {
-    hide: "ロレックス。\n1905年創業、腕時計の大衆化を作ったブランド。\nすごいのは品質の安定性——100年近く、同じコンセプトで作り続けている。\nリセールが高いのも、その信頼の証よ。",
-    choices: [
-      { label: "サブマリーナについて聞きたい", next: "watch_rolex_sub" },
-      { label: "デイトナについて聞きたい", next: "watch_rolex_daytona" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_rolex_sub: {
-    hide: "サブマリーナ。1953年登場、ダイバーズウォッチの原型。\n300m防水、回転ベゼル——ジェームズ・ボンドが使ったことで世界中に知られた。\n今や100万円超えでも価値が落ちない、稀有な存在よ。",
-    choices: [
-      { label: "ロレックスについてもっと聞く", next: "watch_rolex" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_rolex_daytona: {
-    hide: "デイトナ。ポール・ニューマンが愛用したことで伝説になった。\n今やプレ値で500万円超えることも。\nクロノグラフ搭載でレーシングドライバー向けに作られたけれど、今は入手困難さ自体がステータスになっている。",
-    choices: [
-      { label: "ロレックスについてもっと聞く", next: "watch_rolex" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_patek: {
-    hide: "パテック フィリップ。時計界の頂点と言われるブランド。\n『あなたはパテックを所有するのではなく、次の世代のために保管するだけ』——このキャッチコピーが全てを語っている。\n買った瞬間から、次の世代への贈り物なの。",
-    choices: [
-      { label: "カラトラバについて聞きたい", next: "watch_patek_cal" },
-      { label: "ノーチラスについて聞きたい", next: "watch_patek_nautilus" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_patek_cal: {
-    hide: "カラトラバ。1932年登場、パテックの顔とも言えるドレスウォッチ。\n余計な装飾を一切省いて、時計の本質だけを残した究極のシンプルさ。\n『本物の品格はシンプルさの中にある』を体現している。",
-    choices: [
-      { label: "パテックについてもっと聞く", next: "watch_patek" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_patek_nautilus: {
-    hide: "ノーチラス。1976年、ジェラルド・ジェンタのデザイン。\nステンレス製なのに高級感があって、スポーツでもドレスでも使える。\n定価より中古の方が高い逆転現象が起きているほどの超人気モデルよ。",
-    choices: [
-      { label: "パテックについてもっと聞く", next: "watch_patek" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_gs: {
-    hide: "グランドセイコー。\n1960年、『世界最高の時計を作る』という宣言から始まったブランド。\n文字盤の美しさは世界でも評価が高い——雪化粧、白樺、山桜。\n日本の四季を時計に閉じ込めているの。",
-    choices: [
-      { label: "スプリングドライブについて聞きたい", next: "watch_gs_spring" },
-      { label: "文字盤の美しさについて聞きたい", next: "watch_gs_dial" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_gs_spring: {
-    hide: "スプリングドライブ。これは革命的な技術よ。\n機械式の温かみを持ちながら、クォーツ並みの精度を実現している。\n日差±1秒以内——グライドスプリングという磁気制動で実現した、世界に一つだけの機構。",
-    choices: [
-      { label: "グランドセイコーについてもっと聞く", next: "watch_gs" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_gs_dial: {
-    hide: "文字盤の代表格は『雪化粧』——岩手の雪原をテクスチャーで表現していて、光の当たり方で全く違う表情になる。\n職人が一枚ずつ手作業で仕上げる。\n時計というより、日本美術品ね。",
-    choices: [
-      { label: "グランドセイコーについてもっと聞く", next: "watch_gs" },
-      { label: "他のブランドへ", next: "watch_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_others: {
-    hide: "どれについて聞きたい？",
-    choices: [
-      { label: "オーデマ ピゲ（AP）", next: "watch_ap" },
-      { label: "IWC", next: "watch_iwc" },
-      { label: "ジャガー・ルクルト", next: "watch_jlc" },
-      { label: "ヴァシュロン・コンスタンタン", next: "watch_vc" },
-    ]
-  },
-  watch_ap: {
-    hide: "オーデマ ピゲ。ロイヤルオークが代名詞ね。\n1972年、ジェラルド・ジェンタデザイン。当時『ステンレスで高価格は非常識』と言われた。\nでも信じて出し続けた結果、今や最も人気なモデルのひとつ。\n八角形のベゼルと統合ブレスレット——今見ても最高にかっこいい。",
-    choices: [
-      { label: "他のブランドへ", next: "watch_others" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_iwc: {
-    hide: "IWC。スイス製なのにアメリカの技術を取り入れたユニークな背景を持つ。\nパイロットウォッチとポルトギーゼが特に有名。\nシンプルで視認性が高い——時計入門にもおすすめよ。",
-    choices: [
-      { label: "他のブランドへ", next: "watch_others" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_jlc: {
-    hide: "ジャガー・ルクルト。『時計師の時計』と言われる、玄人好みのブランド。\n自社で部品から製造できる数少ないメーカーで、複雑機構の開発数が業界随一。\nリベルソという文字盤が反転するモデルは、ポロ競技中に保護するために作られた歴史がある。",
-    choices: [
-      { label: "他のブランドへ", next: "watch_others" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  watch_vc: {
-    hide: "ヴァシュロン・コンスタンタン。1755年創業、世界最古の時計メーカーのひとつ。\n270年近く、一度も製造を止めていない。\nパテック・AP・VCが時計界の『スリービッグ』——価格は最低でも数百万円から。完全に夢の世界ね。",
-    choices: [
-      { label: "他のブランドへ", next: "watch_others" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-
-  // ── YouTube ──
-  youtube_top: {
-    hide: "YouTubeトレンドね。\nどのジャンルが気になる？",
-    choices: [
-      { label: "YouTuber・チャンネルを教えて", next: "yt_creator" },
-      { label: "ショート動画のトレンド", next: "yt_shorts" },
-      { label: "コンテンツ形式の流行", next: "yt_format" },
-      { label: "YouTube全般の話", next: "yt_general" },
-    ]
-  },
-  yt_creator: {
-    hide: "どのジャンルのYouTuberが気になる？",
-    choices: [
-      { label: "グループ・仲良し系", next: "yt_group" },
-      { label: "学べる・ためになる系", next: "yt_learn" },
-      { label: "バラエティ・面白い系", next: "yt_funny" },
-    ]
-  },
-  yt_group: {
-    hide: "グループ系の二大巨頭はコムドットと東海オンエア。\nコムドットは地元ノリと仲間感のリアルさで若者の共感を獲得。東海オンエアは企画の完成度が異次元——笑いとクオリティのバランスが完璧ね。",
-    choices: [
-      { label: "コムドットについてもっと聞く", next: "yt_comudot" },
-      { label: "東海オンエアについて聞く", next: "yt_tokai" },
-      { label: "他のジャンルへ", next: "youtube_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_comudot: {
-    hide: "コムドット。やまとを中心にした5人組で、『地元ノリ全国制覇』がコンセプト。\n方言・仲間愛・日常のリアルを面白く見せる才能がある。\nSNSとの連動も上手で、TikTokとYouTubeを同時に攻略した成功例よ。",
-    choices: [
-      { label: "グループ系に戻る", next: "yt_group" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_tokai: {
-    hide: "東海オンエア。てつや中心の6人組、企画のバリエーションが圧倒的。\n縛り系企画の緻密さ、本気のドキュメント回の緩急——どちらも完成度が高い。\nメンバーのキャラクターが立っていて、誰推しかで盛り上がれるのも強い。",
-    choices: [
-      { label: "グループ系に戻る", next: "yt_group" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_learn: {
-    hide: "学べる系は本当に充実してきたわね。\n中田敦彦のYouTube大学、両学長のリベラルアーツ大学あたりは再生数が桁違い。\n『テレビより学べる』時代になった。投資・副業・英語学習系が特に伸びている。",
-    choices: [
-      { label: "ビジネス系をもっと聞く", next: "yt_learn_biz" },
-      { label: "他のジャンルへ", next: "youtube_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_learn_biz: {
-    hide: "ビジネス系ならマナブさんはブログ・フリーランスの先駆者で影響を受けた人が多い。\n両学長は資産形成を面白く解説——再生数が圧倒的。\n最近は実際に資産1000万達成した一般人のチャンネルが信頼性で支持されている。",
-    choices: [
-      { label: "学べる系に戻る", next: "yt_learn" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_funny: {
-    hide: "バラエティ系は東海オンエア以外に水溜りボンド、カジサック、おでんくんなども人気だったわ。\n最近は一般人が投稿した動画が急バズりするパターンも増えて、プロアマの境目がなくなってきている。そこが面白いの。",
-    choices: [
-      { label: "他のジャンルへ", next: "youtube_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_shorts: {
-    hide: "ショート動画。TikTokの影響でYouTube Shortsも一気に広まった。\nどのジャンルが気になる？",
-    choices: [
-      { label: "スカッと系ショートの流行", next: "yt_shorts_sukatto" },
-      { label: "歌ってみた・踊ってみた", next: "yt_shorts_utatte" },
-      { label: "あるある・共感系", next: "yt_shorts_aruaru" },
-    ]
-  },
-  yt_shorts_sukatto: {
-    hide: "スカッと系はテキスト読み上げから始まって、一時期大量に量産されたわね。\n『義母がまた嫌がらせ→旦那が一言→撃沈』みたいなパターンが定番化。\nAIで量産されて質がバラバラになってきたけど、再生数は今でも取れるジャンルよ。",
-    choices: [
-      { label: "ショート系に戻る", next: "yt_shorts" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_shorts_utatte: {
-    hide: "歌ってみた・踊ってみたは今も根強い人気。\nAdoやYOASOBIなど、YouTubeから生まれたアーティストが紅白に出るレベルになった——これは本当に時代が変わったわ。\n踊ってみたはK-POPカバーが特に伸びやすい。",
-    choices: [
-      { label: "ショート系に戻る", next: "yt_shorts" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_shorts_aruaru: {
-    hide: "あるある・共感系は普遍的に強い。\nHSP・内向的・ADHD・Z世代あるあるみたいに、『自分のことを言ってる』と感じさせる動画が伸びた。\n字幕だけのシンプルな動画でも100万再生が出るのがショートの面白いところ。",
-    choices: [
-      { label: "ショート系に戻る", next: "yt_shorts" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_format: {
-    hide: "コンテンツ形式のトレンド。どれが気になる？",
-    choices: [
-      { label: "企画・挑戦系の流行", next: "yt_format_challenge" },
-      { label: "Vlog・日常系の流行", next: "yt_format_vlog" },
-      { label: "コラボ動画の流行", next: "yt_format_collab" },
-    ]
-  },
-  yt_format_challenge: {
-    hide: "企画・挑戦系は東海オンエアが完成度を極めた。\n最近は『過程を見せる』動画が伸びている——100時間かけた、1ヶ月やり続けた、みたいな。\n視聴者が頑張る過程に共感する時代になってきているわ。",
-    choices: [
-      { label: "形式系に戻る", next: "yt_format" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_format_vlog: {
-    hide: "Vlogはコロナ禍で爆発的に広まった。\n『他の人の日常が見たい』という需要ね。海外在住者の日常、一人暮らしルーティン、韓国系カフェVlogが特に人気。\n音楽と映像美で雰囲気を作るスタイルが確立された。",
-    choices: [
-      { label: "形式系に戻る", next: "yt_format" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_format_collab: {
-    hide: "コラボはYouTubeカルチャーの醍醐味。\n最近は異ジャンルコラボが新鮮——料理×旅、教育×エンタメみたいな組み合わせ。\nZoom越しの対談形式も増えて、場所の壁がなくなった。",
-    choices: [
-      { label: "形式系に戻る", next: "yt_format" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_general: {
-    hide: "YouTubeについて何でも聞いて。\n何が気になる？",
-    choices: [
-      { label: "YouTubeを始めてみたい", next: "yt_start" },
-      { label: "アルゴリズムについて", next: "yt_algorithm" },
-      { label: "好きなYouTuberの見つけ方", next: "yt_discover" },
-    ]
-  },
-  yt_start: {
-    hide: "始めるなら、まず『誰に向けて何を届けたいか』を決めること。\nテーマは絞った方が伸びやすい。機材は最初スマホで十分。\n最初の100本は練習——数を出すことに集中して。",
-    choices: [
-      { label: "やってみる", next: "youtube_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_algorithm: {
-    hide: "アルゴリズムは変わり続けるけれど、今は視聴維持率とクリック率が特に重要。\nサムネで興味を引いて、最初の15秒で結論か面白さを見せること。\n最初の15秒が全てを決めると言っても過言じゃない。",
-    choices: [
-      { label: "参考になった", next: "youtube_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-  yt_discover: {
-    hide: "好きなYouTuberの見つけ方——一番早いのはコラボ相手を辿ること。\nYouTubeのアルゴリズムも結構優秀で、見続けると趣味に合った人がどんどん出てくる。\nTwitterで好きなジャンルで検索するのも発見が多いわ。",
-    choices: [
-      { label: "試してみる", next: "youtube_top" },
-      { label: "別の話題へ", next: "start" },
-    ]
-  },
-};
-
-// ============================================================
-//  UI LOGIC
-// ============================================================
-function addBubble(who, text) {
-  const msgs = document.getElementById('messages');
-  const row = document.createElement('div');
-  row.className = 'msg-row' + (who === 'user' ? ' user' : '');
-
-  const av = document.createElement('div');
-  av.className = 'avatar ' + (who === 'hide' ? 'hide' : 'user');
-  av.textContent = who === 'hide' ? '👩‍💼' : '👤';
-
-  const wrap = document.createElement('div');
-  wrap.className = 'bubble-wrap';
-
-  const sn = document.createElement('div');
-  sn.className = 'sender-name';
-  sn.textContent = who === 'hide' ? 'Hidechan 八百万' : 'You';
-
-  const bbl = document.createElement('div');
-  bbl.className = 'bubble ' + (who === 'hide' ? 'hide' : 'user');
-  bbl.textContent = text;
-
-  wrap.append(sn, bbl);
-  row.append(av, wrap);
-  msgs.appendChild(row);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('messages');
-  const wrap = document.createElement('div');
-  wrap.id = 'typing';
-  wrap.className = 'typing-row';
-  const av = document.createElement('div');
-  av.className = 'avatar hide';
-  av.textContent = '👩‍💼';
-  const bbl = document.createElement('div');
-  bbl.className = 'typing-bbl';
-  for (let i = 0; i < 3; i++) {
-    const d = document.createElement('div');
-    d.className = 'td';
-    bbl.appendChild(d);
-  }
-  wrap.append(av, bbl);
-  msgs.appendChild(wrap);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function hideTyping() {
-  document.getElementById('typing')?.remove();
-}
-
-function renderChoices(nodeId) {
-  const node = TREE[nodeId];
-  if (!node) return;
-  const el = document.getElementById('choices');
-  el.innerHTML = '<div id="choices-label">Select a topic</div>';
-  node.choices.forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'choice-btn';
-    btn.textContent = c.label;
-    btn.onclick = () => choose(c.label, c.next);
-    el.appendChild(btn);
-  });
-}
-
-function choose(label, nextId) {
-  document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
-  addBubble('user', label);
-  showTyping();
-  setTimeout(() => {
-    hideTyping();
-    const node = TREE[nextId] || TREE['start'];
-    addBubble('hide', node.hide);
-    renderChoices(nextId in TREE ? nextId : 'start');
-  }, 600 + Math.random() * 500);
-}
-
-function resetChat() {
-  document.getElementById('messages').innerHTML = '<div class="day-divider">— 相談室へようこそ —</div>';
-  const node = TREE['start'];
-  addBubble('hide', node.hide);
-  renderChoices('start');
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  const node = TREE['start'];
-  addBubble('hide', node.hide);
-  renderChoices('start');
-});
-</script>
-
+    renderNode('start');
+  </script>
 </body>
 </html>
