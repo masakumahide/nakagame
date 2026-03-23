@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HIDEKO YAOYOROZU</title>
+  <title>こぶぶのお気軽トーク</title>
   <style>
     :root {
       --bg1: #0a0715;
@@ -124,16 +124,16 @@
     }
 
     .title {
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 900;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.08em;
       color: var(--gold);
     }
 
     .subtitle {
-      font-size: 11px;
-      letter-spacing: 0.1em;
+      font-size: 12px;
       color: var(--sub);
+      line-height: 1.5;
     }
 
     .meta-row {
@@ -221,7 +221,7 @@
 
     .main {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 240px 1fr;
       gap: 0;
     }
 
@@ -242,7 +242,7 @@
     .moon {
       position: absolute;
       top: 34px;
-      right: 26px;
+      right: 24px;
       width: 84px;
       height: 84px;
       border-radius: 50%;
@@ -252,9 +252,9 @@
 
     .glow {
       position: absolute;
-      bottom: 160px;
-      width: 280px;
-      height: 280px;
+      top: 150px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255,143,213,0.24) 0%, rgba(255,213,108,0.12) 34%, transparent 70%);
       filter: blur(12px);
@@ -266,38 +266,28 @@
       50% { transform: scale(1.04); opacity: 1; }
     }
 
-    .pedestal {
-      position: absolute;
-      bottom: 120px;
-      width: 200px;
-      height: 30px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.22), rgba(255,255,255,0.04) 60%, transparent 72%);
-      filter: blur(2px);
-    }
-
-    .character-wrap {
+    .avatar-zone {
       position: relative;
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: flex-end;
+      align-items: center;
       flex: 1;
       z-index: 2;
+      padding-top: 18px;
     }
 
-    .character {
+    .avatar {
       position: relative;
-      width: 232px;
-      height: 470px;
-      filter: drop-shadow(0 16px 24px rgba(0,0,0,0.35));
-      transform-origin: center bottom;
-      animation: floaty 3.3s ease-in-out infinite;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
       cursor: pointer;
-      user-select: none;
+      filter: drop-shadow(0 12px 22px rgba(0,0,0,0.34));
+      animation: floaty 3.3s ease-in-out infinite;
     }
 
-    .character.talk { animation-duration: 1.8s; }
+    .avatar.talk { animation-duration: 1.8s; }
 
     @keyframes floaty {
       0%,100% { transform: translateY(0); }
@@ -306,35 +296,19 @@
 
     .hair-back {
       position: absolute;
-      left: 42px;
-      top: 48px;
-      width: 146px;
-      height: 214px;
-      border-radius: 72px 72px 48px 48px;
-      background: linear-gradient(180deg, #36194c, #13071c 76%);
-      z-index: 1;
-    }
-
-    .bun, .bun2 {
-      position: absolute;
-      top: 58px;
-      width: 28px;
-      height: 28px;
+      inset: 18px;
       border-radius: 50%;
-      background: linear-gradient(180deg, #36194c, #16071e);
+      background: linear-gradient(180deg, #34184c, #13071c 78%);
       z-index: 1;
     }
-
-    .bun { left: 38px; }
-    .bun2 { right: 38px; }
 
     .face {
       position: absolute;
-      left: 76px;
-      top: 72px;
-      width: 82px;
-      height: 104px;
-      border-radius: 42px 42px 34px 34px;
+      left: 42px;
+      top: 44px;
+      width: 96px;
+      height: 110px;
+      border-radius: 50px 50px 40px 40px;
       background: linear-gradient(180deg, #ffe7d4, #ffd5c0 84%);
       z-index: 4;
       box-shadow: inset 0 -5px 0 rgba(255,188,151,0.22);
@@ -342,11 +316,11 @@
 
     .fringe {
       position: absolute;
-      left: 64px;
-      top: 60px;
-      width: 106px;
-      height: 66px;
-      border-radius: 50px 50px 22px 22px;
+      left: 34px;
+      top: 28px;
+      width: 112px;
+      height: 70px;
+      border-radius: 54px 54px 24px 24px;
       background: linear-gradient(180deg, #371a4d, #180920);
       z-index: 5;
     }
@@ -354,32 +328,45 @@
     .fringe::after {
       content: "";
       position: absolute;
-      left: 10px;
+      right: 8px;
       top: 16px;
-      width: 34px;
+      width: 36px;
       height: 28px;
       background: #180920;
-      border-radius: 22px 0 22px 18px;
-      transform: rotate(-15deg);
+      border-radius: 0 22px 22px 18px;
+      transform: rotate(14deg);
     }
 
     .hair-side-left, .hair-side-right {
       position: absolute;
-      top: 104px;
-      width: 30px;
-      height: 122px;
+      top: 64px;
+      width: 28px;
+      height: 84px;
       border-radius: 20px;
       background: linear-gradient(180deg, #36194d, #13071c);
       z-index: 3;
     }
 
-    .hair-side-left { left: 58px; transform: rotate(9deg); }
-    .hair-side-right { right: 58px; transform: rotate(-9deg); }
+    .hair-side-left { left: 32px; transform: rotate(8deg); }
+    .hair-side-right { right: 32px; transform: rotate(-8deg); }
+
+    .bun, .bun2 {
+      position: absolute;
+      top: 28px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #36194c, #16071e);
+      z-index: 1;
+    }
+
+    .bun { left: 20px; }
+    .bun2 { right: 20px; }
 
     .flower {
       position: absolute;
-      left: 164px;
-      top: 74px;
+      right: 16px;
+      top: 52px;
       width: 24px;
       height: 24px;
       z-index: 8;
@@ -398,7 +385,7 @@
 
     .eye {
       position: absolute;
-      top: 44px;
+      top: 42px;
       width: 14px;
       height: 10px;
       border-radius: 50%;
@@ -407,8 +394,8 @@
       animation: blink 4.7s infinite;
     }
 
-    .eye.left { left: 18px; }
-    .eye.right { right: 18px; }
+    .eye.left { left: 22px; }
+    .eye.right { right: 22px; }
 
     .eye::after {
       content: "";
@@ -428,7 +415,7 @@
 
     .cheek {
       position: absolute;
-      top: 64px;
+      top: 62px;
       width: 14px;
       height: 8px;
       border-radius: 50%;
@@ -436,190 +423,25 @@
       z-index: 6;
     }
 
-    .cheek.left { left: 10px; }
-    .cheek.right { right: 10px; }
+    .cheek.left { left: 12px; }
+    .cheek.right { right: 12px; }
 
     .mouth {
       position: absolute;
-      left: 32px;
-      top: 74px;
-      width: 16px;
+      left: 38px;
+      top: 72px;
+      width: 18px;
       height: 7px;
       border-bottom: 3px solid #cc6487;
       border-radius: 0 0 16px 16px;
       z-index: 6;
     }
 
-    .neck {
-      position: absolute;
-      left: 97px;
-      top: 164px;
-      width: 34px;
-      height: 32px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #ffd9c4, #f3c3a5);
-      z-index: 2;
-    }
-
-    .shoulder {
-      position: absolute;
-      left: 68px;
-      top: 182px;
-      width: 96px;
-      height: 32px;
-      border-radius: 22px 22px 16px 16px;
-      background: linear-gradient(180deg, rgba(255,237,246,0.96), rgba(255,206,234,0.94));
-      z-index: 3;
-    }
-
-    .kimono {
-      position: absolute;
-      left: 44px;
-      top: 192px;
-      width: 144px;
-      height: 188px;
-      border-radius: 24px 24px 30px 30px;
-      clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
-      background: linear-gradient(180deg, #ff95d9 0%, #c962ff 46%, #7c42f3 100%);
-      z-index: 2;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.12), inset 0 -14px 22px rgba(0,0,0,0.14);
-    }
-
-    .kimono::before, .kimono::after {
-      content: "";
-      position: absolute;
-      top: 16px;
-      width: 46px;
-      height: 84px;
-      background: linear-gradient(180deg, rgba(255,239,246,0.96), rgba(255,221,237,0.88));
-    }
-
-    .kimono::before {
-      left: 18px;
-      clip-path: polygon(0 0, 100% 0, 78% 100%, 20% 100%);
-      border-radius: 16px 16px 22px 18px;
-      transform: rotate(8deg);
-    }
-
-    .kimono::after {
-      right: 18px;
-      clip-path: polygon(0 0, 100% 0, 80% 100%, 22% 100%);
-      border-radius: 16px 16px 18px 22px;
-      transform: rotate(-8deg);
-    }
-
-    .obi {
-      position: absolute;
-      left: 60px;
-      top: 264px;
-      width: 112px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255,213,108,0.98), rgba(255,155,86,0.92));
-      z-index: 5;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18);
-    }
-
-    .obi::before {
-      content: "";
-      position: absolute;
-      left: 50%; top: -10px;
-      width: 38px;
-      height: 60px;
-      transform: translateX(-50%);
-      border-radius: 10px;
-      clip-path: polygon(50% 0, 100% 34%, 78% 100%, 22% 100%, 0 34%);
-      background: linear-gradient(180deg, rgba(255,213,108,0.96), rgba(255,120,160,0.86));
-    }
-
-    .sleeve {
-      position: absolute;
-      top: 214px;
-      width: 48px;
-      height: 110px;
-      border-radius: 18px 18px 24px 24px;
-      background: linear-gradient(180deg, #ff95d9, #9b64ff 84%);
-      z-index: 1;
-    }
-
-    .sleeve.left { left: 20px; transform: rotate(10deg); }
-    .sleeve.right { right: 20px; transform: rotate(-10deg); }
-
-    .arm {
-      position: absolute;
-      top: 220px;
-      width: 20px;
-      height: 98px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #ffd7c2, #efba9e);
-      z-index: 0;
-    }
-
-    .arm.left {
-      left: 36px;
-      transform: rotate(12deg);
-      transform-origin: top center;
-      animation: swayL 3.2s ease-in-out infinite;
-    }
-
-    .arm.right {
-      right: 36px;
-      transform: rotate(-12deg);
-      transform-origin: top center;
-      animation: swayR 3.2s ease-in-out infinite;
-    }
-
-    @keyframes swayL {
-      0%,100% { transform: rotate(12deg); }
-      50% { transform: rotate(18deg); }
-    }
-
-    @keyframes swayR {
-      0%,100% { transform: rotate(-12deg); }
-      50% { transform: rotate(-18deg); }
-    }
-
-    .hand {
-      position: absolute;
-      bottom: -7px;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #ffd9c4;
-    }
-
-    .leg {
-      position: absolute;
-      top: 364px;
-      width: 26px;
-      height: 64px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #ffd7c2, #ebb799);
-      z-index: 0;
-    }
-
-    .leg.left { left: 88px; }
-    .leg.right { right: 88px; }
-
-    .shoe {
-      position: absolute;
-      bottom: 4px;
-      width: 40px;
-      height: 14px;
-      border-radius: 18px 18px 8px 8px;
-      background: linear-gradient(180deg, #fff1fb, #d58dff);
-      box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12);
-    }
-
-    .shoe.left { left: 82px; }
-    .shoe.right { right: 82px; }
-
     .tiara {
       position: absolute;
-      left: 92px;
-      top: 36px;
-      width: 58px;
+      left: 62px;
+      top: 12px;
+      width: 56px;
       height: 18px;
       z-index: 9;
       display: flex;
@@ -656,6 +478,33 @@
       transition: 0.22s ease;
     }
 
+    .hero-help {
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .hero-help-card {
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-help-title {
+      font-size: 12px;
+      color: #fff8de;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .hero-help-body {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--sub);
+    }
+
     .hero-actions {
       width: 100%;
       display: grid;
@@ -682,12 +531,45 @@
       gap: 12px;
     }
 
+    .feature-card,
     .now-card {
       padding: 16px;
       border-radius: 22px;
       background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .feature-title {
+      font-size: 15px;
+      margin: 0 0 10px;
+      color: #fff9e7;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .feature-box {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .feature-box strong {
+      display: block;
+      font-size: 13px;
+      color: #fff7df;
+      margin-bottom: 5px;
+    }
+
+    .feature-box span {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--sub);
     }
 
     .now-top {
@@ -944,9 +826,7 @@
     }
 
     @media (max-width: 860px) {
-      .main {
-        grid-template-columns: 1fr;
-      }
+      .main { grid-template-columns: 1fr; }
 
       .hero {
         min-height: auto;
@@ -955,13 +835,9 @@
         gap: 14px;
       }
 
-      .character-wrap {
-        min-height: 360px;
-      }
-
-      .hero-actions {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .avatar-zone { min-height: 250px; }
+      .hero-actions { grid-template-columns: repeat(3, 1fr); }
+      .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 640px) {
@@ -975,31 +851,13 @@
         padding-right: 10px;
       }
 
-      .reply-row {
-        grid-template-columns: 1fr;
-      }
-
-      .card-grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .hero-actions {
-        grid-template-columns: 1fr;
-      }
-
-      .step-dots {
-        gap: 6px;
-      }
-
-      .step-dot {
-        font-size: 10px;
-        padding: 6px 4px;
-      }
-
-      .session-title {
-        font-size: 19px;
-      }
+      .reply-row { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+      .hero-actions { grid-template-columns: 1fr; }
+      .step-dots { gap: 6px; }
+      .step-dot { font-size: 10px; padding: 6px 4px; }
+      .session-title { font-size: 19px; }
+      .feature-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1013,8 +871,8 @@
       <div class="topbar">
         <div class="brand-row">
           <div class="title-block">
-            <div class="title">HIDEKO YAOYOROZU</div>
-            <div class="subtitle">5-minute guided talk / one-screen flow / cute wa-princess</div>
+            <div class="title">こぶぶのお気軽トーク</div>
+            <div class="subtitle">気分整理・偉人の言葉・腕時計の蘊蓄・カード遊びを、ひとつの画面で軽く回す会話体験</div>
           </div>
           <div class="meta-row">
             <div class="pill"><strong id="etaLabel">約5分</strong></div>
@@ -1036,10 +894,9 @@
         <aside class="hero">
           <div class="moon"></div>
           <div class="glow"></div>
-          <div class="pedestal"></div>
 
-          <div class="character-wrap">
-            <div class="character" id="character" title="タップでひとこと">
+          <div class="avatar-zone">
+            <div class="avatar" id="character" title="タップでひとこと">
               <div class="tiara"><span></span><span></span><span></span><span></span><span></span></div>
               <div class="bun"></div>
               <div class="bun2"></div>
@@ -1055,22 +912,17 @@
                 <div class="mouth"></div>
               </div>
               <div class="fringe"></div>
-              <div class="neck"></div>
-              <div class="shoulder"></div>
-              <div class="sleeve left"></div>
-              <div class="sleeve right"></div>
-              <div class="arm left"><div class="hand"></div></div>
-              <div class="arm right"><div class="hand"></div></div>
-              <div class="kimono"></div>
-              <div class="obi"></div>
-              <div class="leg left"></div>
-              <div class="leg right"></div>
-              <div class="shoe left"></div>
-              <div class="shoe right"></div>
             </div>
           </div>
 
-          <div class="love-bubble" id="loveBubble">一目で流れがわかるように、今日はずっとここで進めるね。</div>
+          <div class="love-bubble" id="loveBubble">まずは下の「できること」を見れば、この画面で何ができるか一目で分かるようにしたよ。</div>
+
+          <div class="hero-help">
+            <div class="hero-help-card">
+              <div class="hero-help-title">この画面でできること</div>
+              <div class="hero-help-body">質問に答える / 偉人の言葉を見る / 腕時計の蘊蓄を楽しむ / カードを引く / 自由入力で話す</div>
+            </div>
+          </div>
 
           <div class="hero-actions">
             <button class="hero-btn" id="restartBtn">最初から</button>
@@ -1080,23 +932,33 @@
         </aside>
 
         <section class="content">
+          <div class="feature-card">
+            <h2 class="feature-title">まず何をすればいい？</h2>
+            <div class="feature-grid">
+              <div class="feature-box"><strong>1. 気分を選ぶ</strong><span>下の選択肢を押すだけで進みます。</span></div>
+              <div class="feature-box"><strong>2. 返答を見る</strong><span>偉人の言葉や助言がその場で切り替わります。</span></div>
+              <div class="feature-box"><strong>3. 遊ぶ</strong><span>途中でカードや腕時計の蘊蓄にも寄れます。</span></div>
+              <div class="feature-box"><strong>4. まとめる</strong><span>最後に今日の一手を決めて終わります。</span></div>
+            </div>
+          </div>
+
           <div class="now-card">
             <div class="now-top">
               <div class="badge" id="badgeText">STEP 1 / はじめに</div>
               <div class="pill" id="paceText">テンポ: さくさく</div>
             </div>
             <h1 class="session-title" id="questionTitle">今の気分にいちばん近いものを選んで。</h1>
-            <div class="session-sub" id="questionSub">この画面の中だけで、相談 → 返答 → 脱線のひとこと → 次の質問、の流れが続きます。</div>
+            <div class="session-sub" id="questionSub">下のボタンを1つ押すだけで進みます。迷ったら適当でも大丈夫です。</div>
             <div class="reply-row" id="quickReplies"></div>
           </div>
 
           <div class="inline-zone">
             <section class="section-card" id="insightSection">
               <div class="section-title">
-                <h2>ひとことコーナー</h2>
+                <h2>いまの返答</h2>
                 <span class="pill" id="insightType">準備中</span>
               </div>
-              <div class="section-help">質問に答えるたびに、偉人の言葉・腕時計の蘊蓄・小さな助言がここに切り替わります。</div>
+              <div class="section-help">ここに、偉人の言葉・腕時計の蘊蓄・小さな助言が出ます。</div>
               <div class="insight-box">
                 <div class="insight-kicker" id="insightKicker">WELCOME</div>
                 <div class="insight-main" id="insightMain">まずは気分を選んでください。</div>
@@ -1112,7 +974,7 @@
                 <h2>カードを選ぶ</h2>
                 <span class="pill">この場で選択</span>
               </div>
-              <div class="section-help">右でも下でもなく、いま見ている流れの真下に出します。押した結果もこの下に即表示します。</div>
+              <div class="section-help">結果はすぐ下に出ます。別画面には飛びません。</div>
               <div class="card-grid" id="cardGrid"></div>
               <div class="output" id="tarotOutput">カードを選んでください。</div>
             </section>
@@ -1122,7 +984,7 @@
                 <h2>会話ログ</h2>
                 <span class="pill" id="logCount">0件</span>
               </div>
-              <div class="section-help">どこまで進んだか迷わないように、要点だけをここに残します。</div>
+              <div class="section-help">どこまで進んだか見失わないよう、要点だけ残します。</div>
               <div class="log" id="sessionLog"></div>
             </section>
           </div>
@@ -1130,7 +992,7 @@
           <div class="composer">
             <textarea id="freeInput" placeholder="自由入力でも返せます。例：焦って優先順位を見失っている / 最近の気分は重いけど進みたい"></textarea>
             <div class="composer-actions">
-              <div class="hint">短くても大丈夫。送ると、その内容に合わせて次の問いとひとことを返します。</div>
+              <div class="hint">選択肢でも自由入力でもOKです。短くて大丈夫です。</div>
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
                 <button id="sendBtn" class="primary">送る</button>
                 <button id="skipBtn">次へ進める</button>
@@ -1198,68 +1060,28 @@
     }
 
     const steps = [
-      { name: 'はじめに', mode: '気分確認', title: '今の気分にいちばん近いものを選んで。', sub: 'ここから約5分。質問に答えるたびに、偉人の言葉や腕時計の蘊蓄を差し込みながら進めます。', replies: ['ちょっと疲れてる', '焦って空回り', '前向きに進みたい', 'なんとなく話したい'] },
-      { name: '整理', mode: '状態把握', title: '今いちばん引っかかっているのは？', sub: '悩みの種類を絞ります。問題の輪郭が見えないと、助言は全部ぼやけます。', replies: ['優先順位が散ってる', '気持ちが重い', '人間関係が気になる', '自分の軸がぶれる'] },
-      { name: '深掘り', mode: '核心確認', title: '本当は、どうなりたい？', sub: '不快の回避ではなく、望む状態を言葉にすると進み方が変わります。', replies: ['落ち着いて動きたい', 'はっきり決めたい', '自信を戻したい', 'ちゃんと前進したい'] },
-      { name: '遊び', mode: '寄り道', title: '少し遊びを入れる。どれが気になる？', sub: 'テンポを落とさず、流れの中で一瞬だけ脱線します。', replies: ['偉人の言葉', '腕時計の蘊蓄', 'カードを引く', 'そのまま進む'] },
-      { name: '行動', mode: '一手決定', title: '今日中にやる一手を選ぶ。', sub: '大きな決意ではなく、すぐ終わる具体策に落とします。', replies: ['1件だけ片づける', '連絡を1本送る', '10分だけ着手する', 'やらないことを決める'] },
-      { name: 'しめ', mode: '締めくくり', title: '最後に、今の自分へひとこと。', sub: '短く終わらせます。長く考え込ませないのが今回の設計です。', replies: ['やさしく終える', '少し厳しく背中を押す', '運勢で締める', 'もう一言ほしい'] }
+      { name: 'はじめに', mode: '気分確認', title: '今の気分にいちばん近いものを選んで。', sub: '下のボタンを1つ押すだけで進みます。', replies: ['ちょっと疲れてる', '焦って空回り', '前向きに進みたい', 'なんとなく話したい'] },
+      { name: '整理', mode: '状態把握', title: '今いちばん引っかかっているのは？', sub: '悩みの種類を絞ります。', replies: ['優先順位が散ってる', '気持ちが重い', '人間関係が気になる', '自分の軸がぶれる'] },
+      { name: '深掘り', mode: '核心確認', title: '本当は、どうなりたい？', sub: '望む状態を選ぶと進み方が見えます。', replies: ['落ち着いて動きたい', 'はっきり決めたい', '自信を戻したい', 'ちゃんと前進したい'] },
+      { name: '遊び', mode: '寄り道', title: '少し寄り道するならどれ？', sub: 'ここで偉人・時計・カードに寄れます。', replies: ['偉人の言葉', '腕時計の蘊蓄', 'カードを引く', 'そのまま進む'] },
+      { name: '行動', mode: '一手決定', title: '今日中にやる一手を選ぶ。', sub: '小さく具体的な行動に落とします。', replies: ['1件だけ片づける', '連絡を1本送る', '10分だけ着手する', 'やらないことを決める'] },
+      { name: 'しめ', mode: '締めくくり', title: '最後に、今の自分へひとこと。', sub: '短く終わらせます。長く悩ませない設計です。', replies: ['やさしく終える', '少し厳しく背中を押す', '運勢で締める', 'もう一言ほしい'] }
     ];
 
     const philosopherQuotes = [
-      {
-        who: 'エピクテトス',
-        line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳',
-        tip: 'まず事実と解釈を分ける。混ざると苦しさが膨らみます。'
-      },
-      {
-        who: 'マルクス・アウレリウス',
-        line: '「行く手をふさぐものが、かえって道になる」※意訳',
-        tip: '障害を嘆くより、条件として使うほうが前に進みます。'
-      },
-      {
-        who: 'セネカ',
-        line: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳',
-        tip: '不安が消えてからでは遅い。サイズを小さくして着手する。'
-      },
-      {
-        who: '老子',
-        line: '「千里の道も一歩から」',
-        tip: '今日中に終わるサイズまで切る。それが最初の改善です。'
-      },
-      {
-        who: 'ソクラテス',
-        line: '「吟味されない生は、生きるに値しない」※短訳',
-        tip: '答えが出ない原因は、問いが曖昧なことも多いです。'
-      }
+      { who: 'エピクテトス', line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳', tip: 'まず事実と解釈を分ける。混ざると苦しさが膨らみます。' },
+      { who: 'マルクス・アウレリウス', line: '「行く手をふさぐものが、かえって道になる」※意訳', tip: '障害を嘆くより、条件として使うほうが前に進みます。' },
+      { who: 'セネカ', line: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳', tip: '不安が消えてからでは遅い。サイズを小さくして着手する。' },
+      { who: '老子', line: '「千里の道も一歩から」', tip: '今日中に終わるサイズまで切る。それが最初の改善です。' },
+      { who: 'ソクラテス', line: '「吟味されない生は、生きるに値しない」※短訳', tip: '答えが出ない原因は、問いが曖昧なことも多いです。' }
     ];
 
     const watchTrivia = [
-      {
-        title: 'WATCH TRIVIA',
-        line: '機械式腕時計はゼンマイを動力にして、てんぷという調速機構で進みます。',
-        tip: 'つまり魅力は電子の正確さではなく、機械の連続運動そのもの。'
-      },
-      {
-        title: 'WATCH TRIVIA',
-        line: 'クロノグラフは時間を測る追加機構で、普通の三針より構造が複雑です。',
-        tip: '見た目の情報量が多いぶん、道具感やメカ感が強く出ます。'
-      },
-      {
-        title: 'WATCH TRIVIA',
-        line: 'ダイバーズウォッチは回転ベゼルで経過時間を読む設計が代表的です。',
-        tip: '実用品の文法が、そのままデザインの魅力になっています。'
-      },
-      {
-        title: 'WATCH TRIVIA',
-        line: 'サファイアクリスタルは硬度が高く、日常の擦り傷に強い素材として使われます。',
-        tip: '見た目の透明感と実用性を両立しやすいのが強みです。'
-      },
-      {
-        title: 'WATCH TRIVIA',
-        line: 'ケース径だけでなく、ラグ・トゥ・ラグの長さで装着感は大きく変わります。',
-        tip: '数字だけでなく、腕に乗る形を見るのが本質です。'
-      }
+      { title: 'WATCH TRIVIA', line: '機械式腕時計はゼンマイを動力にして、てんぷという調速機構で進みます。', tip: '魅力は電子の正確さではなく、機械の連続運動そのもの。' },
+      { title: 'WATCH TRIVIA', line: 'クロノグラフは時間を測る追加機構で、普通の三針より構造が複雑です。', tip: '見た目の情報量が多いぶん、道具感やメカ感が強く出ます。' },
+      { title: 'WATCH TRIVIA', line: 'ダイバーズウォッチは回転ベゼルで経過時間を読む設計が代表的です。', tip: '実用品の文法が、そのままデザインの魅力になります。' },
+      { title: 'WATCH TRIVIA', line: 'サファイアクリスタルは硬度が高く、日常の擦り傷に強い素材です。', tip: '透明感と実用性を両立しやすいのが強みです。' },
+      { title: 'WATCH TRIVIA', line: 'ケース径だけでなく、ラグ・トゥ・ラグの長さで装着感は大きく変わります。', tip: '数字だけでなく、腕にどう乗るかを見るのが本質です。' }
     ];
 
     const microAdvice = [
@@ -1287,7 +1109,6 @@
       step: 0,
       log: [],
       historyCount: 0,
-      insightIndex: 0,
       currentTarot: null
     };
 
@@ -1408,7 +1229,7 @@
         renderStep();
       } else {
         questionTitle.textContent = 'ここまでで十分。今日はこのへんで締めよう。';
-        questionSub.textContent = '長く引っぱらない設計です。必要なら最初からもう1周できます。';
+        questionSub.textContent = '必要なら最初からもう1周できます。';
         quickReplies.innerHTML = '';
         ['もう一周する', 'カードで締める', '偉人の言葉をもう一つ', '腕時計の蘊蓄をもう一つ'].forEach(label => {
           const btn = document.createElement('button');
@@ -1471,11 +1292,11 @@
     pullCardBtn.addEventListener('click', showTarot);
 
     const tapLines = [
-      '今日は全部この画面で進めるよ。',
-      '流れが見えると、考えやすくなる。',
-      '長く悩ませないで、次へ送るね。',
-      'ちゃんと進んでる。見失わなくて大丈夫。',
-      '一問一答で、軽く前へ行こう。'
+      'まずは下の選択肢を1つ押せば進むよ。',
+      'この画面で全部できるようにしてあるよ。',
+      '偉人の言葉も、時計の蘊蓄も、カードもここ。',
+      '今どこまで進んだかは上のバーで見てね。',
+      '迷ったら適当に押しても大丈夫。'
     ];
 
     character.addEventListener('click', () => {
@@ -1491,7 +1312,7 @@
       btn.className = 'pick-card';
       btn.innerHTML = `<span aria-hidden="true">${card.icon}</span>`;
       btn.title = card.name;
-      const choose = (e) => {
+      const choose = () => {
         document.querySelectorAll('.pick-card').forEach(el => el.classList.remove('active'));
         btn.classList.add('active');
         state.currentTarot = card;
@@ -1505,7 +1326,7 @@
       btn.addEventListener('click', choose);
       btn.addEventListener('touchend', (e) => {
         e.preventDefault();
-        choose(e);
+        choose();
       }, { passive: false });
       cardGrid.appendChild(btn);
     });
