@@ -246,34 +246,7 @@
       transition: width 0.28s ease;
     }
 
-    .step-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-    }
-
-    .step-chip {
-      text-align: center;
-      padding: 8px 6px;
-      border-radius: 14px;
-      font-size: 11px;
-      background: rgba(255,255,255,0.64);
-      color: #8b7dae;
-      border: 1px solid rgba(120,100,180,0.08);
-    }
-
-    .step-chip.active {
-      background: linear-gradient(180deg, rgba(255,214,127,0.36), rgba(255,159,207,0.18));
-      color: #5c4576;
-      border-color: rgba(255,214,127,0.22);
-    }
-
-    .step-chip.done {
-      background: rgba(185,239,222,0.44);
-      color: #507267;
-      border-color: rgba(120,210,175,0.18);
-    }
-
+    
     .main {
       padding: 16px;
       display: grid;
@@ -558,7 +531,7 @@
             <div class="mini-face"><span>🫧</span></div>
             <div>
               <div class="title">こぶぶのお気軽トーク</div>
-              <div class="subtitle">トークに集中するための、シンプルな悩み相談モード</div>
+              <div class="subtitle">選んで進める、シンプルなトーク</div>
             </div>
           </div>
           <div class="meta">
@@ -569,11 +542,10 @@
         </div>
         <div class="progress-area">
           <div class="progress-head">
-            <span id="progressText">1 / 6 ステップ</span>
-            <span id="modeText">いまは導入です</span>
+            <span id="progressText">1 / 6</span>
+            <span id="modeText">選んで進む</span>
           </div>
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-          <div class="step-row" id="stepRow"></div>
         </div>
       </div>
 
@@ -582,9 +554,9 @@
           <div class="screen-head">
             <div>
               <h2 class="section-title">トーク</h2>
-              <div class="section-sub">いま必要な会話だけを表示します。返答中は次の操作を出しません。</div>
+              <div class="section-sub">選ぶだけで進みます。</div>
             </div>
-            <div class="pill" id="phasePill">STEP 1 / はじめに</div>
+            <div class="pill" id="phasePill">1 / 6</div>
           </div>
 
           <div class="chat-log" id="chatLog"></div>
@@ -593,7 +565,7 @@
             <div class="typing-box" id="typingBox">こぶぶが考え中…</div>
             <div class="question-box" id="questionBox">今の気分にいちばん近いものを選んでください。</div>
             <div class="choice-grid" id="choiceGrid"></div>
-            <div class="utility-row" id="utilityRow"></div>
+            <div class="utility-row" id="utilityRow" hidden></div>
           </div>
         </section>
 
@@ -601,7 +573,7 @@
           <div class="screen-head">
             <div>
               <h2 class="section-title" id="summaryTitle">途中の総括</h2>
-              <div class="section-sub" id="summarySub">ここまでの会話をやわらかく整理します。</div>
+              <div class="section-sub" id="summarySub">ここまでをまとめます。</div>
             </div>
             <div class="pill" id="summaryPill">中間まとめ</div>
           </div>
@@ -613,7 +585,7 @@
           <div class="screen-head">
             <div>
               <h2 class="section-title">最後のタロット</h2>
-              <div class="section-sub">ここまでの会話を踏まえて、最後に1枚だけ選びます。選べるのは一度だけです。</div>
+              <div class="section-sub">最後に1枚だけ選びます。</div>
             </div>
             <div class="pill">FINAL</div>
           </div>
@@ -621,17 +593,7 @@
           <div class="final-body" id="finalBody">1枚選ぶと、そのまま総括画面へ進みます。</div>
         </section>
 
-        <section class="input-card" id="inputCard">
-          <div class="input-title">自由入力</div>
-          <textarea id="freeInput" placeholder="例：最近ずっと焦りがある / 頭では分かっているのに動けない / 少し励ましてほしい"></textarea>
-          <div class="input-actions">
-            <div class="hint-text" id="hintText">送れるのは今のターンが終わってからです。</div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="send-btn" id="sendBtn">送る</button>
-              <button class="soft-btn" id="skipBtn">次へ進む</button>
-            </div>
-          </div>
-        </section>
+        <section class="input-card" id="inputCard" hidden></section>
       </div>
     </section>
   </main>
@@ -640,8 +602,7 @@
     const stars = document.getElementById('stars');
     const petals = document.getElementById('petals');
     const particles = document.getElementById('particles');
-    const stepRow = document.getElementById('stepRow');
-    const progressFill = document.getElementById('progressFill');
+        const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
     const stepLabel = document.getElementById('stepLabel');
     const modeText = document.getElementById('modeText');
@@ -771,12 +732,12 @@
       chatScreen.hidden = name !== 'chat';
       summaryScreen.hidden = name !== 'summary';
       finaleScreen.hidden = name !== 'finale';
-      inputCard.hidden = name !== 'chat' || state.locked || state.done;
+      inputCard.hidden = true;
       hintText.textContent = name === 'chat'
-        ? (state.done ? 'いまは最後のタロットだけが操作できます。' : '送れるのは今のターンが終わってからです。')
+        ? (state.done ? '最後に1枚、選んでね。' : 'こぶぶに話しかけてね。')
         : name === 'summary'
-          ? '総括を読み終えたら会話へ戻れます。'
-          : 'いまはタロットだけが選べます。';
+          ? '読み終わったら、また話せるよ。'
+          : '最後に1枚だけ選んでね。';
     }
 
     function setLocked(flag) {
@@ -784,9 +745,8 @@
       typingBox.classList.toggle('show', flag);
       choiceGrid.hidden = flag;
       utilityRow.hidden = flag;
-      inputCard.hidden = flag || state.currentScreen !== 'chat' || state.done;
-      sendBtn.disabled = flag;
-      skipBtn.disabled = flag;
+      inputCard.hidden = true;
+      
     }
 
     function updateStepUI() {
@@ -794,19 +754,11 @@
       progressFill.style.width = `${pct}%`;
       const currentName = state.done ? 'タロット' : steps[state.step].name;
       stepLabel.textContent = currentName;
-      progressText.textContent = state.done ? '6 / 6 ステップ完了' : `${state.step + 1} / 6 ステップ`;
-      modeText.textContent = state.done ? '会話が終わり、最後のタロットへ進めます' : `いまは ${steps[state.step].mode} です`;
+      progressText.textContent = state.done ? '6 / 6' : `${state.step + 1} / 6`;
+      modeText.textContent = state.done ? 'タロット' : steps[state.step].name;
       etaLabel.textContent = state.done ? '会話完了' : `残り約${Math.max(1, 5 - state.step)}分`;
-      phasePill.textContent = state.done ? 'FINAL / タロット' : `STEP ${state.step + 1} / ${steps[state.step].name}`;
-      stepRow.innerHTML = '';
-      steps.forEach((s, i) => {
-        const chip = document.createElement('div');
-        chip.className = 'step-chip';
-        if (i < state.step || state.done) chip.classList.add('done');
-        if (!state.done && i === state.step) chip.classList.add('active');
-        chip.textContent = s.name;
-        stepRow.appendChild(chip);
-      });
+      phasePill.textContent = state.done ? 'FINAL' : `${state.step + 1} / 6`;
+      
     }
 
     function addMessage(role, text) {
@@ -982,7 +934,7 @@
     function renderActions() {
       if (state.currentScreen !== 'chat') return;
       if (state.done) {
-        questionBox.textContent = '会話はここで区切りです。最後のタロットだけが、いまの操作です。';
+        questionBox.textContent = '最後に1枚、タロットを選んでね。';
         choiceGrid.innerHTML = '';
         utilityRow.innerHTML = '';
         const btn = document.createElement('button');
@@ -1009,18 +961,8 @@
       });
 
       utilityRow.innerHTML = '';
-      [
-        { label: '偉人の言葉', run: injectWisdom },
-        { label: '時計の蘊蓄', run: injectWatch },
-        { label: '途中の総括', run: () => openSummary(false) }
-      ].forEach(item => {
-        const btn = document.createElement('button');
-        btn.className = 'ghost-btn';
-        btn.textContent = item.label;
-        btn.addEventListener('click', item.run);
-        utilityRow.appendChild(btn);
-      });
-      inputCard.hidden = state.locked || state.currentScreen !== 'chat';
+      utilityRow.hidden = true;
+      inputCard.hidden = true;
     }
 
     function resetSession() {
@@ -1040,26 +982,12 @@
       updateStepUI();
       showScreen('chat');
       renderActions();
-      addMessage('ai', 'こんにちは。ここでは軽く話しながら、気持ちを少しずつ整えていきます。');
-      addMessage('ai', '会話が終わるまでは、次の選択肢やタロットは先に見せません。まずは今の気分から始めましょう。');
+      addMessage('ai', 'こんにちは。今日はどんな気分？');
+      questionBox.textContent = '今の気分にいちばん近いものを選んでください。';
       scrollChatBottom();
     }
 
-    sendBtn.addEventListener('click', () => {
-      const text = freeInput.value.trim();
-      if (!text || state.locked || state.done) return;
-      freeInput.value = '';
-      handleFreeInput(text);
-    });
-
-    skipBtn.addEventListener('click', () => {
-      if (state.locked) return;
-      if (state.done) {
-        showFinale();
-        return;
-      }
-      handleChoice('この質問はスキップして次へ進みたい');
-    });
+    
 
     tarotDeck.forEach(card => {
       const btn = document.createElement('button');
@@ -1152,6 +1080,8 @@
     }
 
     bgmBtn.addEventListener('click', toggleBgm);
+
+    sendBtn.textContent = 'こぶぶに話す';
 
     resetSession();
   </script>
