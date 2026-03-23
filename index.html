@@ -6,21 +6,21 @@
   <title>HIDEKO YAOYOROZU</title>
   <style>
     :root {
-      --bg1: #0d0a1d;
-      --bg2: #1d1038;
-      --bg3: #3b1d68;
-      --panel: rgba(17, 11, 34, 0.9);
-      --panel-2: rgba(31, 18, 58, 0.92);
-      --line: rgba(255,255,255,0.14);
-      --text: #fff7fb;
-      --sub: #e3d7fb;
-      --gold: #ffd66e;
-      --pink: #ff8cd2;
-      --rose: #ff6ab0;
-      --mint: #a5ffe3;
-      --violet: #9d7bff;
-      --shadow: 0 14px 32px rgba(0,0,0,0.36);
-      --pixel-shadow: 0 0 0 2px rgba(255,255,255,0.05), 0 6px 0 rgba(0,0,0,0.18), 0 12px 24px rgba(0,0,0,0.24);
+      --bg1: #0a0715;
+      --bg2: #181032;
+      --bg3: #2b1953;
+      --panel: rgba(18, 12, 34, 0.92);
+      --panel-2: rgba(29, 19, 54, 0.9);
+      --line: rgba(255,255,255,0.13);
+      --text: #fff8fc;
+      --sub: #ddd0fb;
+      --gold: #ffd56c;
+      --pink: #ff8fd5;
+      --violet: #a080ff;
+      --mint: #9dfadf;
+      --rose: #ff6aaa;
+      --ok: #7af0c3;
+      --shadow: 0 16px 34px rgba(0,0,0,0.34);
     }
 
     * { box-sizing: border-box; }
@@ -31,227 +31,234 @@
       font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 15%, rgba(255,140,210,0.18), transparent 22%),
-        radial-gradient(circle at 84% 18%, rgba(165,255,227,0.12), transparent 20%),
-        radial-gradient(circle at 50% 100%, rgba(157,123,255,0.28), transparent 38%),
+        radial-gradient(circle at 15% 10%, rgba(255,143,213,0.18), transparent 20%),
+        radial-gradient(circle at 86% 14%, rgba(157,250,223,0.11), transparent 18%),
+        radial-gradient(circle at 50% 100%, rgba(160,128,255,0.22), transparent 35%),
         linear-gradient(180deg, var(--bg3), var(--bg1));
       overflow-x: hidden;
     }
 
     body.night {
       background:
-        radial-gradient(circle at 18% 16%, rgba(157,123,255,0.15), transparent 22%),
-        radial-gradient(circle at 80% 12%, rgba(255,214,110,0.08), transparent 18%),
-        radial-gradient(circle at 50% 100%, rgba(8,8,24,0.6), transparent 40%),
-        linear-gradient(180deg, #080511, #11091d 50%, #1a0f30);
+        radial-gradient(circle at 20% 12%, rgba(160,128,255,0.12), transparent 20%),
+        radial-gradient(circle at 84% 12%, rgba(255,213,108,0.08), transparent 16%),
+        radial-gradient(circle at 50% 100%, rgba(6,6,18,0.6), transparent 38%),
+        linear-gradient(180deg, #07040f, #11091d 52%, #190f2e);
     }
 
-    .stars, .particles, .petals {
+    .stars, .petals, .particles {
       position: fixed;
       inset: 0;
       pointer-events: none;
       overflow: hidden;
+      z-index: 0;
     }
 
     .star {
       position: absolute;
       width: 3px;
       height: 3px;
-      background: rgba(255,255,255,0.96);
       border-radius: 50%;
+      background: rgba(255,255,255,0.95);
       box-shadow: 0 0 10px rgba(255,255,255,0.7);
-      animation: twinkle 2.6s ease-in-out infinite;
+      animation: twinkle 2.8s ease-in-out infinite;
     }
 
     @keyframes twinkle {
-      0%,100% { opacity: 0.2; transform: scale(0.7); }
-      50% { opacity: 1; transform: scale(1.35); }
+      0%, 100% { opacity: 0.16; transform: scale(0.75); }
+      50% { opacity: 1; transform: scale(1.4); }
     }
 
     .petal {
       position: absolute;
       width: 10px;
       height: 16px;
-      background: linear-gradient(180deg, rgba(255,182,228,0.95), rgba(255,110,176,0.65));
-      border-radius: 10px 10px 10px 2px;
-      opacity: 0.8;
+      border-radius: 12px 12px 12px 2px;
+      background: linear-gradient(180deg, rgba(255,185,230,0.95), rgba(255,106,170,0.68));
       animation: petalFall linear infinite;
-      filter: blur(0.2px);
+      opacity: 0.8;
     }
 
     @keyframes petalFall {
-      0% { transform: translateY(-5vh) translateX(0) rotate(0deg); opacity: 0; }
+      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
       10% { opacity: 0.8; }
-      100% { transform: translateY(110vh) translateX(40px) rotate(320deg); opacity: 0; }
+      100% { transform: translateY(110vh) translateX(42px) rotate(320deg); opacity: 0; }
     }
 
     .shell {
-      width: min(1180px, calc(100vw - 20px));
+      width: min(980px, calc(100vw - 16px));
       margin: 0 auto;
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 18px;
-      padding: 14px 0 24px;
+      padding: 10px 0 22px;
       position: relative;
-      z-index: 2;
+      z-index: 1;
     }
 
-    .panel {
+    .app {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 26px;
+      border-radius: 28px;
       box-shadow: var(--shadow);
+      overflow: hidden;
       backdrop-filter: blur(12px);
-      overflow: hidden;
-    }
-
-    .stage {
-      min-height: 760px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 22%, rgba(255,214,110,0.1), transparent 20%),
-        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
-    }
-
-    .stage::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.04), transparent 20%),
-        radial-gradient(circle at 50% 78%, rgba(255,140,210,0.11), transparent 25%);
-      pointer-events: none;
     }
 
     .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 16px 10px;
-      position: relative;
-      z-index: 3;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
     }
 
-    .brand {
+    .brand-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .title-block {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
-    .brand .title {
+    .title {
       font-size: 15px;
+      font-weight: 900;
       letter-spacing: 0.24em;
       color: var(--gold);
-      font-weight: 800;
     }
 
-    .brand .sub {
+    .subtitle {
       font-size: 11px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       color: var(--sub);
-      opacity: 0.95;
     }
 
-    .controls {
+    .meta-row {
       display: flex;
       gap: 8px;
+      align-items: center;
       flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
-    button {
-      appearance: none;
-      border: 1px solid rgba(255,255,255,0.14);
-      color: var(--text);
-      background: linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.04));
-      padding: 11px 14px;
-      border-radius: 14px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
-      box-shadow: 0 5px 14px rgba(0,0,0,0.18);
-      touch-action: manipulation;
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      min-height: 34px;
     }
 
-    button:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.26); }
-    button:active { transform: translateY(1px) scale(0.99); }
+    .pill strong { color: #fff7e0; }
 
-    .btn-gold {
-      background: linear-gradient(180deg, rgba(255,214,110,0.24), rgba(255,106,176,0.1));
-      border-color: rgba(255,214,110,0.34);
-      color: #fffbed;
+    .progress-block {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
     }
 
-    .scene {
-      position: relative;
-      flex: 1;
-      min-height: 480px;
+    .progress-head {
       display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 20px 20px 0;
-      z-index: 2;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--sub);
+    }
+
+    .progress-track {
+      height: 10px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,213,108,0.96), rgba(255,106,170,0.9), rgba(160,128,255,0.9));
+      transition: width 0.28s ease;
+    }
+
+    .step-dots {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+
+    .step-dot {
+      text-align: center;
+      padding: 7px 6px;
+      border-radius: 12px;
+      font-size: 11px;
+      background: rgba(255,255,255,0.05);
+      color: #cabef3;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: 0.2s ease;
+    }
+
+    .step-dot.active {
+      background: linear-gradient(180deg, rgba(255,213,108,0.18), rgba(255,106,170,0.1));
+      color: #fff8dd;
+      border-color: rgba(255,213,108,0.28);
+      transform: translateY(-1px);
+    }
+
+    .step-dot.done {
+      background: rgba(122,240,195,0.12);
+      color: #ddfff3;
+      border-color: rgba(122,240,195,0.22);
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 700px;
+      padding: 18px 12px 16px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255,213,108,0.08), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
     }
 
     .moon {
       position: absolute;
-      top: 44px;
-      right: 70px;
-      width: 104px;
-      height: 104px;
+      top: 34px;
+      right: 26px;
+      width: 84px;
+      height: 84px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,247,213,0.9), rgba(255,214,110,0.62) 54%, rgba(255,214,110,0.06) 70%, transparent 72%);
-      filter: blur(0.4px);
+      background: radial-gradient(circle, rgba(255,247,213,0.92), rgba(255,213,108,0.62) 55%, rgba(255,213,108,0.04) 70%, transparent 72%);
       opacity: 0.92;
-    }
-
-    .torii {
-      position: absolute;
-      bottom: 112px;
-      width: 340px;
-      height: 220px;
-      opacity: 0.18;
-      filter: blur(0.1px);
-    }
-
-    .torii::before,
-    .torii::after {
-      content: "";
-      position: absolute;
-      background: linear-gradient(180deg, rgba(255,214,110,0.95), rgba(255,106,176,0.68));
-    }
-
-    .torii::before {
-      left: 50%; top: 0;
-      width: 260px; height: 16px;
-      transform: translateX(-50%);
-      border-radius: 3px;
-      box-shadow: 0 20px 0 rgba(255,214,110,0.55);
-    }
-
-    .torii::after {
-      left: 50%; bottom: 0;
-      width: 12px; height: 180px;
-      transform: translateX(-84px);
-      border-radius: 4px;
-      box-shadow: 168px 0 0 rgba(255,214,110,0.8);
     }
 
     .glow {
       position: absolute;
-      bottom: 118px;
-      width: 420px;
-      height: 380px;
+      bottom: 160px;
+      width: 280px;
+      height: 280px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,140,210,0.26) 0%, rgba(255,214,110,0.14) 30%, transparent 68%);
+      background: radial-gradient(circle, rgba(255,143,213,0.24) 0%, rgba(255,213,108,0.12) 34%, transparent 70%);
       filter: blur(12px);
       animation: pulse 2.8s ease-in-out infinite;
-      pointer-events: none;
     }
 
     @keyframes pulse {
@@ -259,161 +266,159 @@
       50% { transform: scale(1.04); opacity: 1; }
     }
 
-    .character-wrap {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
     .pedestal {
       position: absolute;
-      bottom: 72px;
-      width: 280px;
-      height: 38px;
+      bottom: 120px;
+      width: 200px;
+      height: 30px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255,255,255,0.22), rgba(255,255,255,0.04) 60%, transparent 72%);
       filter: blur(2px);
     }
 
+    .character-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      flex: 1;
+      z-index: 2;
+    }
+
     .character {
       position: relative;
-      width: 284px;
-      height: 540px;
-      filter: drop-shadow(0 16px 26px rgba(0,0,0,0.36));
-      cursor: pointer;
+      width: 232px;
+      height: 470px;
+      filter: drop-shadow(0 16px 24px rgba(0,0,0,0.35));
       transform-origin: center bottom;
-      animation: floaty 3.4s ease-in-out infinite;
+      animation: floaty 3.3s ease-in-out infinite;
+      cursor: pointer;
       user-select: none;
-      z-index: 4;
     }
 
     .character.talk { animation-duration: 1.8s; }
 
     @keyframes floaty {
-      0%,100% { transform: translateY(0px); }
-      50% { transform: translateY(-9px); }
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     .hair-back {
       position: absolute;
-      left: 54px;
-      top: 46px;
-      width: 174px;
-      height: 250px;
-      background: linear-gradient(180deg, #34184c, #14081d 74%);
-      border-radius: 90px 90px 54px 54px;
+      left: 42px;
+      top: 48px;
+      width: 146px;
+      height: 214px;
+      border-radius: 72px 72px 48px 48px;
+      background: linear-gradient(180deg, #36194c, #13071c 76%);
       z-index: 1;
     }
 
+    .bun, .bun2 {
+      position: absolute;
+      top: 58px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #36194c, #16071e);
+      z-index: 1;
+    }
+
+    .bun { left: 38px; }
+    .bun2 { right: 38px; }
+
     .face {
       position: absolute;
-      left: 92px;
-      top: 70px;
-      width: 102px;
-      height: 126px;
+      left: 76px;
+      top: 72px;
+      width: 82px;
+      height: 104px;
+      border-radius: 42px 42px 34px 34px;
       background: linear-gradient(180deg, #ffe7d4, #ffd5c0 84%);
-      border-radius: 50px 50px 42px 42px;
       z-index: 4;
-      box-shadow: inset 0 -6px 0 rgba(255,188,151,0.24);
+      box-shadow: inset 0 -5px 0 rgba(255,188,151,0.22);
     }
 
     .fringe {
       position: absolute;
-      left: 80px;
-      top: 56px;
-      width: 128px;
-      height: 78px;
-      background: linear-gradient(180deg, #381a50, #190921);
-      border-radius: 62px 62px 24px 24px;
+      left: 64px;
+      top: 60px;
+      width: 106px;
+      height: 66px;
+      border-radius: 50px 50px 22px 22px;
+      background: linear-gradient(180deg, #371a4d, #180920);
       z-index: 5;
     }
 
     .fringe::after {
       content: "";
       position: absolute;
-      left: 12px;
-      top: 18px;
-      width: 42px;
-      height: 36px;
-      background: #1a0822;
-      border-radius: 26px 0 26px 20px;
-      transform: rotate(-16deg);
+      left: 10px;
+      top: 16px;
+      width: 34px;
+      height: 28px;
+      background: #180920;
+      border-radius: 22px 0 22px 18px;
+      transform: rotate(-15deg);
     }
 
-    .hair-side-left,
-    .hair-side-right {
+    .hair-side-left, .hair-side-right {
       position: absolute;
-      top: 108px;
-      width: 38px;
-      height: 146px;
-      background: linear-gradient(180deg, #36184d, #13071c);
-      border-radius: 22px;
+      top: 104px;
+      width: 30px;
+      height: 122px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #36194d, #13071c);
       z-index: 3;
     }
 
-    .hair-side-left { left: 70px; transform: rotate(10deg); }
-    .hair-side-right { right: 70px; transform: rotate(-10deg); }
-
-    .bun,
-    .bun2 {
-      position: absolute;
-      top: 58px;
-      width: 34px;
-      height: 34px;
-      background: linear-gradient(180deg, #35184d, #180920);
-      border-radius: 50%;
-      z-index: 2;
-    }
-
-    .bun { left: 60px; }
-    .bun2 { right: 60px; }
+    .hair-side-left { left: 58px; transform: rotate(9deg); }
+    .hair-side-right { right: 58px; transform: rotate(-9deg); }
 
     .flower {
       position: absolute;
-      left: 204px;
-      top: 70px;
-      width: 26px;
-      height: 26px;
+      left: 164px;
+      top: 74px;
+      width: 24px;
+      height: 24px;
       z-index: 8;
     }
 
-    .flower::before,
-    .flower::after {
+    .flower::before, .flower::after {
       content: "";
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.96) 0 15%, rgba(255,140,210,0.88) 18% 52%, transparent 54%);
-      box-shadow: 0 0 10px rgba(255,140,210,0.4);
+      background: radial-gradient(circle, rgba(255,255,255,0.98) 0 14%, rgba(255,143,213,0.88) 16% 52%, transparent 54%);
+      box-shadow: 0 0 10px rgba(255,143,213,0.4);
     }
 
     .flower::after { transform: rotate(45deg); }
 
     .eye {
       position: absolute;
-      top: 52px;
-      width: 18px;
-      height: 12px;
-      background: #3f2140;
+      top: 44px;
+      width: 14px;
+      height: 10px;
       border-radius: 50%;
+      background: #412240;
       z-index: 7;
       animation: blink 4.7s infinite;
     }
 
-    .eye.left { left: 22px; }
-    .eye.right { right: 22px; }
+    .eye.left { left: 18px; }
+    .eye.right { right: 18px; }
 
     .eye::after {
       content: "";
       position: absolute;
-      left: 9px;
+      left: 7px;
       top: 2px;
-      width: 4px;
-      height: 4px;
-      background: rgba(255,255,255,0.9);
+      width: 3px;
+      height: 3px;
       border-radius: 50%;
+      background: rgba(255,255,255,0.92);
     }
 
     @keyframes blink {
@@ -423,172 +428,142 @@
 
     .cheek {
       position: absolute;
-      top: 74px;
-      width: 18px;
-      height: 10px;
-      background: rgba(255,120,156,0.26);
+      top: 64px;
+      width: 14px;
+      height: 8px;
       border-radius: 50%;
+      background: rgba(255,120,156,0.28);
       z-index: 6;
     }
 
-    .cheek.left { left: 12px; }
-    .cheek.right { right: 12px; }
+    .cheek.left { left: 10px; }
+    .cheek.right { right: 10px; }
 
     .mouth {
       position: absolute;
-      left: 41px;
-      top: 87px;
-      width: 18px;
-      height: 8px;
+      left: 32px;
+      top: 74px;
+      width: 16px;
+      height: 7px;
       border-bottom: 3px solid #cc6487;
       border-radius: 0 0 16px 16px;
       z-index: 6;
     }
 
-    .ear {
-      position: absolute;
-      top: 88px;
-      width: 14px;
-      height: 22px;
-      background: #ffd5bf;
-      border-radius: 50%;
-      z-index: 3;
-    }
-
-    .ear.left { left: 84px; }
-    .ear.right { right: 84px; }
-
-    .earring {
-      position: absolute;
-      top: 104px;
-      width: 7px;
-      height: 16px;
-      background: linear-gradient(180deg, #fffdf3, #ffd66e);
-      border-radius: 999px;
-      z-index: 8;
-      box-shadow: 0 0 12px rgba(255,214,110,0.5);
-    }
-
-    .earring.left { left: 88px; }
-    .earring.right { right: 88px; }
-
     .neck {
       position: absolute;
-      left: 120px;
-      top: 184px;
-      width: 46px;
-      height: 40px;
+      left: 97px;
+      top: 164px;
+      width: 34px;
+      height: 32px;
+      border-radius: 16px;
       background: linear-gradient(180deg, #ffd9c4, #f3c3a5);
-      border-radius: 18px;
       z-index: 2;
     }
 
     .shoulder {
       position: absolute;
-      left: 84px;
-      top: 206px;
-      width: 120px;
-      height: 40px;
+      left: 68px;
+      top: 182px;
+      width: 96px;
+      height: 32px;
+      border-radius: 22px 22px 16px 16px;
       background: linear-gradient(180deg, rgba(255,237,246,0.96), rgba(255,206,234,0.94));
-      border-radius: 24px 24px 18px 18px;
       z-index: 3;
-      box-shadow: inset 0 -4px 0 rgba(255,255,255,0.22);
     }
 
     .kimono {
       position: absolute;
-      left: 54px;
-      top: 218px;
-      width: 176px;
-      height: 220px;
-      background: linear-gradient(180deg, #ff95d9 0%, #c962ff 46%, #7c42f3 100%);
+      left: 44px;
+      top: 192px;
+      width: 144px;
+      height: 188px;
+      border-radius: 24px 24px 30px 30px;
       clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
-      border-radius: 28px 28px 34px 34px;
+      background: linear-gradient(180deg, #ff95d9 0%, #c962ff 46%, #7c42f3 100%);
       z-index: 2;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.13), inset 0 -16px 24px rgba(0,0,0,0.14);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.12), inset 0 -14px 22px rgba(0,0,0,0.14);
     }
 
-    .kimono::before,
-    .kimono::after {
+    .kimono::before, .kimono::after {
       content: "";
       position: absolute;
-      top: 18px;
-      width: 56px;
-      height: 96px;
+      top: 16px;
+      width: 46px;
+      height: 84px;
       background: linear-gradient(180deg, rgba(255,239,246,0.96), rgba(255,221,237,0.88));
-      z-index: 3;
     }
 
     .kimono::before {
-      left: 24px;
+      left: 18px;
       clip-path: polygon(0 0, 100% 0, 78% 100%, 20% 100%);
-      border-radius: 16px 16px 24px 18px;
+      border-radius: 16px 16px 22px 18px;
       transform: rotate(8deg);
     }
 
     .kimono::after {
-      right: 24px;
+      right: 18px;
       clip-path: polygon(0 0, 100% 0, 80% 100%, 22% 100%);
-      border-radius: 16px 16px 18px 24px;
+      border-radius: 16px 16px 18px 22px;
       transform: rotate(-8deg);
     }
 
     .obi {
       position: absolute;
-      left: 74px;
-      top: 304px;
-      width: 136px;
-      height: 46px;
-      background: linear-gradient(180deg, rgba(255,214,110,0.96), rgba(255,155,86,0.9));
-      border-radius: 14px;
+      left: 60px;
+      top: 264px;
+      width: 112px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,213,108,0.98), rgba(255,155,86,0.92));
       z-index: 5;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18);
     }
 
     .obi::before {
       content: "";
       position: absolute;
-      left: 50%; top: -12px;
-      width: 44px; height: 70px;
+      left: 50%; top: -10px;
+      width: 38px;
+      height: 60px;
       transform: translateX(-50%);
-      background: linear-gradient(180deg, rgba(255,214,110,0.95), rgba(255,120,160,0.85));
-      clip-path: polygon(50% 0, 100% 34%, 78% 100%, 22% 100%, 0 34%);
       border-radius: 10px;
+      clip-path: polygon(50% 0, 100% 34%, 78% 100%, 22% 100%, 0 34%);
+      background: linear-gradient(180deg, rgba(255,213,108,0.96), rgba(255,120,160,0.86));
     }
 
     .sleeve {
       position: absolute;
-      top: 242px;
-      width: 58px;
-      height: 130px;
-      background: linear-gradient(180deg, #ff95d9, #9b64ff 84%);
+      top: 214px;
+      width: 48px;
+      height: 110px;
       border-radius: 18px 18px 24px 24px;
+      background: linear-gradient(180deg, #ff95d9, #9b64ff 84%);
       z-index: 1;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1);
     }
 
-    .sleeve.left { left: 28px; transform: rotate(10deg); }
-    .sleeve.right { right: 28px; transform: rotate(-10deg); }
+    .sleeve.left { left: 20px; transform: rotate(10deg); }
+    .sleeve.right { right: 20px; transform: rotate(-10deg); }
 
     .arm {
       position: absolute;
-      top: 250px;
-      width: 24px;
-      height: 122px;
-      background: linear-gradient(180deg, #ffd7c2, #efba9e);
+      top: 220px;
+      width: 20px;
+      height: 98px;
       border-radius: 16px;
+      background: linear-gradient(180deg, #ffd7c2, #efba9e);
       z-index: 0;
     }
 
     .arm.left {
-      left: 48px;
+      left: 36px;
       transform: rotate(12deg);
       transform-origin: top center;
       animation: swayL 3.2s ease-in-out infinite;
     }
 
     .arm.right {
-      right: 48px;
+      right: 36px;
       transform: rotate(-12deg);
       transform-origin: top center;
       animation: swayR 3.2s ease-in-out infinite;
@@ -606,363 +581,350 @@
 
     .hand {
       position: absolute;
-      bottom: -8px;
+      bottom: -7px;
       left: 0;
-      width: 24px;
-      height: 24px;
-      background: #ffd9c4;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
+      background: #ffd9c4;
     }
 
     .leg {
       position: absolute;
-      top: 424px;
-      width: 32px;
-      height: 78px;
+      top: 364px;
+      width: 26px;
+      height: 64px;
+      border-radius: 16px;
       background: linear-gradient(180deg, #ffd7c2, #ebb799);
-      border-radius: 18px;
       z-index: 0;
     }
 
-    .leg.left { left: 108px; }
-    .leg.right { right: 108px; }
+    .leg.left { left: 88px; }
+    .leg.right { right: 88px; }
 
     .shoe {
       position: absolute;
-      bottom: 2px;
-      width: 48px;
-      height: 16px;
-      background: linear-gradient(180deg, #fff1fb, #d58dff);
+      bottom: 4px;
+      width: 40px;
+      height: 14px;
       border-radius: 18px 18px 8px 8px;
+      background: linear-gradient(180deg, #fff1fb, #d58dff);
       box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12);
     }
 
-    .shoe.left { left: 101px; }
-    .shoe.right { right: 101px; }
+    .shoe.left { left: 82px; }
+    .shoe.right { right: 82px; }
 
     .tiara {
       position: absolute;
-      left: 104px;
-      top: 34px;
-      width: 76px;
-      height: 22px;
+      left: 92px;
+      top: 36px;
+      width: 58px;
+      height: 18px;
       z-index: 9;
       display: flex;
-      justify-content: center;
       gap: 4px;
+      justify-content: center;
       align-items: flex-end;
     }
 
     .tiara span {
       display: block;
-      width: 8px;
-      background: linear-gradient(180deg, #fffdf3, #ffd66e);
+      width: 7px;
       border-radius: 8px 8px 2px 2px;
-      box-shadow: 0 0 10px rgba(255,214,110,0.65);
+      background: linear-gradient(180deg, #fffdf3, #ffd66e);
+      box-shadow: 0 0 10px rgba(255,214,110,0.6);
     }
 
-    .tiara span:nth-child(1), .tiara span:nth-child(5) { height: 8px; }
-    .tiara span:nth-child(2), .tiara span:nth-child(4) { height: 12px; }
-    .tiara span:nth-child(3) { height: 18px; }
-
-    .sparkle {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      z-index: 10;
-      opacity: 0.8;
-      animation: floatSpark 2.4s ease-in-out infinite;
-    }
-
-    .sparkle::before,
-    .sparkle::after {
-      content: "";
-      position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.95);
-      border-radius: 2px;
-      box-shadow: 0 0 12px rgba(255,255,255,0.65);
-    }
-
-    .sparkle::before { width: 2px; height: 12px; }
-    .sparkle::after { width: 12px; height: 2px; }
-
-    .sparkle.s1 { left: 70px; top: 116px; animation-delay: 0s; }
-    .sparkle.s2 { right: 68px; top: 86px; animation-delay: 0.8s; }
-    .sparkle.s3 { left: 214px; top: 170px; animation-delay: 1.5s; }
-
-    @keyframes floatSpark {
-      0%,100% { transform: translateY(0px) scale(0.8); opacity: 0.4; }
-      50% { transform: translateY(-10px) scale(1.08); opacity: 1; }
-    }
+    .tiara span:nth-child(1), .tiara span:nth-child(5) { height: 7px; }
+    .tiara span:nth-child(2), .tiara span:nth-child(4) { height: 11px; }
+    .tiara span:nth-child(3) { height: 16px; }
 
     .love-bubble {
-      position: absolute;
-      right: 10px;
-      top: 88px;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 13px;
-      color: #fff8ff;
-      backdrop-filter: blur(10px);
-      transform: translateY(6px);
-      opacity: 0;
-      transition: 0.25s ease;
-      pointer-events: none;
-      max-width: 180px;
+      max-width: 200px;
+      min-height: 48px;
+      margin-top: 12px;
       text-align: center;
-      z-index: 12;
-    }
-
-    .love-bubble.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .dialog-wrap {
-      padding: 0 14px 14px;
-      position: relative;
-      z-index: 3;
-    }
-
-    .dialog {
-      padding: 14px;
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(22,16,43,0.96), rgba(11,8,27,0.98));
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.14);
-      box-shadow: var(--pixel-shadow);
-      position: relative;
-      overflow: hidden;
+      color: #fffafc;
+      font-size: 13px;
+      line-height: 1.5;
+      backdrop-filter: blur(8px);
+      transition: 0.22s ease;
     }
 
-    .dialog::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(transparent 31px, rgba(255,255,255,0.02) 32px),
-        linear-gradient(90deg, transparent 31px, rgba(255,255,255,0.02) 32px);
-      background-size: 32px 32px;
-      opacity: 0.25;
-      pointer-events: none;
+    .hero-actions {
+      width: 100%;
+      display: grid;
+      gap: 8px;
+      z-index: 2;
     }
 
-    .nameplate {
+    .hero-btn {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      color: #fff;
+      padding: 12px 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .content {
+      min-height: 700px;
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 12px;
+    }
+
+    .now-card {
+      padding: 16px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .now-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
+      gap: 7px;
+      padding: 7px 11px;
       border-radius: 999px;
-      margin-bottom: 12px;
       font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      color: #fffce9;
-      background: linear-gradient(90deg, rgba(255,214,110,0.28), rgba(255,140,210,0.16));
-      border: 1px solid rgba(255,214,110,0.26);
-      position: relative;
-      z-index: 2;
+      color: #fffbe8;
+      background: linear-gradient(90deg, rgba(255,213,108,0.2), rgba(255,106,170,0.12));
+      border: 1px solid rgba(255,213,108,0.24);
     }
 
-    .dialog-text {
-      min-height: 88px;
-      font-size: 20px;
-      line-height: 1.7;
-      letter-spacing: 0.02em;
-      position: relative;
-      z-index: 2;
+    .session-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.4;
     }
 
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      animation: cursorBlink 0.9s steps(1) infinite;
-    }
-
-    @keyframes cursorBlink {
-      0%,49% { opacity: 1; }
-      50%,100% { opacity: 0; }
-    }
-
-    .choices {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 14px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .choice {
-      text-align: left;
-      min-height: 58px;
-      border-radius: 16px;
-      padding: 12px 14px;
-      font-size: 14px;
-      line-height: 1.45;
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-    }
-
-    .side {
-      display: grid;
-      grid-template-rows: auto auto auto auto 1fr;
-      gap: 16px;
-      min-height: 760px;
-    }
-
-    .card {
-      padding: 16px;
-      background: var(--panel-2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 18%);
-      pointer-events: none;
-    }
-
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: 0.08em;
-      color: #fff8ec;
-      position: relative;
-      z-index: 2;
-    }
-
-    .muted {
+    .session-sub {
       color: var(--sub);
       font-size: 13px;
-      line-height: 1.65;
-      position: relative;
-      z-index: 2;
+      line-height: 1.7;
     }
 
-    .chips {
+    .reply-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
+      padding: 12px 14px;
+      border-radius: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+      box-shadow: 0 5px 14px rgba(0,0,0,0.18);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.26); }
+    button:active { transform: translateY(1px) scale(0.99); }
+
+    .reply-btn {
+      text-align: left;
+      min-height: 62px;
+      line-height: 1.45;
+    }
+
+    .inline-zone {
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-card {
+      padding: 14px;
+      border-radius: 20px;
+      background: var(--panel-2);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+    }
+
+    .section-help {
+      font-size: 12px;
+      color: var(--sub);
+      line-height: 1.6;
+    }
+
+    .insight-box {
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      min-height: 118px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .insight-kicker {
+      font-size: 12px;
+      color: #fff8de;
+      letter-spacing: 0.08em;
+    }
+
+    .insight-main {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #fffafc;
+      white-space: pre-wrap;
+    }
+
+    .mini-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 12px;
-      position: relative;
-      z-index: 2;
+      margin-top: 4px;
     }
 
-    .chip {
-      padding: 8px 10px;
-      border-radius: 999px;
+    .mini-btn {
       font-size: 12px;
-      color: #fff;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.10);
+      padding: 10px 12px;
+      border-radius: 999px;
     }
 
-    .fortune-grid {
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 14px;
-      position: relative;
-      z-index: 6;
-      pointer-events: auto;
+      margin-top: 12px;
     }
 
-    .tarot-card {
+    .pick-card {
       aspect-ratio: 2 / 3;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.14);
       background:
         radial-gradient(circle at 50% 26%, rgba(255,255,255,0.28), transparent 20%),
-        linear-gradient(180deg, rgba(255,140,210,0.26), rgba(157,123,255,0.18));
+        linear-gradient(180deg, rgba(255,143,213,0.26), rgba(160,128,255,0.18));
       display: grid;
       place-items: center;
-      cursor: pointer;
       position: relative;
-      overflow: hidden;
       font-size: 28px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.16);
-      z-index: 7;
+      cursor: pointer;
+      overflow: hidden;
       pointer-events: auto;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    .tarot-card:hover { transform: translateY(-2px) rotate(1deg); border-color: rgba(255,214,110,0.45); }
-
-    .tarot-card::after {
+    .pick-card::after {
       content: "✦";
       position: absolute;
-      color: rgba(255,255,255,0.16);
       font-size: 64px;
+      color: rgba(255,255,255,0.16);
       pointer-events: none;
     }
 
-    .fortune-output,
-    .story-output,
-    .advice-output {
-      margin-top: 14px;
+    .pick-card.active {
+      border-color: rgba(255,213,108,0.42);
+      box-shadow: 0 0 0 2px rgba(255,213,108,0.12);
+      transform: translateY(-2px);
+    }
+
+    .output {
+      margin-top: 12px;
       padding: 14px;
-      border-radius: 16px;
+      border-radius: 18px;
       background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-      line-height: 1.72;
+      border: 1px solid rgba(255,255,255,0.1);
+      line-height: 1.75;
       color: #fffafc;
-      min-height: 84px;
+      min-height: 86px;
       white-space: pre-wrap;
-      position: relative;
-      z-index: 2;
     }
 
-    .story-box textarea,
-    .advice-box textarea {
-      width: 100%;
-      min-height: 96px;
-      border-radius: 16px;
-      padding: 14px;
-      resize: vertical;
-      background: rgba(255,255,255,0.07);
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.12);
-      outline: none;
-      font: inherit;
-      position: relative;
-      z-index: 2;
-    }
-
-    .quotes-list {
+    .log {
       display: grid;
       gap: 10px;
-      margin-top: 14px;
-      max-height: 260px;
+      max-height: 220px;
       overflow: auto;
       padding-right: 4px;
-      position: relative;
-      z-index: 2;
     }
 
-    .quote {
+    .log-item {
       padding: 12px 14px;
       border-radius: 16px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      line-height: 1.55;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      line-height: 1.65;
       font-size: 14px;
     }
 
-    .footer-note {
+    .composer {
+      display: grid;
+      gap: 10px;
+      padding: 12px 14px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .composer textarea {
+      width: 100%;
+      min-height: 88px;
+      resize: vertical;
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+    }
+
+    .composer-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hint {
       font-size: 12px;
-      color: #d7c8fa;
-      text-align: right;
-      opacity: 0.82;
-      position: relative;
-      z-index: 2;
+      color: var(--sub);
+    }
+
+    .primary {
+      background: linear-gradient(180deg, rgba(255,213,108,0.24), rgba(255,106,170,0.1));
+      border-color: rgba(255,213,108,0.34);
+      color: #fffbed;
     }
 
     .particle {
@@ -970,9 +932,10 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(255,214,110,0.76) 52%, rgba(255,140,210,0.18) 76%, transparent 78%);
+      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(255,213,108,0.76) 52%, rgba(255,143,213,0.18) 76%, transparent 78%);
       animation: particleFly 820ms ease-out forwards;
       pointer-events: none;
+      z-index: 30;
     }
 
     @keyframes particleFly {
@@ -980,21 +943,63 @@
       to { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
     }
 
-    @media (max-width: 1020px) {
-      .shell { grid-template-columns: 1fr; }
-      .side, .stage { min-height: auto; }
+    @media (max-width: 860px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        gap: 14px;
+      }
+
+      .character-wrap {
+        min-height: 360px;
+      }
+
+      .hero-actions {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     @media (max-width: 640px) {
-      .shell { width: min(100vw - 14px, 100%); padding-top: 8px; }
-      .topbar { padding: 12px 12px 8px; }
-      .dialog-wrap { padding: 0 10px 10px; }
-      .dialog-text { font-size: 17px; min-height: 100px; }
-      .choices { grid-template-columns: 1fr; }
-      .fortune-grid { gap: 8px; }
-      .character { transform: scale(0.88); }
-      .moon { right: 22px; top: 50px; width: 84px; height: 84px; }
-      .love-bubble { right: 0; top: 66px; }
+      .shell {
+        width: min(100vw - 10px, 100%);
+        padding-top: 6px;
+      }
+
+      .topbar, .content {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .reply-row {
+        grid-template-columns: 1fr;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .hero-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .step-dots {
+        gap: 6px;
+      }
+
+      .step-dot {
+        font-size: 10px;
+        padding: 6px 4px;
+      }
+
+      .session-title {
+        font-size: 19px;
+      }
     }
   </style>
 </head>
@@ -1004,147 +1009,175 @@
   <div class="particles" id="particles"></div>
 
   <main class="shell">
-    <section class="panel stage">
+    <section class="app">
       <div class="topbar">
-        <div class="brand">
-          <div class="title">HIDEKO YAOYOROZU</div>
-          <div class="sub">cute × elegant × wa-princess × retro fantasy</div>
-        </div>
-        <div class="controls">
-          <button id="bgmBtn" class="btn-gold">♪ BGM ON</button>
-          <button id="nextBtn">▶ つづきを見る</button>
-        </div>
-      </div>
-
-      <div class="scene">
-        <div class="moon"></div>
-        <div class="torii"></div>
-        <div class="glow"></div>
-        <div class="pedestal"></div>
-        <div class="love-bubble" id="loveBubble">来てくれてうれしい。ゆっくり話そう ✨</div>
-
-        <div class="character-wrap">
-          <div class="character" id="character" aria-label="キャラクター" title="タップして反応を見る">
-            <div class="tiara"><span></span><span></span><span></span><span></span><span></span></div>
-            <div class="sparkle s1"></div>
-            <div class="sparkle s2"></div>
-            <div class="sparkle s3"></div>
-            <div class="bun"></div>
-            <div class="bun2"></div>
-            <div class="hair-back"></div>
-            <div class="hair-side-left"></div>
-            <div class="hair-side-right"></div>
-            <div class="flower"></div>
-            <div class="ear left"></div>
-            <div class="ear right"></div>
-            <div class="earring left"></div>
-            <div class="earring right"></div>
-            <div class="face">
-              <div class="eye left"></div>
-              <div class="eye right"></div>
-              <div class="cheek left"></div>
-              <div class="cheek right"></div>
-              <div class="mouth"></div>
-            </div>
-            <div class="fringe"></div>
-            <div class="neck"></div>
-            <div class="shoulder"></div>
-            <div class="sleeve left"></div>
-            <div class="sleeve right"></div>
-            <div class="arm left"><div class="hand"></div></div>
-            <div class="arm right"><div class="hand"></div></div>
-            <div class="kimono"></div>
-            <div class="obi"></div>
-            <div class="leg left"></div>
-            <div class="leg right"></div>
-            <div class="shoe left"></div>
-            <div class="shoe right"></div>
+        <div class="brand-row">
+          <div class="title-block">
+            <div class="title">HIDEKO YAOYOROZU</div>
+            <div class="subtitle">5-minute guided talk / one-screen flow / cute wa-princess</div>
+          </div>
+          <div class="meta-row">
+            <div class="pill"><strong id="etaLabel">約5分</strong></div>
+            <div class="pill">現在: <strong id="stepLabel">はじめに</strong></div>
+            <button id="bgmBtn" class="primary">♪ BGM ON</button>
           </div>
         </div>
+        <div class="progress-block">
+          <div class="progress-head">
+            <span id="progressText">0 / 6 ステップ</span>
+            <span id="modeText">いまは導入です</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="step-dots" id="stepDots"></div>
+        </div>
       </div>
 
-      <div class="dialog-wrap">
-        <div class="dialog">
-          <div class="nameplate">✦ HIDEKO</div>
-          <div class="dialog-text" id="dialogText"></div>
-          <div class="choices" id="choices"></div>
-        </div>
+      <div class="main">
+        <aside class="hero">
+          <div class="moon"></div>
+          <div class="glow"></div>
+          <div class="pedestal"></div>
+
+          <div class="character-wrap">
+            <div class="character" id="character" title="タップでひとこと">
+              <div class="tiara"><span></span><span></span><span></span><span></span><span></span></div>
+              <div class="bun"></div>
+              <div class="bun2"></div>
+              <div class="hair-back"></div>
+              <div class="hair-side-left"></div>
+              <div class="hair-side-right"></div>
+              <div class="flower"></div>
+              <div class="face">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="cheek left"></div>
+                <div class="cheek right"></div>
+                <div class="mouth"></div>
+              </div>
+              <div class="fringe"></div>
+              <div class="neck"></div>
+              <div class="shoulder"></div>
+              <div class="sleeve left"></div>
+              <div class="sleeve right"></div>
+              <div class="arm left"><div class="hand"></div></div>
+              <div class="arm right"><div class="hand"></div></div>
+              <div class="kimono"></div>
+              <div class="obi"></div>
+              <div class="leg left"></div>
+              <div class="leg right"></div>
+              <div class="shoe left"></div>
+              <div class="shoe right"></div>
+            </div>
+          </div>
+
+          <div class="love-bubble" id="loveBubble">一目で流れがわかるように、今日はずっとここで進めるね。</div>
+
+          <div class="hero-actions">
+            <button class="hero-btn" id="restartBtn">最初から</button>
+            <button class="hero-btn" id="showTarotBtn">今すぐカード</button>
+            <button class="hero-btn" id="showWisdomBtn">今すぐ偉人の言葉</button>
+          </div>
+        </aside>
+
+        <section class="content">
+          <div class="now-card">
+            <div class="now-top">
+              <div class="badge" id="badgeText">STEP 1 / はじめに</div>
+              <div class="pill" id="paceText">テンポ: さくさく</div>
+            </div>
+            <h1 class="session-title" id="questionTitle">今の気分にいちばん近いものを選んで。</h1>
+            <div class="session-sub" id="questionSub">この画面の中だけで、相談 → 返答 → 脱線のひとこと → 次の質問、の流れが続きます。</div>
+            <div class="reply-row" id="quickReplies"></div>
+          </div>
+
+          <div class="inline-zone">
+            <section class="section-card" id="insightSection">
+              <div class="section-title">
+                <h2>ひとことコーナー</h2>
+                <span class="pill" id="insightType">準備中</span>
+              </div>
+              <div class="section-help">質問に答えるたびに、偉人の言葉・腕時計の蘊蓄・小さな助言がここに切り替わります。</div>
+              <div class="insight-box">
+                <div class="insight-kicker" id="insightKicker">WELCOME</div>
+                <div class="insight-main" id="insightMain">まずは気分を選んでください。</div>
+                <div class="mini-actions">
+                  <button class="mini-btn" id="moreInsightBtn">別のひとこと</button>
+                  <button class="mini-btn" id="pullCardBtn">カードを引く</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="section-card" id="tarotSection" hidden>
+              <div class="section-title">
+                <h2>カードを選ぶ</h2>
+                <span class="pill">この場で選択</span>
+              </div>
+              <div class="section-help">右でも下でもなく、いま見ている流れの真下に出します。押した結果もこの下に即表示します。</div>
+              <div class="card-grid" id="cardGrid"></div>
+              <div class="output" id="tarotOutput">カードを選んでください。</div>
+            </section>
+
+            <section class="section-card">
+              <div class="section-title">
+                <h2>会話ログ</h2>
+                <span class="pill" id="logCount">0件</span>
+              </div>
+              <div class="section-help">どこまで進んだか迷わないように、要点だけをここに残します。</div>
+              <div class="log" id="sessionLog"></div>
+            </section>
+          </div>
+
+          <div class="composer">
+            <textarea id="freeInput" placeholder="自由入力でも返せます。例：焦って優先順位を見失っている / 最近の気分は重いけど進みたい"></textarea>
+            <div class="composer-actions">
+              <div class="hint">短くても大丈夫。送ると、その内容に合わせて次の問いとひとことを返します。</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button id="sendBtn" class="primary">送る</button>
+                <button id="skipBtn">次へ進める</button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
-
-    <aside class="side">
-      <section class="panel card">
-        <h2>今回のアップデート</h2>
-        <div class="muted">
-          かわいい・上品・和風姫・レトロRPG感を全部まとめて再設計。<br>
-          読み上げは外したまま、会話文も世界観に合わせて全面リライトしました。<br>
-          それと「カードを選んで」と出るのに押せない不具合を直すため、カード側のクリック処理と重なりの指定も見直しています。
-        </div>
-        <div class="chips">
-          <div class="chip">読み上げなし</div>
-          <div class="chip">カード不具合対策</div>
-          <div class="chip">和風姫デザイン</div>
-          <div class="chip">ドット感UI</div>
-          <div class="chip">GitHub Pages向け</div>
-        </div>
-      </section>
-
-      <section class="panel card">
-        <h2>タロット占い</h2>
-        <div class="muted">カードを1枚選ぶと運勢が表示されます。今回はクリック・タップ優先で調整済み。</div>
-        <div class="fortune-grid" id="fortuneGrid"></div>
-        <div class="fortune-output" id="fortuneOutput">カードを選んでください。</div>
-      </section>
-
-      <section class="panel card advice-box">
-        <h2>哲学者・偉人のひとこと相談室</h2>
-        <div class="muted">悩みを書くと、テーマに近い一言と短い助言を返します。引用は短い意訳中心です。</div>
-        <textarea id="adviceInput" placeholder="例：焦って空回りしてしまう。何を優先すればいいか分からない"></textarea>
-        <div class="chips" style="margin-top:12px;">
-          <button id="adviceBtn" class="btn-gold">一言をもらう</button>
-        </div>
-        <div class="advice-output" id="adviceOutput">ここに一言が表示されます。</div>
-      </section>
-
-      <section class="panel card story-box">
-        <h2>短編ストーリー</h2>
-        <div class="muted">悩みやテーマを入れると、和風ファンタジー寄りの短い物語にします。</div>
-        <textarea id="storyInput" placeholder="例：新しい環境でも、自分の芯を失わずに進みたい"></textarea>
-        <div class="chips" style="margin-top:12px;">
-          <button id="storyBtn" class="btn-gold">物語をつくる</button>
-        </div>
-        <div class="story-output" id="storyOutput">ここに物語が表示されます。</div>
-      </section>
-
-      <section class="panel card">
-        <h2>語録集</h2>
-        <div class="quotes-list" id="quotesList"></div>
-        <div class="footer-note">※ 音声なし。言葉と演出だけで成立する構成です。</div>
-      </section>
-    </aside>
   </main>
 
   <script>
     const stars = document.getElementById('stars');
     const petals = document.getElementById('petals');
     const particles = document.getElementById('particles');
-    const dialogText = document.getElementById('dialogText');
-    const choicesEl = document.getElementById('choices');
-    const nextBtn = document.getElementById('nextBtn');
-    const character = document.getElementById('character');
-    const loveBubble = document.getElementById('loveBubble');
+    const stepDots = document.getElementById('stepDots');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const stepLabel = document.getElementById('stepLabel');
+    const modeText = document.getElementById('modeText');
+    const badgeText = document.getElementById('badgeText');
+    const etaLabel = document.getElementById('etaLabel');
+    const paceText = document.getElementById('paceText');
+    const questionTitle = document.getElementById('questionTitle');
+    const questionSub = document.getElementById('questionSub');
+    const quickReplies = document.getElementById('quickReplies');
+    const insightType = document.getElementById('insightType');
+    const insightKicker = document.getElementById('insightKicker');
+    const insightMain = document.getElementById('insightMain');
+    const moreInsightBtn = document.getElementById('moreInsightBtn');
+    const pullCardBtn = document.getElementById('pullCardBtn');
+    const tarotSection = document.getElementById('tarotSection');
+    const cardGrid = document.getElementById('cardGrid');
+    const tarotOutput = document.getElementById('tarotOutput');
+    const sessionLog = document.getElementById('sessionLog');
+    const logCount = document.getElementById('logCount');
+    const freeInput = document.getElementById('freeInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const skipBtn = document.getElementById('skipBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const showTarotBtn = document.getElementById('showTarotBtn');
+    const showWisdomBtn = document.getElementById('showWisdomBtn');
     const bgmBtn = document.getElementById('bgmBtn');
-    const fortuneGrid = document.getElementById('fortuneGrid');
-    const fortuneOutput = document.getElementById('fortuneOutput');
-    const storyBtn = document.getElementById('storyBtn');
-    const storyInput = document.getElementById('storyInput');
-    const storyOutput = document.getElementById('storyOutput');
-    const quotesList = document.getElementById('quotesList');
-    const adviceInput = document.getElementById('adviceInput');
-    const adviceBtn = document.getElementById('adviceBtn');
-    const adviceOutput = document.getElementById('adviceOutput');
+    const loveBubble = document.getElementById('loveBubble');
+    const character = document.getElementById('character');
 
-    for (let i = 0; i < 52; i++) {
+    for (let i = 0; i < 54; i++) {
       const s = document.createElement('div');
       s.className = 'star';
       s.style.left = `${Math.random() * 100}%`;
@@ -1164,174 +1197,99 @@
       petals.appendChild(p);
     }
 
-    const quotes = [
-      '月の下で迷ってもいい。でも、朝になったら一歩は踏み出す。',
-      'やさしさは飾りじゃない。空気を変える武器になる。',
-      '今日の小さな整理が、明日の強さをつくる。',
-      'かわいさと芯の強さは両立する。むしろ両方あったほうが強い。',
-      '焦りは視野を狭める。まず呼吸、次に順番。',
-      '気分で進める日を減らし、基準で進める日を増やす。',
-      '本音は急に言葉にならない。触れていくうちに形になる。',
-      '遠慮しすぎると、自分の輪郭が薄くなる。',
-      '見たくない現実ほど、先に見たほうが得をする。',
-      '整えることは逃げじゃない。戦う前の準備。',
-      '誰かの期待だけで動くと、心は長くもたない。',
-      '勇気は大声ではなく、先延ばしを一つ終わらせる手つきに出る。',
-      '美しさは静けさにも宿る。',
-      '選ばれるより先に、自分で選ぶ強さを持つ。',
-      '曖昧な善意より、明確な境界線のほうが人を守ることがある。'
+    const steps = [
+      { name: 'はじめに', mode: '気分確認', title: '今の気分にいちばん近いものを選んで。', sub: 'ここから約5分。質問に答えるたびに、偉人の言葉や腕時計の蘊蓄を差し込みながら進めます。', replies: ['ちょっと疲れてる', '焦って空回り', '前向きに進みたい', 'なんとなく話したい'] },
+      { name: '整理', mode: '状態把握', title: '今いちばん引っかかっているのは？', sub: '悩みの種類を絞ります。問題の輪郭が見えないと、助言は全部ぼやけます。', replies: ['優先順位が散ってる', '気持ちが重い', '人間関係が気になる', '自分の軸がぶれる'] },
+      { name: '深掘り', mode: '核心確認', title: '本当は、どうなりたい？', sub: '不快の回避ではなく、望む状態を言葉にすると進み方が変わります。', replies: ['落ち着いて動きたい', 'はっきり決めたい', '自信を戻したい', 'ちゃんと前進したい'] },
+      { name: '遊び', mode: '寄り道', title: '少し遊びを入れる。どれが気になる？', sub: 'テンポを落とさず、流れの中で一瞬だけ脱線します。', replies: ['偉人の言葉', '腕時計の蘊蓄', 'カードを引く', 'そのまま進む'] },
+      { name: '行動', mode: '一手決定', title: '今日中にやる一手を選ぶ。', sub: '大きな決意ではなく、すぐ終わる具体策に落とします。', replies: ['1件だけ片づける', '連絡を1本送る', '10分だけ着手する', 'やらないことを決める'] },
+      { name: 'しめ', mode: '締めくくり', title: '最後に、今の自分へひとこと。', sub: '短く終わらせます。長く考え込ませないのが今回の設計です。', replies: ['やさしく終える', '少し厳しく背中を押す', '運勢で締める', 'もう一言ほしい'] }
     ];
 
-    quotes.forEach((q, i) => {
-      const div = document.createElement('div');
-      div.className = 'quote';
-      div.textContent = `${i + 1}. ${q}`;
-      quotesList.appendChild(div);
-    });
-
-    const tree = {
-      start: {
-        text: 'ようこそ。今夜は、どんな気持ちをほどきに来たの？',
-        choices: [
-          { label: '少し癒やされたい', next: 'heal' },
-          { label: '背中を押してほしい', next: 'push' },
-          { label: '運勢を見たい', next: 'fortune' },
-          { label: '考えを整理したい', next: 'clear' }
-        ]
+    const philosopherQuotes = [
+      {
+        who: 'エピクテトス',
+        line: '「人を動揺させるのは出来事そのものではなく、その受け取り方である」※意訳',
+        tip: 'まず事実と解釈を分ける。混ざると苦しさが膨らみます。'
       },
-      heal: {
-        text: 'なら、まず急がなくていいよ。整っていない心で無理に答えを出すと、必要以上に自分を疲れさせるから。',
-        choices: [
-          { label: 'もう少しやさしく', next: 'soft' },
-          { label: '次の一歩を知りたい', next: 'push' }
-        ]
+      {
+        who: 'マルクス・アウレリウス',
+        line: '「行く手をふさぐものが、かえって道になる」※意訳',
+        tip: '障害を嘆くより、条件として使うほうが前に進みます。'
       },
-      push: {
-        text: '今のあなたに必要なのは気合いより順番。頑張る量を増やすより、何を後回しにするかを決めるほうが先。',
-        choices: [
-          { label: '何を削るべき？', next: 'focus' },
-          { label: '少し気持ちを整えたい', next: 'soft' }
-        ]
+      {
+        who: 'セネカ',
+        line: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳',
+        tip: '不安が消えてからでは遅い。サイズを小さくして着手する。'
       },
-      fortune: {
-        text: '右のカードを一枚選んで。今回はちゃんと押せるように直してあるから、安心して。',
-        choices: [
-          { label: '会話に戻る', next: 'start' },
-          { label: '偉人の一言も聞く', next: 'wisdom' }
-        ]
+      {
+        who: '老子',
+        line: '「千里の道も一歩から」',
+        tip: '今日中に終わるサイズまで切る。それが最初の改善です。'
       },
-      clear: {
-        text: '整理したいなら、感情と事実を混ぜないこと。つらいことと、実際に起きていることは、同じようで別。',
-        choices: [
-          { label: 'その続きが聞きたい', next: 'focus' },
-          { label: 'やさしい言葉に戻る', next: 'soft' }
-        ]
-      },
-      soft: {
-        text: '大丈夫。全部を今すぐ完璧にしなくていい。今日は「少し軽くなる」までできたら、それでちゃんと前進。',
-        choices: [
-          { label: '最初に戻る', next: 'start' },
-          { label: '運勢を見る', next: 'fortune' }
-        ]
-      },
-      focus: {
-        text: '削るべきなのは、目的とつながっていない頑張り方。忙しさで安心しようとすると、肝心なことが進まない。',
-        choices: [
-          { label: 'もっと核心を聞く', next: 'deep' },
-          { label: '少し和らげたい', next: 'soft' }
-        ]
-      },
-      deep: {
-        text: '本当に結果が欲しいなら、気分に任せる日を減らして、基準で動く日を増やそう。品のある強さは、習慣でつくられる。',
-        choices: [
-          { label: '最初に戻る', next: 'start' },
-          { label: '偉人の一言を見る', next: 'wisdom' }
-        ]
-      },
-      wisdom: {
-        text: '右の相談室に悩みを書いてみて。誰の言葉が近いか、今のテーマに合わせて返すよ。',
-        choices: [
-          { label: '最初に戻る', next: 'start' },
-          { label: '短編ストーリーへ', next: 'story' }
-        ]
-      },
-      story: {
-        text: '右にテーマを書いて「物語をつくる」を押して。今の気分を、少しだけ美しく整えて返すから。',
-        choices: [
-          { label: '最初に戻る', next: 'start' },
-          { label: '運勢を見る', next: 'fortune' }
-        ]
+      {
+        who: 'ソクラテス',
+        line: '「吟味されない生は、生きるに値しない」※短訳',
+        tip: '答えが出ない原因は、問いが曖昧なことも多いです。'
       }
-    };
-
-    let currentNode = 'start';
-    let typingTimer;
-
-    function escapeHtml(str) {
-      return str
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;');
-    }
-
-    function typeText(text, done) {
-      clearInterval(typingTimer);
-      dialogText.innerHTML = '';
-      character.classList.add('talk');
-      let i = 0;
-      typingTimer = setInterval(() => {
-        const shown = text.slice(0, i + 1);
-        dialogText.innerHTML = `${escapeHtml(shown)}<span class="cursor">▌</span>`;
-        i++;
-        if (i >= text.length) {
-          clearInterval(typingTimer);
-          dialogText.innerHTML = `${escapeHtml(text)}<span class="cursor">▌</span>`;
-          character.classList.remove('talk');
-          done?.();
-        }
-      }, 26);
-    }
-
-    function renderNode(key) {
-      currentNode = key;
-      const node = tree[key];
-      choicesEl.innerHTML = '';
-      typeText(node.text, () => {
-        node.choices.forEach(choice => {
-          const btn = document.createElement('button');
-          btn.className = 'choice';
-          btn.textContent = choice.label;
-          btn.addEventListener('click', (e) => {
-            spawnParticles(e.currentTarget);
-            renderNode(choice.next);
-          });
-          choicesEl.appendChild(btn);
-        });
-      });
-    }
-
-    nextBtn.addEventListener('click', () => {
-      const fallbackOrder = ['start', 'heal', 'push', 'clear', 'focus', 'deep', 'wisdom', 'story'];
-      const index = fallbackOrder.indexOf(currentNode);
-      const next = fallbackOrder[(index + 1) % fallbackOrder.length];
-      renderNode(next);
-    });
-
-    const tapLines = [
-      '急がなくていい。でも止まりすぎないでね。',
-      '今のあなた、ちゃんときれいに光ってる。',
-      'やさしくても、弱くならなくていいよ。',
-      '整えてから進む。今日はそれで充分。',
-      'ふふ、ちゃんと見てるよ。'
     ];
 
-    character.addEventListener('click', () => {
-      const line = tapLines[Math.floor(Math.random() * tapLines.length)];
-      loveBubble.textContent = line;
-      loveBubble.classList.add('show');
-      spawnParticles(character, 18);
-      setTimeout(() => loveBubble.classList.remove('show'), 1800);
-    });
+    const watchTrivia = [
+      {
+        title: 'WATCH TRIVIA',
+        line: '機械式腕時計はゼンマイを動力にして、てんぷという調速機構で進みます。',
+        tip: 'つまり魅力は電子の正確さではなく、機械の連続運動そのもの。'
+      },
+      {
+        title: 'WATCH TRIVIA',
+        line: 'クロノグラフは時間を測る追加機構で、普通の三針より構造が複雑です。',
+        tip: '見た目の情報量が多いぶん、道具感やメカ感が強く出ます。'
+      },
+      {
+        title: 'WATCH TRIVIA',
+        line: 'ダイバーズウォッチは回転ベゼルで経過時間を読む設計が代表的です。',
+        tip: '実用品の文法が、そのままデザインの魅力になっています。'
+      },
+      {
+        title: 'WATCH TRIVIA',
+        line: 'サファイアクリスタルは硬度が高く、日常の擦り傷に強い素材として使われます。',
+        tip: '見た目の透明感と実用性を両立しやすいのが強みです。'
+      },
+      {
+        title: 'WATCH TRIVIA',
+        line: 'ケース径だけでなく、ラグ・トゥ・ラグの長さで装着感は大きく変わります。',
+        tip: '数字だけでなく、腕に乗る形を見るのが本質です。'
+      }
+    ];
+
+    const microAdvice = [
+      '忙しさで安心しようとすると、本当に必要な作業が進まなくなります。',
+      'やることを増やす前に、やらないことを決めたほうが早いです。',
+      '優先順位で迷うときは、締切より影響の大きさを見ます。',
+      '前進したいなら、気分ではなく順番を先に決めること。',
+      'ちゃんと疲れている日は、判断より回復を優先したほうが得です。'
+    ];
+
+    const tarotDeck = [
+      { icon: '☀️', name: '太陽', msg: '迷う時間を少し短くすると、流れが動きます。' },
+      { icon: '🌙', name: '月', msg: '不安は敵ではなく、まだ言葉になっていない感覚です。' },
+      { icon: '⭐', name: '星', msg: '理想は分解すると現実の作業になります。' },
+      { icon: '🗡️', name: '剣', msg: '曖昧な優しさより、明確な線引きが助けになります。' },
+      { icon: '🌸', name: '桜', msg: '急いで咲くより、整って咲くほうが長く持ちます。' },
+      { icon: '👑', name: '王冠', msg: '主導権を戻すタイミングです。人任せでは形になりません。' },
+      { icon: '🪞', name: '鏡', msg: '課題は能力不足ではなく、自己認識の甘さかもしれません。' },
+      { icon: '🕯️', name: '灯', msg: '静かな時間に答えが出やすい日です。' },
+      { icon: '💎', name: '宝石', msg: '既に持つ強みを、軽く見積もらないこと。' },
+      { icon: '🪽', name: '翼', msg: '場所を少し変えるだけで、運が切り替わる日です。' }
+    ];
+
+    const state = {
+      step: 0,
+      log: [],
+      historyCount: 0,
+      insightIndex: 0,
+      currentTarot: null
+    };
 
     function spawnParticles(target, count = 12) {
       const rect = target.getBoundingClientRect();
@@ -1340,141 +1298,220 @@
       for (let i = 0; i < count; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
-        const dx = (Math.random() - 0.5) * 140 + 'px';
-        const dy = (Math.random() - 0.5) * 120 - 30 + 'px';
         p.style.left = `${baseX}px`;
         p.style.top = `${baseY}px`;
-        p.style.setProperty('--dx', dx);
-        p.style.setProperty('--dy', dy);
+        p.style.setProperty('--dx', `${(Math.random() - 0.5) * 140}px`);
+        p.style.setProperty('--dy', `${(Math.random() - 0.5) * 120 - 24}px`);
         particles.appendChild(p);
         setTimeout(() => p.remove(), 900);
       }
     }
 
-    const tarotDeck = [
-      { icon: '☀️', name: '太陽', msg: '停滞より前進。迷う時間を少し短くすると、流れが動きます。' },
-      { icon: '🌙', name: '月', msg: '不安は敵ではありません。まだ言葉になっていない感覚として扱うほうが正解です。' },
-      { icon: '⭐', name: '星', msg: '理想を小さくしないこと。今日の一手に分ければ、夢は現実の作業になります。' },
-      { icon: '🗡️', name: '剣', msg: '曖昧な優しさより、明確な線引きが助けになる日です。' },
-      { icon: '🌸', name: '桜', msg: '今は焦って咲くより、整って咲くこと。準備に価値があります。' },
-      { icon: '👑', name: '王冠', msg: '主導権を戻す番。人任せのままだと、望む形にはなりません。' },
-      { icon: '🪞', name: '鏡', msg: '課題は能力不足ではなく、自己認識の甘さかもしれません。見直しは有効です。' },
-      { icon: '🕯️', name: '灯', msg: '静かな時間に答えが出やすい日。騒がしさから一歩離れると見えます。' },
-      { icon: '💎', name: '宝石', msg: 'すでに持っている強みを軽く見ないこと。使って初めて価値が届きます。' },
-      { icon: '🪽', name: '翼', msg: '場所を変える、小さく移動する、それだけで運が切り替わります。' }
+    function renderDots() {
+      stepDots.innerHTML = '';
+      steps.forEach((s, idx) => {
+        const el = document.createElement('div');
+        el.className = 'step-dot';
+        if (idx < state.step) el.classList.add('done');
+        if (idx === state.step) el.classList.add('active');
+        el.textContent = s.name;
+        stepDots.appendChild(el);
+      });
+    }
+
+    function updateProgress() {
+      const pct = (state.step / (steps.length - 1)) * 100;
+      progressFill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+      progressText.textContent = `${Math.min(state.step + 1, steps.length)} / ${steps.length} ステップ`;
+      stepLabel.textContent = steps[state.step].name;
+      modeText.textContent = `いまは ${steps[state.step].mode} です`;
+      badgeText.textContent = `STEP ${state.step + 1} / ${steps[state.step].name}`;
+      etaLabel.textContent = `残り約${Math.max(1, 5 - state.step)}分`;
+      renderDots();
+    }
+
+    function renderStep() {
+      const s = steps[state.step];
+      questionTitle.textContent = s.title;
+      questionSub.textContent = s.sub;
+      paceText.textContent = state.step <= 2 ? 'テンポ: さくさく' : state.step === 3 ? 'テンポ: 遊びを少し' : 'テンポ: まとめ';
+      quickReplies.innerHTML = '';
+      s.replies.forEach(label => {
+        const btn = document.createElement('button');
+        btn.className = 'reply-btn';
+        btn.textContent = label;
+        btn.addEventListener('click', (e) => {
+          spawnParticles(e.currentTarget, 10);
+          handleAnswer(label);
+        });
+        quickReplies.appendChild(btn);
+      });
+      updateProgress();
+    }
+
+    function addLog(text) {
+      state.log.unshift(text);
+      sessionLog.innerHTML = '';
+      state.log.slice(0, 8).forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'log-item';
+        div.textContent = item;
+        sessionLog.appendChild(div);
+      });
+      logCount.textContent = `${state.log.length}件`;
+    }
+
+    function nextInsight(kind = 'auto') {
+      const turn = state.historyCount;
+      if (kind === 'watch' || (kind === 'auto' && turn % 3 === 1)) {
+        const item = watchTrivia[turn % watchTrivia.length];
+        insightType.textContent = '腕時計の蘊蓄';
+        insightKicker.textContent = item.title;
+        insightMain.textContent = `${item.line}\n${item.tip}`;
+        return;
+      }
+      if (kind === 'wisdom' || (kind === 'auto' && turn % 3 === 0)) {
+        const item = philosopherQuotes[turn % philosopherQuotes.length];
+        insightType.textContent = '偉人の言葉';
+        insightKicker.textContent = item.who;
+        insightMain.textContent = `${item.line}\n${item.tip}`;
+        return;
+      }
+      const item = microAdvice[turn % microAdvice.length];
+      insightType.textContent = '小さな助言';
+      insightKicker.textContent = 'ADVICE';
+      insightMain.textContent = item;
+    }
+
+    function showTarot() {
+      tarotSection.hidden = false;
+      tarotSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      tarotOutput.textContent = state.currentTarot ? `【${state.currentTarot.name}】\n${state.currentTarot.msg}` : 'カードを選んでください。';
+    }
+
+    function handleAnswer(answer) {
+      const currentName = steps[state.step].name;
+      addLog(`【${currentName}】${answer}`);
+      state.historyCount += 1;
+
+      if (state.step === 3) {
+        if (answer.includes('偉人')) nextInsight('wisdom');
+        else if (answer.includes('腕時計')) nextInsight('watch');
+        else if (answer.includes('カード')) showTarot();
+        else nextInsight('auto');
+      } else {
+        nextInsight('auto');
+      }
+
+      if (state.step < steps.length - 1) {
+        state.step += 1;
+        renderStep();
+      } else {
+        questionTitle.textContent = 'ここまでで十分。今日はこのへんで締めよう。';
+        questionSub.textContent = '長く引っぱらない設計です。必要なら最初からもう1周できます。';
+        quickReplies.innerHTML = '';
+        ['もう一周する', 'カードで締める', '偉人の言葉をもう一つ', '腕時計の蘊蓄をもう一つ'].forEach(label => {
+          const btn = document.createElement('button');
+          btn.className = 'reply-btn';
+          btn.textContent = label;
+          btn.addEventListener('click', () => {
+            if (label.includes('もう一周')) resetSession();
+            else if (label.includes('カード')) showTarot();
+            else if (label.includes('偉人')) nextInsight('wisdom');
+            else nextInsight('watch');
+          });
+          quickReplies.appendChild(btn);
+        });
+      }
+    }
+
+    function resetSession() {
+      state.step = 0;
+      state.log = [];
+      state.historyCount = 0;
+      state.currentTarot = null;
+      tarotOutput.textContent = 'カードを選んでください。';
+      document.querySelectorAll('.pick-card').forEach(el => el.classList.remove('active'));
+      sessionLog.innerHTML = '';
+      logCount.textContent = '0件';
+      nextInsight('auto');
+      renderStep();
+      addLog('セッションを最初から開始');
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const text = freeInput.value.trim();
+      if (!text) return;
+      addLog(`【自由入力】${text}`);
+      freeInput.value = '';
+      state.historyCount += 1;
+      if (/時計|腕時計|機械式|クロノグラフ|ダイバー|ベゼル/.test(text)) nextInsight('watch');
+      else if (/焦り|不安|意味|迷い|失敗|挑戦|優先|本音/.test(text)) nextInsight('wisdom');
+      else nextInsight('auto');
+      if (state.step < steps.length - 1) {
+        state.step += 1;
+        renderStep();
+      }
+    });
+
+    skipBtn.addEventListener('click', () => {
+      addLog(`【${steps[state.step].name}】スキップして次へ`);
+      state.historyCount += 1;
+      nextInsight('auto');
+      if (state.step < steps.length - 1) {
+        state.step += 1;
+        renderStep();
+      }
+    });
+
+    restartBtn.addEventListener('click', resetSession);
+    showTarotBtn.addEventListener('click', showTarot);
+    showWisdomBtn.addEventListener('click', () => nextInsight('wisdom'));
+    moreInsightBtn.addEventListener('click', () => nextInsight('auto'));
+    pullCardBtn.addEventListener('click', showTarot);
+
+    const tapLines = [
+      '今日は全部この画面で進めるよ。',
+      '流れが見えると、考えやすくなる。',
+      '長く悩ませないで、次へ送るね。',
+      'ちゃんと進んでる。見失わなくて大丈夫。',
+      '一問一答で、軽く前へ行こう。'
     ];
+
+    character.addEventListener('click', () => {
+      character.classList.add('talk');
+      loveBubble.textContent = tapLines[Math.floor(Math.random() * tapLines.length)];
+      spawnParticles(character, 18);
+      setTimeout(() => character.classList.remove('talk'), 700);
+    });
 
     tarotDeck.forEach((card) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'tarot-card';
+      btn.className = 'pick-card';
       btn.innerHTML = `<span aria-hidden="true">${card.icon}</span>`;
-      btn.setAttribute('aria-label', card.name);
       btn.title = card.name;
-      const chooseCard = () => {
+      const choose = (e) => {
+        document.querySelectorAll('.pick-card').forEach(el => el.classList.remove('active'));
+        btn.classList.add('active');
+        state.currentTarot = card;
+        tarotOutput.textContent = `【${card.name}】\n${card.msg}`;
+        insightType.textContent = 'カードの一言';
+        insightKicker.textContent = card.name;
+        insightMain.textContent = card.msg;
+        addLog(`【カード】${card.name}を選択`);
         spawnParticles(btn, 14);
-        fortuneOutput.textContent = `【${card.name}】\n${card.msg}`;
-        renderNode('fortune');
       };
-      btn.addEventListener('click', chooseCard);
+      btn.addEventListener('click', choose);
       btn.addEventListener('touchend', (e) => {
         e.preventDefault();
-        chooseCard();
+        choose(e);
       }, { passive: false });
-      fortuneGrid.appendChild(btn);
-    });
-
-    storyBtn.addEventListener('click', () => {
-      const theme = storyInput.value.trim();
-      if (!theme) {
-        storyOutput.textContent = 'テーマをひとつ入れてください。';
-        return;
-      }
-      const stories = [
-        `月夜の庭で、${theme}を胸にした旅人は、小さな灯籠をひとつ受け取りました。\nその灯りは遠くを照らさず、ただ次の一歩だけを静かに照らしました。\n旅人は完璧な答えではなく、今踏める石だけを選びました。すると気づかぬうちに、道そのものが旅人の足元から現れ始めました。`,
-        `薄紅の花が舞う宮で、${theme}に迷う姫が立ち尽くしていました。\n姫は未来を占うのをやめ、今日守る約束を一つだけ選びました。\nすると止まっていた風が戻り、閉じていた障子が少しだけ開きました。運命を変えたのは大きな魔法ではなく、ためらいを一つ減らしたことでした。`,
-        `夜明け前、${theme}を抱えた人は静かな川辺に座っていました。\n水面は「急がなくていい。でも見ないふりはやめて」とだけ映しました。\nその人は帰り道に、先延ばしにしていた一通の連絡を送りました。世界は何も叫ばなかったけれど、その瞬間から確かに向きが変わりました。`
-      ];
-      storyOutput.textContent = stories[Math.floor(Math.random() * stories.length)];
-      renderNode('story');
-    });
-
-    const advicePool = [
-      {
-        who: 'エピクテトス',
-        quote: '「人を動揺させるのは出来事そのものではなく、それについての受け取り方である」※意訳',
-        tags: ['不安', '心配', '焦り', 'つらい', 'しんどい', '感情', '落ち込む'],
-        advice: 'まず事実と解釈を分けてください。起きたこと、まだ起きていない想像、自分が足している意味づけ。この3つを混ぜると苦しさが増えます。'
-      },
-      {
-        who: 'マルクス・アウレリウス',
-        quote: '「行く手をふさぐものが、かえって道になる」※意訳',
-        tags: ['壁', '障害', 'うまくいかない', '詰まる', '停滞'],
-        advice: '障害を排除することばかり考えず、その制約の中で何を学べるかに視点をずらしてください。止まる理由が、そのまま設計条件になります。'
-      },
-      {
-        who: '孔子',
-        quote: '「過ちて改めざる、是を過ちという」',
-        tags: ['失敗', 'ミス', '後悔', 'やらかした'],
-        advice: '失敗そのものより、修正を先延ばしにすることのほうが損失です。面子を守るより、手直しを早くしたほうが信頼は残ります。'
-      },
-      {
-        who: 'ソクラテス',
-        quote: '「吟味されない生は、生きるに値しない」※短訳',
-        tags: ['意味', '人生', '迷い', '自分', '本音', '何をしたい'],
-        advice: '今の悩みが大きいのは、答えがないからではなく、問いが曖昧だからです。何に困っているのかを一段深く言い直してください。'
-      },
-      {
-        who: 'セネカ',
-        quote: '「難しいから挑まないのではない。挑まないから難しいのだ」※意訳',
-        tags: ['挑戦', '怖い', '先延ばし', '勇気', 'やる気'],
-        advice: '不安が消えるのを待つやり方は非効率です。難易度を下げて着手し、着手してから自信を回収するほうが現実的です。'
-      },
-      {
-        who: '老子',
-        quote: '「千里の道も一歩から」',
-        tags: ['大変', '多すぎる', 'どこから', '優先順位', '進まない'],
-        advice: '今必要なのは全体制圧ではなく、最初の一歩の定義です。今日中に終わるサイズまで切ってください。大きい目標のままでは動けません。'
-      },
-      {
-        who: 'ニーチェ',
-        quote: '「なぜ生きるかを知る者は、ほとんどどんなことにも耐える」※意訳',
-        tags: ['目的', '意味', '耐える', 'しんどい', '続かない'],
-        advice: '方法論の前に、なぜそれをやるのかを言語化してください。目的が弱いと、戦術をいくら足しても続きません。'
-      },
-      {
-        who: 'ブッダ',
-        quote: '「執着が苦しみを生む」※要約',
-        tags: ['執着', '手放せない', '比較', '嫉妬', 'こだわり'],
-        advice: '勝ちたい気持ちそのものではなく、こうでなければならないという固さが苦しさを増やしています。条件を少し緩めると選択肢が増えます。'
-      }
-    ];
-
-    adviceBtn.addEventListener('click', () => {
-      const input = adviceInput.value.trim();
-      if (!input) {
-        adviceOutput.textContent = '悩みをひとつ書いてください。';
-        return;
-      }
-
-      let best = advicePool[0];
-      let bestScore = -1;
-      advicePool.forEach(item => {
-        const score = item.tags.reduce((acc, tag) => acc + (input.includes(tag) ? 1 : 0), 0);
-        if (score > bestScore) {
-          best = item;
-          bestScore = score;
-        }
-      });
-
-      adviceOutput.textContent = `【${best.who}】\n${best.quote}\n\nひとこと助言：\n${best.advice}`;
-      renderNode('wisdom');
+      cardGrid.appendChild(btn);
     });
 
     const hour = new Date().getHours();
-    if (hour >= 23 || hour < 5) {
-      document.body.classList.add('night');
-    }
+    if (hour >= 23 || hour < 5) document.body.classList.add('night');
 
     let audioCtx;
     let bgmNodes = [];
@@ -1495,10 +1532,10 @@
       bgmNodes.push(osc, gain);
     }
 
-    function scheduleGamelanLikeLoop() {
+    function scheduleLoop() {
       if (!audioCtx || !bgmOn) return;
       const now = audioCtx.currentTime + 0.05;
-      const scale = [293.66, 329.63, 392.0, 440.0, 587.33];
+      const scale = [293.66, 329.63, 392.00, 440.00, 587.33];
       const pattern = [0, 2, 1, 3, 2, 4, 3, 1];
       const spacing = 0.42;
       pattern.forEach((noteIdx, i) => {
@@ -1506,20 +1543,16 @@
         playTone(scale[noteIdx], t, 0.36, 0.017, i % 2 === 0 ? 'sine' : 'triangle');
         playTone(scale[noteIdx] * 2, t + 0.06, 0.18, 0.006, 'triangle');
       });
-      bgmLoopTimer = setTimeout(scheduleGamelanLikeLoop, pattern.length * spacing * 1000);
+      bgmLoopTimer = setTimeout(scheduleLoop, pattern.length * spacing * 1000);
     }
 
     async function toggleBgm() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        await audioCtx.resume();
-      }
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') await audioCtx.resume();
       bgmOn = !bgmOn;
       bgmBtn.textContent = bgmOn ? '♪ BGM OFF' : '♪ BGM ON';
       if (bgmOn) {
-        scheduleGamelanLikeLoop();
+        scheduleLoop();
       } else {
         clearTimeout(bgmLoopTimer);
         bgmNodes.forEach(node => {
@@ -1531,7 +1564,8 @@
 
     bgmBtn.addEventListener('click', toggleBgm);
 
-    renderNode('start');
+    nextInsight('auto');
+    renderStep();
   </script>
 </body>
 </html>
