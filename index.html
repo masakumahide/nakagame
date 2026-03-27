@@ -1,990 +1,930 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>こぶぶのお気軽トーク</title>
-  <style>
-    :root{
-      --bg1:#f9f5ff;
-      --bg2:#eef6ff;
-      --panel:rgba(255,255,255,.82);
-      --panel-strong:rgba(255,255,255,.92);
-      --line:rgba(109,91,158,.12);
-      --text:#4b4064;
-      --muted:#7c7196;
-      --accent:#a67cff;
-      --accent2:#ff9fcb;
-      --accent3:#9fd8ff;
-      --gold:#f4c96b;
-      --shadow:0 18px 40px rgba(85,63,141,.10);
-      --shadow-soft:0 10px 24px rgba(85,63,141,.08);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIRD WEEK / バードウィーク</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap');
 
-    *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      min-height:100%;
-      font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 10% 10%, rgba(255,159,203,.18), transparent 24%),
-        radial-gradient(circle at 90% 10%, rgba(159,216,255,.18), transparent 22%),
-        radial-gradient(circle at 50% 100%, rgba(166,124,255,.12), transparent 30%),
-        linear-gradient(180deg,var(--bg1),var(--bg2));
-      overflow-x:hidden;
-    }
+:root {
+–sky: #87CEEB;
+–sky-dark: #4A90D9;
+–sun: #FFD700;
+–grass: #5DBB63;
+–ground: #8B6914;
+–pop1: #FF6B6B;
+–pop2: #FFE66D;
+–pop3: #4ECDC4;
+–pop4: #FF8C42;
+–pop5: #A8E6CF;
+–dark: #1a1a2e;
+–white: #FFFDF0;
+}
 
-    .bg-orb{
-      position:fixed;
-      border-radius:50%;
-      filter:blur(24px);
-      opacity:.38;
-      pointer-events:none;
-      z-index:0;
-      animation:float 9s ease-in-out infinite;
-    }
-    .orb1{width:240px;height:240px;left:-40px;top:40px;background:#ffd7e8;}
-    .orb2{width:280px;height:280px;right:-80px;top:160px;background:#d9efff;animation-delay:1.8s;}
-    .orb3{width:220px;height:220px;left:40%;bottom:-60px;background:#eadbff;animation-delay:3.2s;}
-    @keyframes float{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-18px)}
-    }
+- { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .sparkles{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      overflow:hidden;
-    }
-    .spark{
-      position:absolute;
-      width:4px;
-      height:4px;
-      border-radius:50%;
-      background:#fff;
-      opacity:.9;
-      box-shadow:0 0 10px rgba(255,255,255,.9);
-      animation:twinkle 3s ease-in-out infinite;
-    }
-    @keyframes twinkle{
-      0%,100%{opacity:.18;transform:scale(.7)}
-      50%{opacity:1;transform:scale(1.45)}
-    }
+body {
+background: var(–dark);
+font-family: ‘Press Start 2P’, monospace;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+overflow: hidden;
+}
 
-    .wrap{
-      position:relative;
-      z-index:1;
-      width:min(1000px, calc(100vw - 16px));
-      margin:0 auto;
-      padding:12px 0 28px;
-    }
+/* ===== TITLE SCREEN ===== */
+#title-screen {
+position: fixed;
+inset: 0;
+background: linear-gradient(180deg, #1a0533 0%, #3d1a6e 40%, #FF6B6B 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+z-index: 100;
+gap: 24px;
+}
 
-    .app{
-      background:var(--panel);
-      border:1px solid rgba(255,255,255,.75);
-      border-radius:30px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
-      overflow:hidden;
-    }
+.title-logo {
+text-align: center;
+animation: titleBounce 1.5s ease-in-out infinite;
+}
 
-    .hero{
-      display:grid;
-      grid-template-columns:300px 1fr;
-      gap:18px;
-      padding:18px;
-      border-bottom:1px solid rgba(109,91,158,.08);
-      background:linear-gradient(180deg, rgba(255,255,255,.60), rgba(255,255,255,.20));
-      align-items:center;
-    }
+.title-logo .en {
+font-family: ‘Press Start 2P’, monospace;
+font-size: clamp(28px, 6vw, 56px);
+color: var(–sun);
+text-shadow:
+4px 4px 0 var(–pop1),
+8px 8px 0 #cc4400;
+letter-spacing: 4px;
+display: block;
+}
 
-    .portrait-card{
-      border-radius:26px;
-      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(247,242,255,.85));
-      border:1px solid rgba(255,255,255,.85);
-      box-shadow:var(--shadow-soft);
-      padding:10px;
-      min-height:360px;
-      display:grid;
-      place-items:center;
-      overflow:hidden;
-    }
+.title-logo .jp {
+font-family: ‘M PLUS Rounded 1c’, sans-serif;
+font-size: clamp(14px, 3vw, 22px);
+font-weight: 900;
+color: var(–white);
+text-shadow: 2px 2px 0 var(–pop3);
+display: block;
+margin-top: 8px;
+letter-spacing: 8px;
+}
 
-    .portrait-stage{
-      width:100%;
-      height:100%;
-      border-radius:20px;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 50% 15%, rgba(255,255,255,.95), rgba(255,255,255,.25) 40%, transparent 42%),
-        linear-gradient(180deg,#f6f2ff 0%, #f3f7ff 52%, #efe8ff 100%);
-      position:relative;
-    }
+.title-bird {
+font-size: clamp(64px, 15vw, 120px);
+animation: titleFly 2s ease-in-out infinite;
+filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+}
 
-    .portrait-stage::after{
-      content:"";
-      position:absolute;
-      inset:auto 22px 14px 22px;
-      height:58px;
-      background:linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.55));
-      border-radius:30px;
-      filter:blur(10px);
-    }
+.title-desc {
+font-family: ‘M PLUS Rounded 1c’, sans-serif;
+font-size: clamp(11px, 2vw, 15px);
+color: var(–pop5);
+text-align: center;
+line-height: 2;
+font-weight: 700;
+}
 
-    .hero-copy{
-      min-width:0;
-    }
+.start-btn {
+background: var(–sun);
+color: var(–dark);
+border: none;
+padding: 16px 48px;
+font-family: ‘Press Start 2P’, monospace;
+font-size: clamp(10px, 2vw, 14px);
+cursor: pointer;
+border-radius: 0;
+box-shadow: 6px 6px 0 var(–pop1);
+transition: transform 0.1s, box-shadow 0.1s;
+animation: blink 1s step-end infinite;
+}
 
-    .eyebrow{
-      font-size:11px;
-      letter-spacing:.22em;
-      color:#8b7fad;
-      margin-bottom:6px;
-    }
+.start-btn:hover, .start-btn:active {
+transform: translate(3px, 3px);
+box-shadow: 3px 3px 0 var(–pop1);
+}
 
-    h1{
-      margin:0 0 8px;
-      font-size:31px;
-      line-height:1.15;
-      color:#604b83;
-    }
+@keyframes titleBounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-12px); }
+}
 
-    .lead{
-      margin:0 0 16px;
-      font-size:14px;
-      line-height:1.85;
-      color:var(--muted);
-      max-width:42em;
-    }
+@keyframes titleFly {
+0%, 100% { transform: translateY(0) rotate(-5deg); }
+50% { transform: translateY(-20px) rotate(5deg); }
+}
 
-    .toolbar{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
+@keyframes blink {
+0%, 100% { opacity: 1; }
+50% { opacity: 0; }
+}
 
-    .chip,
-    .option-btn,
-    .tarot-btn,
-    .restart-btn{
-      appearance:none;
-      border:none;
-      cursor:pointer;
-      touch-action:manipulation;
-      -webkit-tap-highlight-color:transparent;
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-    }
+/* ===== GAME SCREEN ===== */
+#game-screen {
+display: none;
+flex-direction: column;
+align-items: center;
+width: 100%;
+position: relative;
+}
 
-    .chip,
-    .restart-btn{
-      padding:11px 16px;
-      border-radius:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.75));
-      border:1px solid var(--line);
-      color:#5d507a;
-      font-weight:800;
-      box-shadow:var(--shadow-soft);
-    }
+/* HUD */
+#hud {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+max-width: 640px;
+padding: 8px 12px;
+background: var(–dark);
+border-bottom: 4px solid var(–sun);
+}
 
-    .chip.primary{
-      background:linear-gradient(180deg, rgba(255,222,129,.96), rgba(255,164,203,.90));
-      border-color:rgba(244,201,107,.35);
-    }
+.hud-block {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 2px;
+}
 
-    .chip:hover,
-    .option-btn:hover,
-    .tarot-btn:hover,
-    .restart-btn:hover{
-      transform:translateY(-1px);
-    }
+.hud-label {
+font-size: 7px;
+color: var(–pop3);
+letter-spacing: 1px;
+}
 
-    .main{
-      padding:16px;
-      display:grid;
-      gap:14px;
-    }
+.hud-value {
+font-size: clamp(12px, 3vw, 18px);
+color: var(–sun);
+}
 
-    .panel{
-      background:var(--panel-strong);
-      border:1px solid rgba(109,91,158,.10);
-      border-radius:26px;
-      box-shadow:var(--shadow-soft);
-      padding:16px;
-    }
+.hud-lives {
+font-size: clamp(18px, 4vw, 24px);
+letter-spacing: 4px;
+}
 
-    .hidden{display:none !important}
+/* CANVAS */
+#gameCanvas {
+display: block;
+max-width: 640px;
+width: 100%;
+image-rendering: pixelated;
+cursor: none;
+}
 
-    .assistant{
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-      margin-bottom:14px;
-    }
+/* LEVEL BANNER */
+#level-banner {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background: var(–dark);
+border: 4px solid var(–sun);
+padding: 24px 48px;
+text-align: center;
+z-index: 50;
+display: none;
+box-shadow: 8px 8px 0 var(–pop1);
+}
 
-    .assistant-badge{
-      width:44px;
-      height:44px;
-      border-radius:15px;
-      flex:0 0 auto;
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      color:#fff;
-      background:linear-gradient(180deg, #b18aff, #ff9fcb);
-      box-shadow:var(--shadow-soft);
-    }
+#level-banner .lv-label {
+font-size: 10px;
+color: var(–pop3);
+display: block;
+margin-bottom: 8px;
+}
+#level-banner .lv-num {
+font-size: clamp(24px, 5vw, 36px);
+color: var(–sun);
+}
 
-    .assistant-meta{
-      min-width:0;
-    }
+/* GAME OVER / CLEAR */
+#overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.85);
+display: none;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+z-index: 80;
+gap: 20px;
+text-align: center;
+}
 
-    .assistant-name{
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:.08em;
-      color:#644f86;
-      margin-bottom:2px;
-    }
+#overlay .over-title {
+font-size: clamp(24px, 6vw, 48px);
+color: var(–pop1);
+text-shadow: 4px 4px 0 #880000;
+animation: titleBounce 1s infinite;
+}
+#overlay.clear .over-title {
+color: var(–sun);
+text-shadow: 4px 4px 0 var(–pop4);
+}
 
-    .assistant-note{
-      font-size:12px;
-      color:var(--muted);
-    }
+#overlay .over-score {
+font-size: clamp(12px, 3vw, 18px);
+color: var(–white);
+}
 
-    .bubble{
-      padding:16px;
-      border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.82));
-      border:1px solid rgba(109,91,158,.08);
-      box-shadow:var(--shadow-soft);
-      white-space:pre-wrap;
-      font-size:16px;
-      line-height:1.82;
-      min-height:86px;
-    }
+#overlay .over-score span {
+color: var(–sun);
+}
 
-    .quote{
-      margin-top:12px;
-      padding:15px 16px;
-      border-radius:20px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,248,253,.88)),
-        linear-gradient(135deg, rgba(244,201,107,.08), rgba(159,216,255,.08));
-      border:1px solid rgba(109,91,158,.08);
-      box-shadow:var(--shadow-soft);
-    }
+#overlay .retry-btn {
+background: var(–pop3);
+color: var(–dark);
+border: none;
+padding: 14px 36px;
+font-family: ‘Press Start 2P’, monospace;
+font-size: clamp(9px, 2vw, 13px);
+cursor: pointer;
+box-shadow: 5px 5px 0 #007a73;
+transition: transform 0.1s, box-shadow 0.1s;
+}
+#overlay .retry-btn:hover {
+transform: translate(2px, 2px);
+box-shadow: 3px 3px 0 #007a73;
+}
 
-    .quote-kicker{
-      font-size:11px;
-      letter-spacing:.18em;
-      color:#9484b6;
-      margin-bottom:8px;
-    }
+/* Floating score popup */
+.score-pop {
+position: absolute;
+font-family: ‘Press Start 2P’, monospace;
+font-size: 14px;
+color: var(–sun);
+text-shadow: 2px 2px 0 #000;
+pointer-events: none;
+animation: scoreFloat 1s ease-out forwards;
+z-index: 60;
+}
+@keyframes scoreFloat {
+0% { opacity: 1; transform: translateY(0); }
+100% { opacity: 0; transform: translateY(-60px); }
+}
 
-    .quote-text{
-      font-size:15px;
-      line-height:1.8;
-      color:#5d5078;
-      margin-bottom:8px;
-      white-space:pre-wrap;
-    }
+/* Mobile controls */
+#mobile-controls {
+display: none;
+gap: 16px;
+padding: 12px;
+}
+.ctrl-btn {
+width: 64px; height: 64px;
+background: rgba(255,255,255,0.15);
+border: 3px solid var(–white);
+border-radius: 50%;
+font-size: 28px;
+cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+user-select: none;
+-webkit-user-select: none;
+active: background rgba(255,255,255,0.3);
+}
 
-    .quote-meta{
-      font-size:13px;
-      line-height:1.7;
-      color:#7f729a;
-    }
+@media (pointer: coarse) {
+#mobile-controls { display: flex; }
+}
+</style>
 
-    .question{
-      margin:16px 0 10px;
-      font-size:20px;
-      color:#644f86;
-      font-weight:900;
-    }
-
-    .progress{
-      margin:2px 0 12px;
-      font-size:12px;
-      color:#9084ab;
-    }
-
-    .options{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:10px;
-    }
-
-    .option-btn{
-      min-height:66px;
-      padding:14px 16px;
-      border-radius:18px;
-      text-align:left;
-      line-height:1.55;
-      background:linear-gradient(180deg, rgba(255,255,255,.97), rgba(255,255,255,.78));
-      border:1px solid var(--line);
-      color:#54486d;
-      box-shadow:var(--shadow-soft);
-      font-size:15px;
-      font-weight:700;
-    }
-
-    .option-btn:disabled{
-      opacity:.6;
-      cursor:default;
-      transform:none;
-    }
-
-    .section-title{
-      margin:0 0 6px;
-      font-size:22px;
-      color:#624d84;
-    }
-
-    .section-sub{
-      margin:0 0 14px;
-      font-size:13px;
-      line-height:1.75;
-      color:var(--muted);
-    }
-
-    .tarot-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-      gap:12px;
-    }
-
-    .tarot-btn{
-      padding:0;
-      border-radius:22px;
-      overflow:hidden;
-      position:relative;
-      aspect-ratio:.76;
-      border:1px solid rgba(109,91,158,.12);
-      box-shadow:var(--shadow-soft);
-      background:#fff;
-    }
-
-    .tarot-face{
-      position:absolute;
-      inset:0;
-      padding:10px;
-      display:grid;
-      grid-template-rows:auto auto 1fr auto auto;
-      gap:7px;
-      color:#5f4f7e;
-    }
-
-    .tarot-roman{
-      text-align:center;
-      font-size:10px;
-      letter-spacing:.20em;
-      color:#8f7eb1;
-    }
-
-    .tarot-art{
-      height:98px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      font-size:42px;
-      background:rgba(255,255,255,.25);
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
-    }
-
-    .tarot-name{
-      text-align:center;
-      font-weight:900;
-      letter-spacing:.08em;
-      font-size:12px;
-      color:#644f86;
-    }
-
-    .tarot-tag{
-      text-align:center;
-      font-size:10px;
-      color:#7f729a;
-      line-height:1.45;
-      min-height:30px;
-    }
-
-    .tarot-stars{
-      text-align:center;
-      color:#d6aa45;
-      font-size:13px;
-    }
-
-    .tarot-btn.active{
-      transform:translateY(-2px);
-      box-shadow:0 0 0 3px rgba(244,201,107,.20), var(--shadow-soft);
-      border-color:rgba(244,201,107,.48);
-    }
-
-    .result-card{
-      margin-top:14px;
-      padding:16px;
-      border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.82));
-      border:1px solid rgba(109,91,158,.08);
-      box-shadow:var(--shadow-soft);
-      white-space:pre-wrap;
-      font-size:16px;
-      line-height:1.82;
-    }
-
-    .summary-actions{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    @media (max-width: 860px){
-      .hero{grid-template-columns:1fr}
-      .portrait-card{min-height:320px}
-      .tarot-grid{grid-template-columns:repeat(3, minmax(0,1fr))}
-    }
-
-    @media (max-width: 640px){
-      .wrap{width:min(100vw - 8px, 100%); padding-top:6px}
-      .hero,.main{padding-left:10px; padding-right:10px}
-      h1{font-size:25px}
-      .options{grid-template-columns:1fr}
-      .tarot-grid{grid-template-columns:1fr}
-      .tarot-btn{aspect-ratio:auto; min-height:180px}
-      .portrait-card{min-height:280px}
-    }
-  </style>
 </head>
 <body>
-  <div class="bg-orb orb1"></div>
-  <div class="bg-orb orb2"></div>
-  <div class="bg-orb orb3"></div>
-  <div class="sparkles" id="sparkles"></div>
 
-  <main class="wrap">
-    <section class="app">
-      <header class="hero">
-        <div class="portrait-card">
-          <div class="portrait-stage" id="portraitStage"></div>
-        </div>
+<!-- TITLE SCREEN -->
 
-        <div class="hero-copy">
-          <div class="eyebrow">KOBUBU</div>
-          <h1>こぶぶのお気軽トーク</h1>
-          <p class="lead">
-            一問一答で進み、答えるたびに短い名言をひとつ添えます。
-            最後は22枚のタロットから、気になる絵柄を1枚選べます。
-          </p>
-          <div class="toolbar">
-            <button class="chip primary" id="restartTopBtn">最初から</button>
-            <span class="chip" aria-hidden="true">画像なしで動作</span>
-          </div>
-        </div>
-      </header>
+<div id="title-screen">
+  <div class="title-bird">🐦</div>
+  <div class="title-logo">
+    <span class="en">BIRD WEEK</span>
+    <span class="jp">バードウィーク</span>
+  </div>
+  <div class="title-desc">
+    Feed your chicks! Dodge the enemies!<br>
+    ヒナに餌を届けろ！敵をかわせ！
+  </div>
+  <button class="start-btn" id="startBtn">▶ START / スタート</button>
+</div>
 
-      <div class="main">
-        <section class="panel" id="chatScreen">
-          <div class="assistant">
-            <div class="assistant-badge">こ</div>
-            <div class="assistant-meta">
-              <div class="assistant-name">こぶぶ</div>
-              <div class="assistant-note">短い名言を添えながらお話しします</div>
-            </div>
-          </div>
+<!-- GAME SCREEN -->
 
-          <div class="bubble" id="messageBox">ねえ、今日はどんな気分？</div>
+<div id="game-screen">
+  <div id="hud">
+    <div class="hud-block">
+      <span class="hud-label">SCORE / スコア</span>
+      <span class="hud-value" id="scoreDisplay">0</span>
+    </div>
+    <div class="hud-block">
+      <span class="hud-label">LIVES / ライフ</span>
+      <span class="hud-lives" id="livesDisplay">🐦🐦🐦</span>
+    </div>
+    <div class="hud-block">
+      <span class="hud-label">LEVEL / レベル</span>
+      <span class="hud-value" id="levelDisplay">1</span>
+    </div>
+  </div>
+  <canvas id="gameCanvas" width="640" height="400"></canvas>
+  <div id="mobile-controls">
+    <div class="ctrl-btn" id="btnLeft">◀</div>
+    <div class="ctrl-btn" id="btnUp">▲</div>
+    <div class="ctrl-btn" id="btnDown">▼</div>
+    <div class="ctrl-btn" id="btnRight">▶</div>
+  </div>
+</div>
 
-          <div class="quote hidden" id="quoteBox">
-            <div class="quote-kicker">こぶぶのひとこと</div>
-            <div class="quote-text" id="quoteText"></div>
-            <div class="quote-meta" id="quoteMeta"></div>
-          </div>
+<!-- LEVEL BANNER -->
 
-          <div class="question" id="questionText"></div>
-          <div class="progress" id="progressText"></div>
-          <div class="options" id="options"></div>
-        </section>
+<div id="level-banner">
+  <span class="lv-label">LEVEL / レベル</span>
+  <span class="lv-num" id="bannerNum">1</span>
+</div>
 
-        <section class="panel hidden" id="tarotScreen">
-          <h2 class="section-title">最後に1枚だけ</h2>
-          <p class="section-sub">気になる絵柄を、自分で選んでください。</p>
-          <div class="tarot-grid" id="tarotGrid"></div>
-          <div class="result-card" id="tarotNote">どれか1枚、気になるカードを選んでください。</div>
-        </section>
+<!-- OVERLAY (Game Over / Clear) -->
 
-        <section class="panel hidden" id="summaryScreen">
-          <h2 class="section-title">こぶぶからのまとめ</h2>
-          <p class="section-sub">会話とタロットをもとに、最後に短くまとめます。</p>
-          <div class="result-card" id="summaryText"></div>
-          <div class="summary-actions">
-            <button class="restart-btn" id="restartBtn">最初から話す</button>
-          </div>
-        </section>
-      </div>
-    </section>
-  </main>
+<div id="overlay">
+  <div class="over-title" id="overTitle">GAME OVER</div>
+  <div class="over-score" id="overScore">SCORE: <span>0</span></div>
+  <button class="retry-btn" id="retryBtn">▶ RETRY / もう一度</button>
+</div>
 
-  <script>
-    const sparkles = document.getElementById('sparkles');
-    for (let i = 0; i < 56; i++) {
-      const s = document.createElement('div');
-      s.className = 'spark';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.animationDelay = (Math.random() * 3) + 's';
-      s.style.opacity = (0.3 + Math.random() * 0.7).toFixed(2);
-      sparkles.appendChild(s);
-    }
+<script>
+// ============================================================
+//  BIRD WEEK  — Pure Canvas Game
+// ============================================================
+const canvas = document.getElementById('gameCanvas');
+const ctx    = canvas.getContext('2d');
 
-    const portraitStage = document.getElementById('portraitStage');
-    portraitStage.innerHTML = `
-      <svg viewBox="0 0 320 380" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-label="女性のイラスト">
-        <defs>
-          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#fbf7ff"/>
-            <stop offset="55%" stop-color="#f2f6ff"/>
-            <stop offset="100%" stop-color="#efe8ff"/>
-          </linearGradient>
+// Resize canvas to fill container width (keep 8:5 ratio)
+function resizeCanvas() {
+  const maxW = Math.min(window.innerWidth, 640);
+  canvas.style.width  = maxW + 'px';
+  canvas.style.height = (maxW * 400 / 640) + 'px';
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-          <linearGradient id="hairGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#b9b0ab"/>
-            <stop offset="45%" stop-color="#9f958f"/>
-            <stop offset="100%" stop-color="#7d736e"/>
-          </linearGradient>
+// ── COLOURS ─────────────────────────────────────────────────
+const C = {
+  skyTop:   '#87CEEB', skyBot: '#C9E8FF',
+  sun:      '#FFD700',
+  cloud:    '#FFFDF0',
+  grass:    '#5DBB63', grassDark: '#3d8f41',
+  ground:   '#8B6914',
+  nest:     '#8B4513',
+  pop1:     '#FF6B6B',
+  pop2:     '#FFE66D',
+  pop3:     '#4ECDC4',
+  pop4:     '#FF8C42',
+  pop5:     '#A8E6CF',
+  dark:     '#1a1a2e',
+  white:    '#FFFDF0',
+};
 
-          <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#f8d7c6"/>
-            <stop offset="100%" stop-color="#efbea8"/>
-          </linearGradient>
+// ── STATE ────────────────────────────────────────────────────
+let state, bird, worms, enemies, nests, clouds, particles;
+let score, lives, level, feedCount, levelGoal;
+let keys = {};
+let mouse = { x: 320, y: 200, down: false };
+let gameLoop;
 
-          <linearGradient id="coatGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#1e2334"/>
-            <stop offset="100%" stop-color="#31385b"/>
-          </linearGradient>
+const W = 640, H = 400;
+const GROUND_Y = H - 60;
+const NEST_Y   = GROUND_Y - 18;
 
-          <linearGradient id="shirtGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#fdfdff"/>
-            <stop offset="100%" stop-color="#ebe7f7"/>
-          </linearGradient>
+// ── INIT ─────────────────────────────────────────────────────
+function initGame() {
+  score     = 0;
+  lives     = 3;
+  level     = 1;
+  feedCount = 0;
+  levelGoal = 5;
+  state     = 'playing';
 
-          <radialGradient id="halo" cx="50%" cy="22%" r="45%">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
-            <stop offset="60%" stop-color="rgba(255,255,255,0.3)" />
-            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
-          </radialGradient>
+  bird = {
+    x: 80, y: 160, w: 36, h: 28,
+    vx: 0, vy: 0,
+    speed: 3.5,
+    hasWorm: false,
+    wormColor: '#5DBB63',
+    invincible: 0,
+    flapFrame: 0,
+    flapTimer: 0,
+  };
 
-          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="rgba(82,59,129,0.16)"/>
-          </filter>
-        </defs>
+  nests = [
+    { x: 520, y: NEST_Y, w: 64, h: 20, chick: true },
+  ];
 
-        <rect width="320" height="380" rx="26" fill="url(#bgGrad)"/>
-        <circle cx="160" cy="86" r="86" fill="url(#halo)"/>
+  worms   = [];
+  enemies = [];
+  particles = [];
 
-        <ellipse cx="160" cy="340" rx="92" ry="18" fill="rgba(104,89,148,0.10)"/>
+  clouds = Array.from({length: 5}, (_, i) => ({
+    x: i * 140 + 20, y: 30 + Math.random() * 60,
+    w: 80 + Math.random() * 60,
+    speed: 0.3 + Math.random() * 0.3,
+  }));
 
-        <g filter="url(#softShadow)">
-          <path d="M80 338 C95 278, 110 248, 160 248 C210 248, 225 278, 240 338 L80 338 Z" fill="url(#coatGrad)"/>
-          <path d="M136 240 L184 240 L198 338 L122 338 Z" fill="url(#shirtGrad)"/>
-          <path d="M145 240 C147 226, 173 226, 175 240 L175 256 C175 266, 145 266, 145 256 Z" fill="url(#skinGrad)"/>
+  spawnWorm();
+  updateHUD();
+  showLevelBanner();
+}
 
-          <path d="M92 128 C92 78, 128 44, 160 44 C197 44, 232 79, 232 132 C232 190, 212 232, 160 232 C108 232, 92 188, 92 128 Z" fill="url(#hairGrad)"/>
-          <path d="M110 112 C112 83, 130 68, 160 64 C194 60, 215 84, 213 117 C211 150, 205 191, 160 198 C114 193, 108 148, 110 112 Z" fill="url(#skinGrad)"/>
-          <path d="M111 115 C119 81, 140 63, 163 60 C196 56, 216 75, 219 117 C208 103, 198 98, 183 92 C161 83, 142 90, 124 104 C120 107, 116 111, 111 115 Z" fill="url(#hairGrad)"/>
+function updateHUD() {
+  document.getElementById('scoreDisplay').textContent = score;
+  document.getElementById('livesDisplay').textContent = '🐦'.repeat(Math.max(0, lives));
+  document.getElementById('levelDisplay').textContent = level;
+}
 
-          <path d="M111 114 C108 159, 112 197, 130 220 C104 210, 89 183, 87 149 C85 121, 92 92, 111 74 C121 65, 132 58, 145 54 C126 68, 115 88, 111 114 Z" fill="url(#hairGrad)"/>
-          <path d="M209 117 C212 158, 208 196, 191 220 C220 210, 234 184, 235 152 C236 122, 228 91, 209 73 C199 63, 187 56, 175 53 C193 69, 205 89, 209 117 Z" fill="url(#hairGrad)"/>
+// ── SPAWNERS ─────────────────────────────────────────────────
+function spawnWorm() {
+  if (worms.length >= 2) return;
+  const colors = [C.pop3, C.pop5, '#FF9FF3', C.pop2];
+  worms.push({
+    x: 60 + Math.random() * (W - 180),
+    y: GROUND_Y - 8,
+    w: 18, h: 14,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    wiggle: 0,
+    wiggleDir: 1,
+  });
+}
 
-          <path d="M130 126 C138 122, 147 121, 154 124" stroke="#9e7f78" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <path d="M166 124 C173 121, 183 122, 191 126" stroke="#9e7f78" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+function spawnEnemy() {
+  const types = ['hawk', 'crow', 'bat'];
+  const type  = types[Math.floor(Math.random() * types.length)];
+  const fromRight = Math.random() < 0.5;
+  enemies.push({
+    x: fromRight ? W + 30 : -30,
+    y: 40 + Math.random() * (GROUND_Y - 100),
+    w: 32, h: 24,
+    vx: (fromRight ? -1 : 1) * (1.5 + level * 0.4),
+    vy: 0,
+    type,
+    sinOffset: Math.random() * Math.PI * 2,
+    t: 0,
+  });
+}
 
-          <path d="M128 140 C134 136, 145 136, 151 140" stroke="#8bb5e9" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-          <path d="M169 140 C175 136, 186 136, 192 140" stroke="#8bb5e9" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+// ── PARTICLE ─────────────────────────────────────────────────
+function burst(x, y, color, n = 8) {
+  for (let i = 0; i < n; i++) {
+    const a = (Math.PI * 2 / n) * i;
+    particles.push({
+      x, y,
+      vx: Math.cos(a) * (2 + Math.random() * 3),
+      vy: Math.sin(a) * (2 + Math.random() * 3),
+      life: 1, color,
+      r: 4 + Math.random() * 4,
+    });
+  }
+}
 
-          <circle cx="140" cy="142" r="3.1" fill="#46536b"/>
-          <circle cx="181" cy="142" r="3.1" fill="#46536b"/>
-          <circle cx="139" cy="141" r="1.2" fill="#fff"/>
-          <circle cx="180" cy="141" r="1.2" fill="#fff"/>
+function scorePopup(x, y, text) {
+  const el = document.createElement('div');
+  el.className = 'score-pop';
+  el.textContent = text;
+  // position relative to canvas
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = rect.width  / W;
+  const scaleY = rect.height / H;
+  el.style.left = (rect.left + x * scaleX) + 'px';
+  el.style.top  = (rect.top  + y * scaleY) + 'px';
+  el.style.position = 'fixed';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+}
 
-          <path d="M160 146 C158 155, 157 162, 159 168" stroke="#d6a693" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <path d="M146 177 C153 182, 168 182, 175 177" stroke="#c87086" stroke-width="2.7" fill="none" stroke-linecap="round"/>
-          <path d="M147 175 C153 179, 168 179, 174 175" stroke="#e28aa0" stroke-width="5" opacity=".34" fill="none" stroke-linecap="round"/>
+// ── LEVEL BANNER ─────────────────────────────────────────────
+function showLevelBanner() {
+  const banner = document.getElementById('level-banner');
+  document.getElementById('bannerNum').textContent = level;
+  banner.style.display = 'block';
+  setTimeout(() => { banner.style.display = 'none'; }, 1800);
+}
 
-          <ellipse cx="121" cy="154" rx="8" ry="5" fill="#efb8aa" opacity=".42"/>
-          <ellipse cx="198" cy="154" rx="8" ry="5" fill="#efb8aa" opacity=".42"/>
+// ── NEXT LEVEL ───────────────────────────────────────────────
+function nextLevel() {
+  level++;
+  feedCount = 0;
+  levelGoal = 5 + level;
+  updateHUD();
+  bird.hasWorm = false;
+  enemies = [];
+  worms   = [];
+  spawnWorm();
+  showLevelBanner();
 
-          <path d="M120 82 C138 66, 188 61, 207 83" stroke="rgba(255,255,255,0.34)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  if (level > 5) {
+    endGame(true);
+  }
+}
 
-          <path d="M118 231 C133 246, 188 248, 204 231" fill="none" stroke="#c7bdcf" stroke-width="3" stroke-linecap="round"/>
-        </g>
-      </svg>
-    `;
+// ── DEATH ────────────────────────────────────────────────────
+function takeDamage() {
+  if (bird.invincible > 0) return;
+  lives--;
+  bird.invincible = 120;
+  bird.hasWorm = false;
+  burst(bird.x, bird.y, C.pop1, 12);
+  updateHUD();
+  if (lives <= 0) endGame(false);
+}
 
-    const chatScreen = document.getElementById('chatScreen');
-    const tarotScreen = document.getElementById('tarotScreen');
-    const summaryScreen = document.getElementById('summaryScreen');
+// ── GAME OVER / CLEAR ────────────────────────────────────────
+function endGame(win) {
+  state = win ? 'clear' : 'over';
+  cancelAnimationFrame(gameLoop);
+  const overlay = document.getElementById('overlay');
+  overlay.className = win ? 'clear' : '';
+  document.getElementById('overTitle').textContent  = win ? '🎉 YOU WIN! / クリア！' : 'GAME OVER / ゲームオーバー';
+  document.getElementById('overScore').innerHTML    = `SCORE / スコア: <span>${score}</span>`;
+  overlay.style.display = 'flex';
+}
 
-    const messageBox = document.getElementById('messageBox');
-    const quoteBox = document.getElementById('quoteBox');
-    const quoteText = document.getElementById('quoteText');
-    const quoteMeta = document.getElementById('quoteMeta');
-    const questionText = document.getElementById('questionText');
-    const progressText = document.getElementById('progressText');
-    const optionsBox = document.getElementById('options');
+// ── INPUT ─────────────────────────────────────────────────────
+document.addEventListener('keydown', e => { keys[e.code] = true; });
+document.addEventListener('keyup',   e => { keys[e.code] = false; });
 
-    const tarotGrid = document.getElementById('tarotGrid');
-    const tarotNote = document.getElementById('tarotNote');
-    const summaryText = document.getElementById('summaryText');
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  mouse.x = (e.clientX - r.left) * (W / r.width);
+  mouse.y = (e.clientY - r.top)  * (H / r.height);
+});
 
-    const restartBtn = document.getElementById('restartBtn');
-    const restartTopBtn = document.getElementById('restartTopBtn');
+// Mobile
+['btnLeft','btnRight','btnUp','btnDown'].forEach(id => {
+  const btn = document.getElementById(id);
+  btn.addEventListener('pointerdown', () => { keys['mob_' + id] = true; });
+  btn.addEventListener('pointerup',   () => { keys['mob_' + id] = false; });
+  btn.addEventListener('pointerleave',() => { keys['mob_' + id] = false; });
+});
 
-    const STEPS = [
-      {
-        id: 'mood',
-        prompt: '今日はどんな気分？',
-        options: [
-          { id: 'tired', label: 'ちょっと疲れてる' },
-          { id: 'swirl', label: '焦って空回りしてる' },
-          { id: 'tidy', label: '気持ちを整えたい' },
-          { id: 'talk', label: 'なんとなく話したい' }
-        ],
-        replies: {
-          tired: 'そっか。今日はまず休みたい気分なんだね。無理に元気を出さなくて大丈夫。',
-          swirl: 'それはしんどいね。急いでいるのに進んでいる感じがないと、気持ちだけが削られやすい。',
-          tidy: 'いいね。やみくもに頑張るより、まず整えたい感じなんだね。',
-          talk: 'もちろん。理由がはっきりしていなくても大丈夫。話しているうちに見えてくることも多いよ。'
-        }
-      },
-      {
-        id: 'burden',
-        prompt: 'いちばん引っかかっているのはどれ？',
-        options: [
-          { id: 'priority', label: '優先順位がぐちゃぐちゃ' },
-          { id: 'heavy', label: '気持ちが重い' },
-          { id: 'people', label: '人のことが気になる' },
-          { id: 'self', label: '自分に自信が持てない' }
-        ],
-        replies: {
-          priority: 'やることの量より、順番がうまく整理できていない感じだね。',
-          heavy: '気持ちそのものが重たくなっているんだね。そういう時は、理屈より先にしんどさが来る。',
-          people: '人の言葉や反応が、いつもより強く気になっているんだね。',
-          self: '自分に向ける目が、少し厳しくなっているのかもしれないね。'
-        }
-      },
-      {
-        id: 'wish',
-        prompt: '本当は、どうなれたら少し楽？',
-        options: [
-          { id: 'calm', label: '落ち着きたい' },
-          { id: 'decide', label: 'はっきり決めたい' },
-          { id: 'confidence', label: '自信を取り戻したい' },
-          { id: 'forward', label: 'やさしく前に進みたい' }
-        ],
-        replies: {
-          calm: 'うん。今ほしいのは勢いより、まず落ち着きなんだね。',
-          decide: '迷いを少し晴らしたいんだね。決めきれない状態は、それだけで消耗する。',
-          confidence: '自分をもう一度信じたい気持ちがあるんだね。それは大事な感覚だよ。',
-          forward: '無理に強く進むより、穏やかに前へ進みたいんだね。今の自分にはその進み方が合っていそう。'
-        }
-      },
-      {
-        id: 'support',
-        prompt: '今日は、どんなふうに返してほしい？',
-        options: [
-          { id: 'gentle', label: 'やさしく返してほしい' },
-          { id: 'sharp', label: '少し厳しめに言ってほしい' },
-          { id: 'quote', label: '名言を多めに入れてほしい' },
-          { id: 'watch', label: '時計の話で少し和みたい' }
-        ],
-        replies: {
-          gentle: 'わかった。今日はやわらかく、でも曖昧にしすぎずに返すね。',
-          sharp: '了解。少し率直に言うと、今つらい理由の一つは、決めきれないまま抱え込みすぎていることかもしれない。',
-          quote: 'いいね。言葉をひとつずつ添えながら進めよう。',
-          watch: '了解。時計みたいに、一気に整えようとせず、少しずつ落ち着かせていこう。'
-        }
-      },
-      {
-        id: 'action',
-        prompt: '今の自分に渡すなら、次の一手はどれ？',
-        options: [
-          { id: 'ten', label: '10分だけ手をつける' },
-          { id: 'message', label: '1本だけ連絡する' },
-          { id: 'stop', label: 'やらないことを決める' },
-          { id: 'rest', label: '今日は少し休む' }
-        ],
-        replies: {
-          ten: 'いい選び方だね。10分は小さく見えて、実はかなり強い一歩だよ。',
-          message: 'その1本で流れが変わることは多い。小さいけれど、効く一手だよ。',
-          stop: 'やらないことを決めるのは逃げじゃない。かなり賢いやり方だよ。',
-          rest: '休むのは後退じゃない。立て直すための大事な時間だよ。'
-        }
+// ── UPDATE ────────────────────────────────────────────────────
+let enemyTimer = 0;
+let wormTimer  = 0;
+
+function update() {
+  if (state !== 'playing') return;
+
+  // Bird movement — keyboard
+  if (keys['ArrowLeft']  || keys['KeyA'] || keys['mob_btnLeft'])  bird.vx -= 0.8;
+  if (keys['ArrowRight'] || keys['KeyD'] || keys['mob_btnRight']) bird.vx += 0.8;
+  if (keys['ArrowUp']    || keys['KeyW'] || keys['mob_btnUp'])    bird.vy -= 0.8;
+  if (keys['ArrowDown']  || keys['KeyS'] || keys['mob_btnDown'])  bird.vy += 0.8;
+
+  // Mouse follow (gentle)
+  const dx = mouse.x - bird.x;
+  const dy = mouse.y - bird.y;
+  const dist = Math.sqrt(dx*dx + dy*dy);
+  if (dist > 30) {
+    bird.vx += dx / dist * 1.2;
+    bird.vy += dy / dist * 1.2;
+  }
+
+  // Friction & max speed
+  bird.vx *= 0.82;
+  bird.vy *= 0.82;
+  const spd = bird.speed + level * 0.2;
+  const mag = Math.sqrt(bird.vx**2 + bird.vy**2);
+  if (mag > spd) { bird.vx = bird.vx/mag*spd; bird.vy = bird.vy/mag*spd; }
+
+  bird.x += bird.vx;
+  bird.y += bird.vy;
+
+  // Boundaries
+  bird.x = Math.max(bird.w/2, Math.min(W - bird.w/2, bird.x));
+  bird.y = Math.max(bird.h/2, Math.min(GROUND_Y - bird.h, bird.y));
+
+  // Flap animation
+  bird.flapTimer++;
+  if (bird.flapTimer > 6) { bird.flapTimer = 0; bird.flapFrame = (bird.flapFrame + 1) % 3; }
+
+  // Invincibility cooldown
+  if (bird.invincible > 0) bird.invincible--;
+
+  // ── Worms ──
+  worms.forEach(w => {
+    w.wiggle += 0.1 * w.wiggleDir;
+    if (Math.abs(w.wiggle) > 4) w.wiggleDir *= -1;
+  });
+
+  // Bird picks up worm
+  if (!bird.hasWorm) {
+    worms = worms.filter(w => {
+      const hit = Math.abs(bird.x - (w.x + w.w/2)) < 28 &&
+                  Math.abs(bird.y - (w.y + w.h/2)) < 28;
+      if (hit) {
+        bird.hasWorm  = true;
+        bird.wormColor = w.color;
+        burst(w.x, w.y, w.color, 6);
+        score += 10;
+        scorePopup(w.x, w.y, '+10');
+        updateHUD();
+        return false;
       }
-    ];
+      return true;
+    });
+  }
 
-    const QUOTES = {
-      tired: [
-        { who: 'セネカ', text: '難しいから挑まないのではない。挑まないから難しい。', note: '今日は挑む前に、少し休んでもいい。' },
-        { who: '老子', text: '千里の道も一歩から。', note: '今日はその一歩を小さくしていい。' }
-      ],
-      swirl: [
-        { who: 'マルクス・アウレリウス', text: '行く手をふさぐものが、かえって道になる。', note: '混乱は、何を減らすべきかを教えてくれる。' },
-        { who: 'ドラッカー', text: '成果を上げる者は、まずやらないことを決める。', note: '空回りしている時ほど、足すより減らす。' }
-      ],
-      tidy: [
-        { who: '渋沢栄一', text: '順序を立てて事を行うことが大切である。', note: '速さより順番が効く時がある。' },
-        { who: 'ドラッカー', text: '効率より先に、正しいことをする。', note: '向きが合うと、その後が進みやすくなる。' }
-      ],
-      talk: [
-        { who: 'ソクラテス', text: '問いを立てることが、考えることの始まりである。', note: 'うまく言えなくても、話すこと自体に意味がある。' },
-        { who: 'モンテーニュ', text: '私は自分を語ることで、自分を知る。', note: '言葉にする途中でも、前に進んでいる。' }
-      ],
-      priority: [
-        { who: 'ドラッカー', text: '最優先事項は、ほかのことをしないことだ。', note: 'まず順番を整える。' }
-      ],
-      heavy: [
-        { who: 'フランクル', text: '人生があなたに問いかけている。', note: '答えを急ぎすぎなくていい。' }
-      ],
-      people: [
-        { who: 'エレノア・ルーズベルト', text: 'あなたの同意なしに、誰もあなたを傷つけられない。', note: '少し距離を取るのも立派な判断。' }
-      ],
-      self: [
-        { who: 'ニーチェ', text: '自分自身になれ。', note: '他人の基準で自分を責めすぎないこと。' }
-      ],
-      calm: [
-        { who: 'パスカル', text: '人間の不幸は、静かに部屋にいられないことから始まる。', note: 'まず静けさを取り戻す。' }
-      ],
-      decide: [
-        { who: 'サン＝テグジュペリ', text: '完璧とは、削るものがない状態だ。', note: '決める時は、足すより絞る。' }
-      ],
-      confidence: [
-        { who: 'エマーソン', text: '自分を信じること、それが成功の第一歩だ。', note: '自信は待つものではなく、少しずつ取り戻すもの。' }
-      ],
-      forward: [
-        { who: 'ゲーテ', text: '知っているだけでは足りない。行わなければならない。', note: '今日は、やさしく進めば十分。' }
-      ],
-      gentle: [
-        { who: 'マヤ・アンジェロウ', text: '人は、どう感じさせたかを覚えている。', note: '今日は、呼吸しやすい言葉で進む。' }
-      ],
-      sharp: [
-        { who: '本田宗一郎', text: '失敗を恐れるより、何もしないことを恐れろ。', note: '止まり続ける代償は、思ったより大きい。' }
-      ],
-      quote: [
-        { who: 'サマセット・モーム', text: '習慣は第二の天性である。', note: '小さな積み重ねが流れを変える。' }
-      ],
-      watch: [
-        { who: 'WATCH NOTE', text: '機械式時計は、少しずつほどけながら進む。', note: '人も一気に整わなくていい。' }
-      ],
-      ten: [
-        { who: 'ジェームズ・クリア', text: '小さな習慣は、大きな結果の入口になる。', note: '10分は軽くない。' }
-      ],
-      message: [
-        { who: '松下幸之助', text: '道は無限にある。', note: '一本の連絡で道が開くことがある。' }
-      ],
-      stop: [
-        { who: 'ブルース・リー', text: '足すのではない。削るのだ。', note: '減らすことも大事な設計。' }
-      ],
-      rest: [
-        { who: 'アリストテレス', text: '休息は労働と同じく必要である。', note: '休むことも前に進む準備。' }
-      ],
-      default: [
-        { who: 'こぶぶメモ', text: '急がなくていい時に急がないのも、立派な判断。', note: '今日は整える日にしていい。' }
-      ]
-    };
-
-    const TAROT = [
-      { roman:'0', en:'FOOL', jp:'愚者', art:'🎒', tag:'はじまり / 跳躍', bg:'linear-gradient(160deg,#fff2c9,#ffe0f4,#d7eaff)' },
-      { roman:'I', en:'MAGICIAN', jp:'魔術師', art:'🪄', tag:'意志 / 着手', bg:'linear-gradient(160deg,#ffe7d8,#f6ddff,#d7f1ff)' },
-      { roman:'II', en:'PRIESTESS', jp:'女教皇', art:'🌙', tag:'直感 / 静けさ', bg:'linear-gradient(160deg,#e9e4ff,#f7eaff,#dff6ff)' },
-      { roman:'III', en:'EMPRESS', jp:'女帝', art:'🌹', tag:'受容 / 実り', bg:'linear-gradient(160deg,#ffe0ea,#fff2d8,#eef3ff)' },
-      { roman:'IV', en:'EMPEROR', jp:'皇帝', art:'👑', tag:'秩序 / 決断', bg:'linear-gradient(160deg,#ffe7d4,#fff4dc,#ece8ff)' },
-      { roman:'V', en:'HIEROPHANT', jp:'法王', art:'📜', tag:'教え / 意味', bg:'linear-gradient(160deg,#f4ecff,#fff2dc,#e5f5ff)' },
-      { roman:'VI', en:'LOVERS', jp:'恋人', art:'💞', tag:'選択 / 関係', bg:'linear-gradient(160deg,#ffe1ec,#fff0d8,#e9f0ff)' },
-      { roman:'VII', en:'CHARIOT', jp:'戦車', art:'🛞', tag:'前進 / 推進', bg:'linear-gradient(160deg,#dfe9ff,#f3e4ff,#fff2dc)' },
-      { roman:'VIII', en:'STRENGTH', jp:'力', art:'🦁', tag:'しなやかさ / 内なる力', bg:'linear-gradient(160deg,#ffe9d8,#fff0e9,#efe6ff)' },
-      { roman:'IX', en:'HERMIT', jp:'隠者', art:'🕯️', tag:'内省 / 距離', bg:'linear-gradient(160deg,#eef1ff,#f7ebff,#fff4e4)' },
-      { roman:'X', en:'WHEEL', jp:'運命の輪', art:'🜁', tag:'転機 / 流れ', bg:'linear-gradient(160deg,#fff0d8,#e6efff,#f6e7ff)' },
-      { roman:'XI', en:'JUSTICE', jp:'正義', art:'⚖️', tag:'均衡 / 判断', bg:'linear-gradient(160deg,#e6f3ff,#efe8ff,#fff1dd)' },
-      { roman:'XII', en:'HANGED MAN', jp:'吊るされた男', art:'🔻', tag:'保留 / 見直し', bg:'linear-gradient(160deg,#eae6ff,#fef1ff,#e8f6ff)' },
-      { roman:'XIII', en:'DEATH', jp:'死神', art:'🖤', tag:'終わり / 切り替え', bg:'linear-gradient(160deg,#e3e2ef,#f1e8ff,#fff2df)' },
-      { roman:'XIV', en:'TEMPERANCE', jp:'節制', art:'🕊️', tag:'調和 / バランス', bg:'linear-gradient(160deg,#def7ef,#e6ecff,#fff1df)' },
-      { roman:'XV', en:'DEVIL', jp:'悪魔', art:'⛓️', tag:'執着 / 束縛', bg:'linear-gradient(160deg,#f2e1ff,#ffe7ea,#fff0db)' },
-      { roman:'XVI', en:'TOWER', jp:'塔', art:'⚡', tag:'崩壊 / 目覚め', bg:'linear-gradient(160deg,#e7ecff,#ffe7d8,#f5e7ff)' },
-      { roman:'XVII', en:'STAR', jp:'星', art:'⭐', tag:'希望 / 透明感', bg:'linear-gradient(160deg,#dff6ff,#e9ebff,#fff0dc)' },
-      { roman:'XVIII', en:'MOON', jp:'月', art:'🌘', tag:'曖昧さ / 感受性', bg:'linear-gradient(160deg,#e7e3ff,#eef7ff,#fff2ea)' },
-      { roman:'XIX', en:'SUN', jp:'太陽', art:'☀️', tag:'明るさ / 解放', bg:'linear-gradient(160deg,#fff0c7,#ffe9db,#e2f5ff)' },
-      { roman:'XX', en:'JUDGEMENT', jp:'審判', art:'📯', tag:'再起 / 呼びかけ', bg:'linear-gradient(160deg,#e7f6ff,#f1e6ff,#fff1dc)' },
-      { roman:'XXI', en:'WORLD', jp:'世界', art:'🌍', tag:'完成 / 統合', bg:'linear-gradient(160deg,#e3f7ef,#e8ebff,#fff1de)' }
-    ];
-
-    const state = {
-      stepIndex: 0,
-      answers: {},
-      tarot: null
-    };
-
-    function rand(list) {
-      return list[Math.floor(Math.random() * list.length)];
-    }
-
-    function quoteFor(id) {
-      return rand(QUOTES[id] || QUOTES.default);
-    }
-
-    function showOnly(screen) {
-      chatScreen.classList.add('hidden');
-      tarotScreen.classList.add('hidden');
-      summaryScreen.classList.add('hidden');
-      screen.classList.remove('hidden');
-    }
-
-    function renderStep() {
-      showOnly(chatScreen);
-      const step = STEPS[state.stepIndex];
-      questionText.textContent = step.prompt;
-      progressText.textContent = `質問 ${state.stepIndex + 1} / ${STEPS.length}`;
-      optionsBox.innerHTML = '';
-
-      step.options.forEach((opt) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.type = 'button';
-        btn.textContent = opt.label;
-        btn.addEventListener('click', () => handleAnswer(opt));
-        optionsBox.appendChild(btn);
-      });
-    }
-
-    function disableOptions(disabled) {
-      optionsBox.querySelectorAll('button').forEach(btn => {
-        btn.disabled = disabled;
-      });
-    }
-
-    function handleAnswer(opt) {
-      const step = STEPS[state.stepIndex];
-      const next = STEPS[state.stepIndex + 1];
-      state.answers[step.id] = opt;
-
-      const reply = step.replies[opt.id] || 'うん。';
-      const q = quoteFor(opt.id);
-
-      quoteText.textContent = `「${q.text}」`;
-      quoteMeta.textContent = `${q.who}｜${q.note}`;
-      quoteBox.classList.remove('hidden');
-
-      disableOptions(true);
-
-      if (next) {
-        messageBox.textContent = `${reply}\n\n${next.prompt}`;
-        state.stepIndex += 1;
-        setTimeout(() => {
-          renderStep();
-          disableOptions(false);
-        }, 180);
-      } else {
-        messageBox.textContent = `${reply}\n\n最後に1枚、気になるカードを選んで。`;
-        setTimeout(() => {
-          renderTarot();
-          showOnly(tarotScreen);
-        }, 180);
+  // Bird delivers to nest
+  if (bird.hasWorm) {
+    nests.forEach(n => {
+      const hit = Math.abs(bird.x - (n.x + n.w/2)) < 48 &&
+                  Math.abs(bird.y - (n.y + n.h/2)) < 48;
+      if (hit) {
+        bird.hasWorm = false;
+        feedCount++;
+        score += 50;
+        burst(n.x + n.w/2, n.y, C.sun, 10);
+        scorePopup(n.x + n.w/2, n.y - 20, '+50 FEED!');
+        updateHUD();
+        if (feedCount >= levelGoal) nextLevel();
       }
+    });
+  }
+
+  // Spawn timers
+  wormTimer++;
+  if (wormTimer > Math.max(120, 240 - level * 20)) {
+    wormTimer = 0;
+    spawnWorm();
+  }
+
+  enemyTimer++;
+  if (enemyTimer > Math.max(80, 200 - level * 18)) {
+    enemyTimer = 0;
+    spawnEnemy();
+  }
+
+  // ── Enemies ──
+  enemies.forEach(e => {
+    e.t++;
+    e.x += e.vx;
+    e.y += Math.sin(e.t * 0.05 + e.sinOffset) * 1.2;
+
+    // Bird collision
+    const hit = Math.abs(bird.x - (e.x + e.w/2)) < 24 &&
+                Math.abs(bird.y - (e.y + e.h/2)) < 24;
+    if (hit) takeDamage();
+  });
+
+  // Remove off-screen enemies
+  enemies = enemies.filter(e => e.x > -60 && e.x < W + 60);
+
+  // ── Clouds ──
+  clouds.forEach(c => {
+    c.x -= c.speed;
+    if (c.x + c.w < 0) c.x = W + 10;
+  });
+
+  // ── Particles ──
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    p.vy += 0.15;
+    p.life -= 0.03;
+    p.r *= 0.95;
+  });
+  particles = particles.filter(p => p.life > 0);
+}
+
+// ── DRAW ──────────────────────────────────────────────────────
+function draw() {
+  // Sky gradient
+  const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+  skyGrad.addColorStop(0, C.skyTop);
+  skyGrad.addColorStop(1, C.skyBot);
+  ctx.fillStyle = skyGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Sun
+  ctx.fillStyle = C.sun;
+  ctx.shadowColor = '#FFD700'; ctx.shadowBlur = 30;
+  ctx.beginPath(); ctx.arc(60, 60, 36, 0, Math.PI*2); ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Clouds
+  clouds.forEach(c => drawCloud(c.x, c.y, c.w));
+
+  // Ground
+  ctx.fillStyle = C.grassDark;
+  ctx.fillRect(0, GROUND_Y, W, 8);
+  ctx.fillStyle = C.grass;
+  ctx.fillRect(0, GROUND_Y, W, 4);
+
+  // Dirt
+  ctx.fillStyle = C.ground;
+  ctx.fillRect(0, GROUND_Y + 4, W, H - GROUND_Y);
+
+  // Grass tufts
+  for (let gx = 10; gx < W; gx += 22) {
+    drawGrassTuft(gx, GROUND_Y);
+  }
+
+  // Nests
+  nests.forEach(n => drawNest(n));
+
+  // Worms
+  worms.forEach(w => drawWorm(w));
+
+  // Enemies
+  enemies.forEach(e => drawEnemy(e));
+
+  // Particles
+  particles.forEach(p => {
+    ctx.globalAlpha = p.life;
+    ctx.fillStyle = p.color;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+
+  // Bird
+  drawBird(bird);
+
+  // Progress bar
+  drawProgressBar();
+}
+
+function drawCloud(x, y, w) {
+  ctx.fillStyle = 'rgba(255,253,240,0.88)';
+  ctx.beginPath();
+  ctx.arc(x + w*0.25, y + 12, 18, 0, Math.PI*2);
+  ctx.arc(x + w*0.5,  y + 6,  24, 0, Math.PI*2);
+  ctx.arc(x + w*0.75, y + 12, 18, 0, Math.PI*2);
+  ctx.fill();
+}
+
+function drawGrassTuft(x, y) {
+  ctx.fillStyle = '#3d8f41';
+  ctx.beginPath();
+  ctx.moveTo(x, y); ctx.lineTo(x-5, y-10); ctx.lineTo(x+2, y-6);
+  ctx.lineTo(x+1, y-14); ctx.lineTo(x+6, y-8); ctx.lineTo(x+10, y);
+  ctx.fill();
+}
+
+function drawNest(n) {
+  // Nest body
+  ctx.fillStyle = C.nest;
+  ctx.beginPath();
+  ctx.ellipse(n.x + n.w/2, n.y + n.h/2, n.w/2, n.h/2, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  ctx.fillStyle = '#5D3A1A';
+  ctx.beginPath();
+  ctx.ellipse(n.x + n.w/2, n.y + n.h/2, n.w/2 - 4, n.h/2 - 4, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Chick
+  ctx.font = '20px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('🐣', n.x + n.w/2, n.y - 2);
+}
+
+function drawWorm(w) {
+  ctx.save();
+  ctx.translate(w.x + w.wiggle, w.y);
+  ctx.fillStyle = w.color;
+  // Body segments
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.arc(i * 6, 0, 5, 0, Math.PI*2);
+    ctx.fill();
+  }
+  // Eyes
+  ctx.fillStyle = '#000';
+  ctx.beginPath(); ctx.arc(14, -2, 2, 0, Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawEnemy(e) {
+  ctx.save();
+  ctx.translate(e.x + e.w/2, e.y + e.h/2);
+  if (e.vx > 0) ctx.scale(-1, 1);
+
+  const emojis = { hawk: '🦅', crow: '🐦‍⬛', bat: '🦇' };
+  const sizes  = { hawk: 28, crow: 24, bat: 22 };
+
+  ctx.font = sizes[e.type] + 'px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(emojis[e.type] || '🦅', 0, 0);
+  ctx.restore();
+}
+
+function drawBird(b) {
+  if (b.invincible > 0 && Math.floor(b.invincible / 6) % 2 === 0) return;
+
+  ctx.save();
+  ctx.translate(b.x, b.y);
+  if (b.vx < 0) ctx.scale(-1, 1);
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.beginPath();
+  ctx.ellipse(0, GROUND_Y - b.y + 4, 16, 5, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Body
+  ctx.fillStyle = C.pop4;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 16, 12, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Wing (flapping)
+  const wingAngles = [-0.3, 0, 0.4];
+  ctx.fillStyle = '#FF6B20';
+  ctx.save();
+  ctx.rotate(wingAngles[b.flapFrame]);
+  ctx.beginPath();
+  ctx.ellipse(-4, -8, 14, 6, -0.4, 0, Math.PI*2);
+  ctx.fill();
+  ctx.restore();
+
+  // Head
+  ctx.fillStyle = C.pop4;
+  ctx.beginPath();
+  ctx.arc(12, -6, 9, 0, Math.PI*2);
+  ctx.fill();
+
+  // Eye
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.arc(15, -8, 3.5, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#1a1a2e';
+  ctx.beginPath(); ctx.arc(16, -8, 2, 0, Math.PI*2); ctx.fill();
+
+  // Beak
+  ctx.fillStyle = C.sun;
+  ctx.beginPath();
+  ctx.moveTo(20, -6); ctx.lineTo(27, -4); ctx.lineTo(20, -2);
+  ctx.fill();
+
+  // Worm carried
+  if (b.hasWorm) {
+    ctx.fillStyle = b.wormColor;
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.arc(22 + i * 5, -1, 4, 0, Math.PI*2);
+      ctx.fill();
     }
+  }
 
-    function renderTarot() {
-      tarotGrid.innerHTML = '';
-      tarotNote.textContent = 'どれか1枚、気になるカードを選んでください。';
+  ctx.restore();
+}
 
-      TAROT.forEach((card) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'tarot-btn';
-        btn.innerHTML = `
-          <div class="tarot-face" style="background:${card.bg}">
-            <div class="tarot-roman">${card.roman}</div>
-            <div class="tarot-art">${card.art}</div>
-            <div class="tarot-name">${card.jp}</div>
-            <div class="tarot-tag">${card.tag}</div>
-            <div class="tarot-stars">✦ ✦</div>
-          </div>
-        `;
-        btn.addEventListener('click', () => chooseTarot(card, btn));
-        tarotGrid.appendChild(btn);
-      });
-    }
+function drawProgressBar() {
+  const bw = 200, bh = 12;
+  const bx = W/2 - bw/2, by = H - 28;
+  const pct = Math.min(feedCount / levelGoal, 1);
 
-    function chooseTarot(card, btn) {
-      state.tarot = card;
-      tarotGrid.querySelectorAll('.tarot-btn').forEach(el => el.classList.remove('active'));
-      btn.classList.add('active');
+  ctx.fillStyle = 'rgba(0,0,0,0.5)';
+  ctx.fillRect(bx, by, bw, bh);
 
-      tarotNote.textContent =
-        `【${card.jp} / ${card.en}】\n${card.tag}\n\nこのカードで決定しました。`;
+  const grad = ctx.createLinearGradient(bx, 0, bx + bw, 0);
+  grad.addColorStop(0, C.pop3);
+  grad.addColorStop(1, C.sun);
+  ctx.fillStyle = grad;
+  ctx.fillRect(bx, by, bw * pct, bh);
 
-      setTimeout(() => {
-        summaryText.textContent = buildSummary();
-        showOnly(summaryScreen);
-      }, 220);
-    }
+  ctx.strokeStyle = C.white;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(bx, by, bw, bh);
 
-    function buildSummary() {
-      const mood = state.answers.mood?.label || '今の気分';
-      const burden = state.answers.burden?.label || '引っかかり';
-      const wish = state.answers.wish?.label || '望んでいること';
-      const support = state.answers.support?.label || 'ほしい言葉';
-      const action = state.answers.action?.label || '次の一手';
-      const tarot = state.tarot || { jp:'未選択', tag:'未選択' };
-      const closing = quoteFor(state.answers.action?.id || 'default');
+  ctx.fillStyle = C.white;
+  ctx.font = '7px "Press Start 2P"';
+  ctx.textAlign = 'center';
+  ctx.fillText(`${feedCount}/${levelGoal} FEEDS / えさやり`, W/2, by - 4);
+}
 
-      return `今回のまとめ。
+// ── LOOP ──────────────────────────────────────────────────────
+function loop() {
+  update();
+  draw();
+  gameLoop = requestAnimationFrame(loop);
+}
 
-最初に見えていたのは「${mood}」という気分。
-その奥には「${burden}」という負担があって、
-本当は「${wish}」に近づきたい気持ちがある。
+// ── START / RETRY ─────────────────────────────────────────────
+function startGame() {
+  document.getElementById('title-screen').style.display = 'none';
+  document.getElementById('game-screen').style.display  = 'flex';
+  document.getElementById('overlay').style.display      = 'none';
+  initGame();
+  loop();
+}
 
-今日は「${support}」という温度の言葉を求めていた。
-つまり、ただ答えがほしいだけではなく、
-今の自分に合う形で整理したかったということ。
+document.getElementById('startBtn').addEventListener('click', startGame);
+document.getElementById('retryBtn').addEventListener('click', () => {
+  document.getElementById('overlay').style.display = 'none';
+  cancelAnimationFrame(gameLoop);
+  initGame();
+  loop();
+});
+</script>
 
-次の一手としては「${action}」が合っている。
-大きく変えるより、まず小さく整えるほうが今の流れに合っている。
-
-最後に選んだ「${tarot.jp}」は、「${tarot.tag}」のサイン。
-今のあなたには、その感覚を少し取り戻すことが必要そう。
-
-最後にもう一言。
-${closing.who}｜「${closing.text}」
-${closing.note}
-
-今日は、勢いだけで乗り切る日ではなく、
-余計なものを減らして、次の一歩を軽くする日。
-全部を一度に解決しなくて大丈夫。ちゃんと前には進める。`;
-    }
-
-    function resetApp() {
-      state.stepIndex = 0;
-      state.answers = {};
-      state.tarot = null;
-
-      messageBox.textContent = 'ねえ、今日はどんな気分？';
-      quoteBox.classList.add('hidden');
-      quoteText.textContent = '';
-      quoteMeta.textContent = '';
-      summaryText.textContent = '';
-      tarotNote.textContent = 'どれか1枚、気になるカードを選んでください。';
-
-      renderStep();
-      renderTarot();
-    }
-
-    restartBtn.addEventListener('click', resetApp);
-    restartTopBtn.addEventListener('click', resetApp);
-
-    resetApp();
-  </script>
 </body>
 </html>
